@@ -4,11 +4,11 @@ class Mongo {
         this.objectId = mongo.ObjectID;
         this.mongoClient = mongo.MongoClient;
 
-        let Properties = require('./properties');
-        let properties = new Properties();
-        properties.read();
-        this._createUrl(properties);
-        this.dbName = properties.dbName;
+        let DbProperties = require('../Configs/db');
+        let dbProperties = new DbProperties();
+        dbProperties.read();
+        this._createUrl(dbProperties);
+        this.dbName = dbProperties.dbName;
     }
 
     _createUrl(properties) {

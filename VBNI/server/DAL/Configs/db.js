@@ -1,11 +1,8 @@
-class Properties {
-    constructor() {
-        this.configFilePath = __dirname + '/../../resources/configurations/develop.json';
-        this.fs = require('fs')
-    }
+const JsonProperties = require('./jsonProperties');
 
-    read(propertiesLoadedCallback) {
-        this.data = JSON.parse(this.fs.readFileSync(this.configFilePath));
+class DbProperties extends JsonProperties {
+    constructor() {
+        super(__dirname + '/../../../resources/configurations/db/develop.json');
     }
 
     get dbServerName() {
@@ -29,4 +26,4 @@ class Properties {
     }
 }
 
-module.exports = Properties
+module.exports = DbProperties
