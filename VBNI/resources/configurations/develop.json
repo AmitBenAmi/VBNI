@@ -1,0 +1,7 @@
+{
+    "mongodbServerName": "ds159696.mlab.com",
+    "mongodbServerPort": 59696,
+    "mongodbUser": "develop",
+    "mongodbPassword": "BNIdevelop",
+    "mongodbDbName": "bni"
+}
