@@ -1,10 +1,11 @@
-class Mongo {
+const mongo = require('mongodb');
+const DbProperties = require('../Configs/db')
+
+class MongoDAL {
     constructor() {
-        let mongo = require('mongodb');
         this.objectId = mongo.ObjectID;
         this.mongoClient = mongo.MongoClient;
-
-        let DbProperties = require('../Configs/db');
+        
         let dbProperties = new DbProperties();
         dbProperties.read();
         this._createUrl(dbProperties);
@@ -48,35 +49,40 @@ class Mongo {
         return new this.objectId(id);
     }
 
-    findOne(id, collectionName, idFoundCallbackFunction) {
-        if (this._checkIfParamIsFunction(idFoundCallbackFunction)) {
+    find(collectionName, foundCallbackFunction) {
+        this.findByProperties({}, collectionName, foundCallbackFunction);
+    }
+
+    findByProperties(properties, collectionName, foundCallbackFunction) {
+        if (this._checkIfParamIsFunction(foundCallbackFunction)) {
             this._getCollection(collectionName, (collection) => {
-                collection.find({
-                    _id: id
-                }, (cursorError, cursor) => {
-                    if (cursorError) {
-                        console.error(cursorError);
+                collection.find(properties).toArray((error, documents) => {
+                    if (error) {
+                        console.error(error);
                     }
                     else {
-                        cursor.toArray((arrayError, documents) => {
-                            if (arrayError) {
-                                console.error(arrayError);
-                            }
-                            else {
-                                idFoundCallbackFunction(documents[0]);
-                            }
-                        });
+                        foundCallbackFunction(documents);
                     }
                 });
+            });
+        }
+    }
+
+    findById(id, collectionName, idFoundCallbackFunction) {
+        if (this._checkIfParamIsFunction(idFoundCallbackFunction)) {
+            this.findByProperties({_id:id}, collectionName, (documents) => {
+                if (documents[0]) {
+                    idFoundCallbackFunction(documents[0]);
+                }
+            });
+        }
+    }
+
+    insert(documents, collectionName) {
+        this._getCollection(collectionName, (collection) => {
+            collection.insert(document);
         });
     }
 }
 
-insert(documents, collectionName) {
-    this._getCollection(collectionName, (collection) => {
-        collection.insert(document);
-    });
-}
-}
-
-module.exports = Mongo;
+module.exports = MongoDAL;

@@ -1,15 +1,17 @@
-const Route = require('./router');
-const User = require('../Models/user');
+const Route = require('./route');
+const UserDAL = require('../DAL/DB/userDAL');
 
 class LoginRouter extends Route {
-    init(app) {
-        super.post(app, 'login', this.login);
+    init() {
+        this.userDAL = new UserDAL();
+        this.login();
     }
 
-    login(req, res) {
-        let user = new User();
-        user.login(req.body.userName, (user) => {
-            res.send(user);
+    login() {
+        super.post('login', (req, res) => {
+            this.userDAL.findById(req.body.userName, (user) => {
+                res.send(user);
+            });
         });
     }
 }
