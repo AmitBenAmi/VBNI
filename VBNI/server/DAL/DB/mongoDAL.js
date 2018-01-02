@@ -1,5 +1,10 @@
 const mongo = require('mongodb');
 const DbProperties = require('../Configs/db')
+const mongoPushField = '$push';
+const mongoPullField = '$pull';
+const mongoAddToSet = '$addToSet';
+const mongoEachField = '$each';
+const mongoInField = '$in';
 
 class MongoDAL {
     constructor() {
@@ -46,7 +51,81 @@ class MongoDAL {
     }
 
     createObjectId(id) {
-        return new this.objectId(id);
+        try {
+            return new this.objectId(id);
+        }
+        catch (e) {
+            console.error(e);
+            throw e;
+        }
+    }
+
+    _updateCallback(collectionName, field, errorCb, successCb) {
+        return (err, results) => {
+            if (err) {
+                console.error(err);
+                
+                if (this._checkIfParamIsFunction(errorCb)) {
+                    errorCb();
+                }
+            }
+            else {
+                console.log(`There are ${results.result.nModified} modifications for collection: '${collectionName}' on field: '${field}'`);
+
+                if (this._checkIfParamIsFunction(successCb)) {
+                    successCb();
+                }
+            }
+        };
+    }
+
+    _update(collection, query, operation, field, errorCb, successCb) {
+        collection.update(
+            query, 
+            operation, 
+            this._updateCallback(collection.collectionName, field, errorCb, successCb));
+    }
+
+    push(query, field, values, collectionName, errorCb, successCb) {
+        this._getCollection(collectionName, (collection) => {
+            let updateOperation = {
+                [mongoPushField]: {
+                    [field]: {
+                        [mongoEachField]: values
+                    }
+                }
+            };
+            
+            this._update(collection, query, updateOperation, field, errorCb, successCb);
+        });
+    }
+
+    pushUnique(query, field, values, collectionName, errorCb, successCb) {
+        this._getCollection(collectionName, (collection) => {
+            let updateOperation = {
+                [mongoAddToSet]: {
+                    [field]: {
+                        [mongoEachField]: values
+                    }
+                }
+            };
+            
+            this._update(collection, query, updateOperation, field, errorCb, successCb);
+        });
+    }
+    
+    pull(query, field, values, collectionName, errorCb, successCb) {
+        this._getCollection(collectionName, (collection) => {
+            let updateOperation = {
+                [mongoPullField]: {
+                    [field]: {
+                        [mongoInField]: values
+                    }
+                }
+            };
+
+            this._update(collection, query, updateOperation, field, errorCb, successCb);
+        });
     }
 
     find(collectionName, foundCallbackFunction) {

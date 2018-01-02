@@ -14,6 +14,10 @@ class Route {
     post(routingName, routingFunction) {
         this._init(routingName, 'post', routingFunction);
     }
+
+    delete(routingName, routingFunction) {
+        this._init(routingName, 'delete', routingFunction);
+    }
 }
 
 module.exports = Route;

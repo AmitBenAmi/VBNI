@@ -1,7 +1,8 @@
 class Group {
-    constructor(_id, name) {
-        this._id = _id;
+    constructor(id, name, members) {
+        this._id = id;
         this.name = name;
+        this.members = members;
     }
 }
 
