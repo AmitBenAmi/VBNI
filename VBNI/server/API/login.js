@@ -9,9 +9,17 @@ class LoginRouter extends Route {
 
     login() {
         super.post('login', (req, res) => {
-            this.userDAL.findById(req.body.userName, (user) => {
-                res.send(user);
-            });
+            try {
+                let userName = req.body.userName;
+
+                this.userDAL.findById(userName, (user) => {
+                    res.send(user);
+                });
+            }
+            catch (e) {
+                console.error(e);
+                this._sendBadRequest(res);
+            }
         });
     }
 }
