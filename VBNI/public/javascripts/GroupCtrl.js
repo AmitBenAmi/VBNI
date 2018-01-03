@@ -29,5 +29,4 @@ function ($scope, apiService) {
     //        "details" : "Matan is awesome",
     //        phone : "039-546231"
     //    }
-    ]
 }]);

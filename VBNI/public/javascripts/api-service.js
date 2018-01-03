@@ -22,7 +22,7 @@
         },
         getMyGroupMembers: function (groupId) {
             var deferred = $q.defer();
-            $http.get('/group/5a3ea99b734d1d12b6753ea7/members').then(function (res) {
+            $http.get('/groups/5a3ea99b734d1d12b6753ea7/members').then(function (res) {
                 deferred.resolve(res.data);
             }, function (err) {
                     deferred.reject(err);
