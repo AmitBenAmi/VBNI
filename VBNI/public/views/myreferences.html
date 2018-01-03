@@ -1,1 +1,26 @@
-﻿<div></div>
+﻿<div>
+    <h3>My Referrals</h3>
+
+    <div>
+        <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+            <thead>
+                <tr>
+                    <th>Referred To</th>
+                    <th>Client Name</th>
+                    <th class="mdl-data-table__cell--non-numeric">Is Good</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="ref in myRefs">
+                    <td>{{ref.referenceTo}}</td>
+                    <td>{{ref.clientName}}</td>
+                    <td class="mdl-data-table__cell--non-numeric">{{ref.isGood}}</td>
+                    <td>
+                        <span ng-if="ref.isGood">{{ref.amount}}</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
