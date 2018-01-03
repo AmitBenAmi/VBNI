@@ -10,15 +10,31 @@ class LoginRouter extends Route {
     login() {
         super.post('login', (req, res) => {
             try {
-                let userName = req.body.userName;
+                let userName = req.body.user;
 
-                this.memberDAL.findById(userName, (member) => {
-                    res.send(member);
-                });
+                // this.memberDAL.findById(userName, (member) => {
+                //     // Add the username to the cookie
+                //     const cookieParams = {
+                //         httpOnly: true,
+                //         signed: true,
+                //         maxAge: 300000,
+                //     };
+                //     res.cookie('username', userName, cookieParams);
+                //     res.sendStatus(200);
+                // });                
+
+                // Add the username to the cookie
+                const cookieParams = {
+                    httpOnly: true,
+                    signed: true,
+                    maxAge: 300000,
+                };
+                res.cookie('username', userName, cookieParams);
+                res.sendStatus(200);
             }
             catch (e) {
                 console.error(e);
-                super._sendBadRequest(res);
+                res.sendStatus(401);
             }
         });
     }

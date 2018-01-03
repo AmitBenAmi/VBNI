@@ -1,0 +1,14 @@
+.login-box {
+    width: 400px;
+    margin: 0 auto;
+    margin-top: 40px;
+  }
+.login-box .card-login {
+    width: 100%;
+  }
+.login-box .card-login > .mdl-card__title {
+    color: #737272;
+    height: 200px;
+    background: url('/images/login-background.jpg') center / cover;
+    background-repeat: no-repeat;
+  }
