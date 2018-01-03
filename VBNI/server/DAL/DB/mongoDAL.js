@@ -134,19 +134,19 @@ class MongoDAL {
         });
     }
 
-    find(collectionName, foundCallbackFunction, notFoundCallbackFunction) {
-        this.findByProperties({}, collectionName, foundCallbackFunction, notFoundCallbackFunction);
+    find(collectionName, foundCallbackFunction, errorCb) {
+        this.findByProperties({}, collectionName, foundCallbackFunction, errorCb);
     }
 
-    findByProperties(properties, collectionName, foundCallbackFunction, notFoundCallbackFunction) {
+    findByProperties(properties, collectionName, foundCallbackFunction, errorCb) {
         if (this._checkIfFunction(foundCallbackFunction)) {
             this._getCollection(collectionName, (collection) => {
                 collection.find(properties).toArray((error, documents) => {
                     if (error) {
                         console.error(error);
 
-                        if (this._checkIfFunction(notFoundCallbackFunction)) {
-                            notFoundCallbackFunction(error);
+                        if (this._checkIfFunction(errorCb)) {
+                            errorCb(error);
                         }
                     }
                     else if (foundCallbackFunction) {

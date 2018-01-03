@@ -10,9 +10,28 @@ class MemberDAL extends MongoDAL {
         }, notFoundCallbackFunction);
     }
 
+    findByGroup(groupId, wrongIdCb, foundCb, errorCb) {
+        let groupObjectId;
+
+        try {
+            groupObjectId = super.createObjectId(groupId);
+        }
+        catch (e) {
+            console.error(e);
+
+            if (this._checkIfFunction(wrongIdCb)) {
+                wrongIdCb(e);
+            }
+        }
+
+        super.findByProperties({groupId: groupObjectId}, membersCollectionName, foundCb, errorCb);
+    }
+
     addToGroup(member, groupId, wrongIdCb, errorCb, successCb) {
         try {
-            let id = super.createObjectId(groupId);
+            let groupObjectId = super.createObjectId(groupId);
+            member.groupId = groupObjectId;
+
             super.update(membersCollectionName, {_id:member.userName}, member, errorCb, successCb);
         }
         catch (e) {
