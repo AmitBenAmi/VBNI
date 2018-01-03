@@ -1,9 +1,9 @@
 const Route = require('./route');
-const UserDAL = require('../DAL/DB/userDAL');
+const MemberDAL = require('../DAL/DB/memberDAL');
 
 class LoginRouter extends Route {
     init() {
-        this.userDAL = new UserDAL();
+        this.memberDAL = new MemberDAL();
         this.login();
     }
 
@@ -12,8 +12,8 @@ class LoginRouter extends Route {
             try {
                 let userName = req.body.userName;
 
-                this.userDAL.findById(userName, (user) => {
-                    res.send(user);
+                this.memberDAL.findById(userName, (member) => {
+                    res.send(member);
                 });
             }
             catch (e) {
