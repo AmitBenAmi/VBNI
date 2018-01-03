@@ -19,6 +19,7 @@
      animation-duration: 0.1s;
      transform-origin: bottom center;
    }
+   
    .mdl-button--fab_flinger-container.is-showing-options .mdl-button--fab_flinger-options button:nth-of-type(1) {
      animation-delay: 0.1s;
    }
