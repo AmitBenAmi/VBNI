@@ -37,6 +37,9 @@
     <Compile Include="routes\users.js" />
     <Content Include="package.json" />
     <Content Include="public\stylesheets\main.css" />
+    <Content Include="public\views\mygroup.html">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="README.md" />
     <Content Include="public\views\home.html">
       <SubType>Code</SubType>
