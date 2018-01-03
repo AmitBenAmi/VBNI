@@ -8,11 +8,11 @@ class MeetingRouter extends Route {
     }
 
     getMeetingsByGroup() {
-        super.get('meetings/:groupId', (req, res) => {
+        super.get('meetings', (req, res) => {
             let groupId;
 
             try {
-                groupId = req.params.groupId;
+                groupId = req.query.groupId;
             }
             catch (e) {
                 console.error(e);

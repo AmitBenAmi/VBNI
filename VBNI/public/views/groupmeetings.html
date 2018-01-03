@@ -12,7 +12,7 @@
             </thead>
             <tbody>
                 <tr ng-repeat="meeting in meetings">
-                    <td>{{meeting.date}}</td>
+                    <td>{{meeting.date.toLocaleString()}}</td>
                     <td>{{meeting.host}}</td>
                     <td>{{meeting.summary}}</td>
                 </tr>
