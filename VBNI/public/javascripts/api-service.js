@@ -44,6 +44,16 @@
             })
 
             return deferred.promise;
+        },
+        getRefsToMe: function () {
+            var deferred = $q.defer();
+            $http.get('/bla').then(function (res) {
+                deferred.resolve(res.data);
+            }, function (err) {
+                deferred.reject(err);
+            })
+
+            return deferred.promise;
         }
     }
 }]);

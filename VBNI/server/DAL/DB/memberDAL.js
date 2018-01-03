@@ -19,7 +19,7 @@ class MemberDAL extends MongoDAL {
         catch (e) {
             console.error(e);
 
-            if (this._checkIfFunction(wrongIdCb)) {
+            if (super._checkIfFunction(wrongIdCb)) {
                 wrongIdCb(e);
             }
         }
@@ -37,7 +37,7 @@ class MemberDAL extends MongoDAL {
         catch (e) {
             console.error(e);
 
-            if (this._checkIfFunction(wrongIdCb)) {
+            if (super._checkIfFunction(wrongIdCb)) {
                 wrongIdCb(e);
             }
         }
