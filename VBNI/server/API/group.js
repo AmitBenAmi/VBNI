@@ -7,8 +7,6 @@ class GroupRouter extends Route {
         this.getGroup();
         this.getGroups();
         this.getMembers();
-        this.addMember();
-        this.removeMember();
     }
 
     getGroup() {

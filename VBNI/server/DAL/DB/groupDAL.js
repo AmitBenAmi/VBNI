@@ -1,4 +1,5 @@
 const MongoDAL = require('./mongoDAL');
+const MemberDAL = require('./memberDAL');
 const Group = require('../../Models/group');
 const groupsCollectionName = "groups";
 
@@ -16,31 +17,9 @@ class GroupDAL extends MongoDAL {
         }, notFoundCallbackFunction);
     }
 
-    getMembers(groupId, wrongIdCb, errorCb, successCb, notFoundCb) {
-        try {
-            let id = super.createObjectId(groupId);
-            super.findById(id, groupsCollectionName, (group) => {
-                if (this._checkIfFunction(successCb)) {
-                    try {
-                        successCb(group.members);
-                    }
-                    catch (e) {
-                        console.error(e);
-
-                        if (this._checkIfFunction(errorCb)) {
-                            errorCb(e);
-                        }
-                    }
-                }
-            }, notFoundCb);
-        }
-        catch (e) {
-            console.error(e);
-
-            if (this._checkIfFunction(wrongIdCb)) {
-                wrongIdCb(e);
-            }
-        }
+    getMembers(groupId, wrongIdCb, errorCb, successCb) {
+        let membersDAL = new MemberDAL();
+        membersDAL.findByGroup(groupId, wrongIdCb, successCb, errorCb);
     }
 
     _createGroups(groupDocs) {
