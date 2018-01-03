@@ -18,7 +18,7 @@ class LoginRouter extends Route {
             }
             catch (e) {
                 console.error(e);
-                this._sendBadRequest(res);
+                super._sendBadRequest(res);
             }
         });
     }

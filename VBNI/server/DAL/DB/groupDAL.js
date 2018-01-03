@@ -3,70 +3,41 @@ const Group = require('../../Models/group');
 const groupsCollectionName = "groups";
 
 class GroupDAL extends MongoDAL {
-    find(foundCallbackFunction) {
+    find(foundCallbackFunction, notFoundCallbackFunction) {
         super.find(groupsCollectionName, (groupDocs) => {
             let groups = this._createGroups(groupDocs);
             foundCallbackFunction(groups);
-        });
+        }, notFoundCallbackFunction);
     }
 
-    findByName(name, foundCallbackFunction) {
-        super.findByProperties({name: name}, groupsCollectionName, (groupDocs) => {
-            let groups = this._createGroups(groupDocs);
-            foundCallbackFunction(groups);
-        });
+    findById(id, foundCallbackFunction, notFoundCallbackFunction) {
+        super.findById(id, groupsCollectionName, (group) => {
+            foundCallbackFunction(group);
+        }, notFoundCallbackFunction);
     }
 
-    getMembers(groupId, wrongIdCb, errorCb, successCb) {
+    getMembers(groupId, wrongIdCb, errorCb, successCb, notFoundCb) {
         try {
             let id = super.createObjectId(groupId);
             super.findById(id, groupsCollectionName, (group) => {
-                if (this._checkIfParamIsFunction(successCb)) {
+                if (this._checkIfFunction(successCb)) {
                     try {
                         successCb(group.members);
                     }
                     catch (e) {
                         console.error(e);
 
-                        if (this._checkIfParamIsFunction(errorCb)) {
+                        if (this._checkIfFunction(errorCb)) {
                             errorCb(e);
                         }
                     }
                 }
-            });
+            }, notFoundCb);
         }
         catch (e) {
             console.error(e);
 
-            if (this._checkIfParamIsFunction(wrongIdCb)) {
-                wrongIdCb(e);
-            }
-        }
-    }
-    
-    addMembersToGroup(groupId, members, wrongIdCb, errorCb, successCb) {
-        try {
-            let id = super.createObjectId(groupId);
-            super.pushUnique({_id: id}, "members", members, groupsCollectionName, errorCb, successCb);
-        }
-        catch (e) {
-            console.error(e);
-
-            if (this._checkIfParamIsFunction(wrongIdCb)) {
-                wrongIdCb(e);
-            }
-        }
-    }
-
-    removeMemberFromGroup(groupId, members, wrongIdCb, errorCb, successCb) {
-        try {
-            let id = super.createObjectId(groupId);
-            super.pull({_id: id}, "members", members, groupsCollectionName, errorCb, successCb);
-        }
-        catch (e) {
-            console.error(e);
-            
-            if (this._checkIfParamIsFunction(wrongIdCb)) {
+            if (this._checkIfFunction(wrongIdCb)) {
                 wrongIdCb(e);
             }
         }

@@ -1,4 +1,5 @@
 const LoginRouter = require('./login');
+const MemberRouter = require('./member');
 const GroupRouter = require('./group');
 const ReferralRouter = require('./referral');
 
@@ -14,6 +15,7 @@ class Api {
     _createRouters(app) {
         let routers = [];
         routers.push(new LoginRouter(app));
+        routers.push(new MemberRouter(app));
         routers.push(new GroupRouter(app));
         routers.push(new ReferralRouter(app));
 
