@@ -36,6 +36,7 @@
     <Compile Include="public\javascripts\app.js">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="public\javascripts\GroupCtrl.js" />
     <Compile Include="public\javascripts\GroupMeetingsCtrl.js">
       <SubType>Code</SubType>
     </Compile>
