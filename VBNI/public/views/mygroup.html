@@ -1,33 +1,36 @@
 ﻿<div class="mdl-grid">
-    <div class="mdl-cell mdl-cell--6-col mdl-cell--12-phone">
+    <div class="mdl-cell mdl-cell--6-col mdl-cell--12-phone" ng-repeat="member in members">
             <!-- Card contains the table -->
             <div class="group-card mdl-card mdl-shadow--2dp">
                 <!-- Card Header -->
                 <div class="mdl-card__title">
                     <i class="material-icons  mdl-list__item-avatar">person</i>                        
                     <span>
-                        <h3 class="mdl-card__title-text">User name...</h3>
+                        <h3 class="mdl-card__title-text">{{member.firstName}} {{member.lastName}}</h3>
                     </span>
                 </div>
                 <div class="mdl-card__supporting-text">
-                    <table class="mdl-data-table mdl-js-data-table member-table">
+                    <span>
+                        {{member.details}}
+                    </span>
+                    <table class="mdl-data-table mdl-js-data-table member-table fullwidth">
                         <thead>
                             <tr>
                                 <th class="mdl-data-table__cell--non-numeric">
                                     Job
                                 </th>
                                 <th class="mdl-data-table__cell--non-numeric">
-                                    Details
+                                    Phone
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td>
-                                    asasas
+                                    {{member.job}}
                                 </td>
                                 <td>
-                                    sdsd
+                                    {{member.phone}}
                                 </td>
                             </tr> 
                         </tbody>
