@@ -1,4 +1,3 @@
-const HttpStatusCodes = require('http-status-codes');
 const Route = require('./route');
 const GroupDAL = require('../DAL/DB/groupDAL');
 
@@ -13,17 +12,19 @@ class GroupRouter extends Route {
     }
 
     getGroup() {
-        super.get('groups/:name', (req, res) => {
+        super.get('groups/:id', (req, res) => {
             try {
-                let groupName = req.params.name;
+                let groupId = req.params.id;
 
-                this.groupDAL.findByName(groupName, (group) => {
+                this.groupDAL.findById(groupId, (group) => {
                     res.send(group);
+                }, () => {
+                    super._sendNotFound(res);
                 });
             }
             catch (e) {
                 console.error(e);
-                this._sendBadRequest(res);
+                super._sendBadRequest(res);
             }
         });
     }
@@ -32,6 +33,8 @@ class GroupRouter extends Route {
         super.get('groups', (req, res) => {
             this.groupDAL.find((groups) => {
                 res.send(groups);
+            }, () => {
+                super._sendNotFound(res);
             });
         });
     }
@@ -42,60 +45,20 @@ class GroupRouter extends Route {
                 let groupId = req.params.id;
                 
                 this.groupDAL.getMembers(groupId, () => {
-                    this._sendBadRequest(res);
+                    super._sendBadRequest(res);
                 }, () => {
-                    this._sendInternalServerError(res);
+                    super._sendInternalServerError(res);
                 }, (members) => {
                     res.send(members);
+                }, () => {
+                    super._sendNotFound(res);
                 });
             }
             catch (e) {
                 console.error(e);
-                this._sendBadRequest(res);
+                super._sendBadRequest(res);
             }
         })
-    }
-
-    addMember() {
-        super.post('groups/members', (req, res) => {
-            try {
-                let groupId = req.body.group.id;
-                let members = req.body.members;
-
-                this.groupDAL.addMembersToGroup(groupId, members, () => {
-                    this._sendBadRequest(res);
-                }, () => {
-                    this._sendInternalServerError(res);
-                }, () => {
-                    this._sendOk(res);
-                });
-            }
-            catch (e) {
-                console.error(e);
-                this._sendBadRequest(res);
-            }
-        });
-    }
-
-    removeMember() {
-        super.delete('groups/members', (req, res) => {
-            try {
-                let groupId = req.body.group.id;
-                let members = req.body.members;
-
-                this.groupDAL.removeMemberFromGroup(groupId, members, () => {
-                    this._sendBadRequest(res);
-                }, () => {
-                    this._sendInternalServerError(res);
-                }, () => {
-                    this._sendOk(res);
-                });
-            }
-            catch (e) {
-                console.error(e);
-                this._sendBadRequest(res);
-            }
-        });
     }
 }
 
