@@ -4,36 +4,27 @@ const referralsCollectionName = "referrals";
 const MemberDAL = require('./memberDAL');
 
 class RefferalsDAL extends MongoDAL {
+    constructor() {
+        super();
+        this.MemberDAL = new MemberDAL();
+    }
+
     find(foundCallbackFunction) {
         super.find(referralsCollectionName, (refDocs) => {
             this._createReferral(refDocs, foundCallbackFunction);
         });
     }
 
-    getReferralsByMember(userId) {
-        try {
-            super.findByProperties({referrer : userId}, referralsCollectionName , (refDocs) => {
-                if (this._checkIfFunction(successCb)) {
-                    try {
-                        let referrals = this._createReferral(refDocs);
-                    }
-                    catch (e) {
-                        console.error(e);
+    getByReferrerId(userId, errorCb, foundCb) {
+        super.findByProperties({referrer : userId}, referralsCollectionName, (refDocs) => {
+            this._createReferral(refDocs, foundCb);
+        }, errorCb);
+    }
 
-                        if (this._checkIfFunction(errorCb)) {
-                            errorCb(e);
-                        }
-                    }
-                }
-            });
-        }
-        catch (e) {
-            console.error(e);
-
-            if (this._checkIfFunction(wrongIdCb)) {
-                wrongIdCb(e);
-            }
-        }
+    getByReferenceToId(userId, errorCb, foundCb) {
+        super.findByProperties({referenceTo : userId}, referralsCollectionName, (refDocs) => {
+            this._createReferral(refDocs, foundCb);
+        }, errorCb);
     }
 
     _detailsCallback(referrals, ref, referralsCount, field, cb) {
@@ -71,7 +62,7 @@ class RefferalsDAL extends MongoDAL {
     }
 
     _getMemberDetails(id, idFoundCallbackFunction, notFoundCallbackFunction) {
-       new MemberDAL().findById(id, idFoundCallbackFunction, notFoundCallbackFunction, (member) => {
+       this.MemberDAL.findById(id, idFoundCallbackFunction, notFoundCallbackFunction, (member) => {
         idFoundCallbackFunction(member);
        });
     }
