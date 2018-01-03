@@ -32,7 +32,7 @@
         },
         getMyGroupMeetings: function (groupId) {
             var deferred = $q.defer();
-            $http.get('/bla').then(function (res) {
+            $http.get('/meetings/5a3ea99b734d1d12b6753ea7').then(function (res) {
                 var data = [{
                     summary: "blablablablabla",
                     date: new Date("Wed Jan 03 2018 16:18:29 GMT+0200 (Jerusalem Standard Time)"),
