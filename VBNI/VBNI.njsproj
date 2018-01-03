@@ -33,14 +33,32 @@
     <Compile Include="public\javascripts\app.js">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="public\javascripts\GroupMeetingsCtrl.js">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="public\javascripts\MainCtrl.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="public\javascripts\MyRefsCtrl.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="public\javascripts\RefsToMeCtrl.js">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="routes\index.js" />
     <Compile Include="routes\users.js" />
     <Content Include="package.json" />
     <Content Include="public\stylesheets\main.css" />
+    <Content Include="public\views\groupmeetings.html">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="public\views\mygroup.html">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="public\views\myreferences.html">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="public\views\refsToMe.html">
       <SubType>Code</SubType>
     </Content>
     <Content Include="README.md" />
