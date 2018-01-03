@@ -45,7 +45,10 @@ class RefferalsDAL extends MongoDAL {
 
     _createReferral(referralsDocs, creationCb) {
         let referrals = [];
-        
+        if (referralsDocs.length == 0) {
+            creationCb(referrals);
+        }
+
         for (let index = 0; index < referralsDocs.length; index++) {
             let referralDoc = referralsDocs[index];
 

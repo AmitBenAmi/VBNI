@@ -149,7 +149,7 @@ class MongoDAL {
                             errorCb(error);
                         }
                     }
-                    else if (foundCallbackFunction) {
+                    else if (this._checkIfFunction(foundCallbackFunction)) {
                         foundCallbackFunction(documents);
                     }
                 });
