@@ -32,11 +32,15 @@
         },
         getMyGroupMeetings: function (groupId) {
             var deferred = $q.defer();
-            $http.get('/meetings/5a36cc6cdada7744b84a1a61').then(function (res) {
+            $http.get('/meetings', {
+                params: {
+                    groupId: '5a36cc6cdada7744b84a1a61'
+                }
+            }).then(function (res) {
                 var data = res.data.forEach(function (obj) {
                     obj.date = new Date(obj.date);
                 })
-                
+
                 deferred.resolve(data);
             }, function (err) {
                 deferred.reject(err);
