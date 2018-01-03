@@ -33,7 +33,11 @@
         getMyGroupMeetings: function (groupId) {
             var deferred = $q.defer();
             $http.get('/meetings/5a36cc6cdada7744b84a1a61').then(function (res) {
-                deferred.resolve(res.data);
+                var data = res.data.forEach(function (obj) {
+                    obj.date = new Date(obj.date);
+                })
+                
+                deferred.resolve(data);
             }, function (err) {
                 deferred.reject(err);
             })
