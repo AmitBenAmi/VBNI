@@ -32,13 +32,8 @@
         },
         getMyGroupMeetings: function (groupId) {
             var deferred = $q.defer();
-            $http.get('/bla').then(function (res) {
-                var data = [{
-                    summary: "blablablablabla",
-                    date: new Date("Wed Jan 03 2018 16:18:29 GMT+0200 (Jerusalem Standard Time)"),
-                    host: "amit"
-            }]
-                deferred.resolve(data);
+            $http.get('/meetings/5a36cc6cdada7744b84a1a61').then(function (res) {
+                deferred.resolve(res.data);
             }, function (err) {
                 deferred.reject(err);
             })
