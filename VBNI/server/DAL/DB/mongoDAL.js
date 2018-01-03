@@ -27,13 +27,13 @@ class MongoDAL {
             properties.dbName;
     }
 
-    _checkIfParamIsFunction(param) {
-        return typeof (param) === 'function';
+    _checkIfFunction(variable) {
+        return typeof (variable) === 'function';
     }
 
     _connect(collectionName, connectionSucceedCallback) {
         this.mongoClient.connect(this.url, ((error, db) => {
-            if (this._checkIfParamIsFunction(connectionSucceedCallback)) {
+            if (this._checkIfFunction(connectionSucceedCallback)) {
                 connectionSucceedCallback(db.db(this.dbName));
             }
 
@@ -42,7 +42,7 @@ class MongoDAL {
     }
 
     _getCollection(collectionName, collectionFoundCallback) {
-        if (this._checkIfParamIsFunction(collectionFoundCallback)) {
+        if (this._checkIfFunction(collectionFoundCallback)) {
             this._connect(collectionName, (db) => {
                 let collection = db.collection(collectionName);
                 collectionFoundCallback(collection);
@@ -65,14 +65,14 @@ class MongoDAL {
             if (err) {
                 console.error(err);
                 
-                if (this._checkIfParamIsFunction(errorCb)) {
+                if (this._checkIfFunction(errorCb)) {
                     errorCb();
                 }
             }
             else {
-                console.log(`There are ${results.result.nModified} modifications for collection: '${collectionName}' on field: '${field}'`);
+                console.log(`There are ${results.result.nModified} modifications for collection: '${collectionName}' ${field ? 'on field' + field : ''}`);
 
-                if (this._checkIfParamIsFunction(successCb)) {
+                if (this._checkIfFunction(successCb)) {
                     successCb();
                 }
             }
@@ -84,6 +84,12 @@ class MongoDAL {
             query, 
             operation, 
             this._updateCallback(collection.collectionName, field, errorCb, successCb));
+    }
+
+    update(collectionName, query, updateDoc, errorCb, successCb) {
+        this._getCollection(collectionName, (collection) => {
+            this._update(collection, query, updateDoc, undefined, errorCb, successCb);
+        });
     }
 
     push(query, field, values, collectionName, errorCb, successCb) {
@@ -128,18 +134,22 @@ class MongoDAL {
         });
     }
 
-    find(collectionName, foundCallbackFunction) {
-        this.findByProperties({}, collectionName, foundCallbackFunction);
+    find(collectionName, foundCallbackFunction, notFoundCallbackFunction) {
+        this.findByProperties({}, collectionName, foundCallbackFunction, notFoundCallbackFunction);
     }
 
-    findByProperties(properties, collectionName, foundCallbackFunction) {
-        if (this._checkIfParamIsFunction(foundCallbackFunction)) {
+    findByProperties(properties, collectionName, foundCallbackFunction, notFoundCallbackFunction) {
+        if (this._checkIfFunction(foundCallbackFunction)) {
             this._getCollection(collectionName, (collection) => {
                 collection.find(properties).toArray((error, documents) => {
                     if (error) {
                         console.error(error);
+
+                        if (this._checkIfFunction(notFoundCallbackFunction)) {
+                            notFoundCallbackFunction(error);
+                        }
                     }
-                    else {
+                    else if (foundCallbackFunction) {
                         foundCallbackFunction(documents);
                     }
                 });
@@ -147,11 +157,17 @@ class MongoDAL {
         }
     }
 
-    findById(id, collectionName, idFoundCallbackFunction) {
-        if (this._checkIfParamIsFunction(idFoundCallbackFunction)) {
+    findById(id, collectionName, idFoundCallbackFunction, idNotFoundCallbackFunction) {
+        if (this._checkIfFunction(idFoundCallbackFunction)) {
             this.findByProperties({_id:id}, collectionName, (documents) => {
                 if (documents[0]) {
-                    idFoundCallbackFunction(documents[0]);
+                    if (this._checkIfFunction(idFoundCallbackFunction)) {
+                        idFoundCallbackFunction(documents[0]);
+                    }
+                }
+            }, (error) => {
+                if (this._checkIfFunction(idNotFoundCallbackFunction)) {
+                    idNotFoundCallbackFunction(error);
                 }
             });
         }

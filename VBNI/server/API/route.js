@@ -25,12 +25,20 @@ class Route {
         this._sendResponse(HttpStatusCodes.BAD_REQUEST, res);
     }
 
+    _sendNotFound(res) {
+        this._sendResponse(HttpStatusCodes.NOT_FOUND, res);
+    }
+
     get(routingName, routingFunction) {
         this._init(routingName, 'get', routingFunction);
     }
 
     post(routingName, routingFunction) {
         this._init(routingName, 'post', routingFunction);
+    }
+
+    put(routingName, routingFunction) {
+        this._init(routingName, 'put', routingFunction);
     }
 
     delete(routingName, routingFunction) {
