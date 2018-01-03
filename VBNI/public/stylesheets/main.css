@@ -15,3 +15,9 @@
 .member-table {
     border: none;
 }
+
+.main-button {
+    position: fixed;
+    bottom: -4px;
+    right: 10px;    
+}
