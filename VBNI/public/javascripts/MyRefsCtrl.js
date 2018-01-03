@@ -1,17 +1,8 @@
-﻿angular.module('vbni').controller('MyRefsCtrl', ['$scope', '$http',
-    function ($scope, $http) {
+﻿angular.module('vbni').controller('MyRefsCtrl', ['$scope', 'apiService',
+    function ($scope, apiService) {
 
         // Getting My references
-        $http.get('/referrals').then(function (res) {
-            data = res.data.map(function (obj) {
-                return {
-                    referrer: obj.referrer,
-                    referenceTo: obj.referenceTo,
-                    clientName: obj.clientName,
-                    isGood: obj.isGood,
-                    amount: obj.amount
-                }
-            });
+        apiService.getMyReferences().then(function (data) {
             $scope.myRefs = data;
         }, function (err) {
             console.log(err);
