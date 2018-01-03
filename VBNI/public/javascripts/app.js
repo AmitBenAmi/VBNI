@@ -12,11 +12,11 @@ vbni.config(function ($routeProvider, $locationProvider) {
             templateUrl: 'views/myreferences.html',
             controller: 'MyRefsCtrl'
         })
-        .when('ReferencedToMe', {
+        .when('/ReferencedToMe', {
             templateUrl: 'views/refsToMe.html',
             controller: 'RefsToMeCtrl'
         })
-        .when('GroupMeetings', {
+        .when('/GroupMeetings', {
             templateUrl: 'views/groupmeetings.html',
             controller: 'GroupMeetingsCtrl'
         })

@@ -29,6 +29,21 @@
                 });
 
             return deferred.promise;
+        },
+        getMyGroupMeetings: function (groupId) {
+            var deferred = $q.defer();
+            $http.get('/bla').then(function (res) {
+                var data = [{
+                    summary: "blablablablabla",
+                    date: new Date("Wed Jan 03 2018 16:18:29 GMT+0200 (Jerusalem Standard Time)"),
+                    host: "amit"
+            }]
+                deferred.resolve(data);
+            }, function (err) {
+                deferred.reject(err);
+            })
+
+            return deferred.promise;
         }
     }
 }]);
