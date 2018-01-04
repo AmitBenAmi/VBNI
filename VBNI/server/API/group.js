@@ -18,6 +18,8 @@ class GroupRouter extends Route {
                     res.send(group);
                 }, () => {
                     super._sendNotFound(res);
+                }, () => {
+                    super._sendInternalServerError(res);
                 });
             }
             catch (e) {

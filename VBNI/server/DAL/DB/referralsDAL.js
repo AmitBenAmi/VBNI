@@ -65,8 +65,9 @@ class RefferalsDAL extends MongoDAL {
     }
 
     _getMemberDetails(id, idFoundCallbackFunction, notFoundCallbackFunction) {
-       this.MemberDAL.findById(id, idFoundCallbackFunction, notFoundCallbackFunction, (member) => {
-        idFoundCallbackFunction(member);
+       this.MemberDAL.findById(id, idFoundCallbackFunction, notFoundCallbackFunction, (e) => {
+            console.error(`Couldn't find member details for ID: ${id}`);
+            throw (e);
        });
     }
 }

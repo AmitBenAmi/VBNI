@@ -11,10 +11,10 @@ class GroupDAL extends MongoDAL {
         }, notFoundCallbackFunction);
     }
 
-    findById(id, foundCallbackFunction, notFoundCallbackFunction) {
+    findById(id, foundCallbackFunction, notFoundCallbackFunction, errorCb) {
         super.findById(id, groupsCollectionName, (group) => {
             foundCallbackFunction(group);
-        }, notFoundCallbackFunction);
+        }, notFoundCallbackFunction, errorCb);
     }
 
     getMembers(groupId, wrongIdCb, errorCb, successCb) {

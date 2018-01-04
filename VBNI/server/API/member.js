@@ -31,6 +31,8 @@ class Member extends Route {
                 });
             }, () => {
                 super._sendNotFound(res);
+            }, () => {
+                super._sendInternalServerError(res);
             });
         })
     }

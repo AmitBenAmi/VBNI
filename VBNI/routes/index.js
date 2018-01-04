@@ -7,8 +7,4 @@ router.get('/', function (req, res) {
     res.sendfile('views/index.html')
 });
 
-router.get('/login', function (req, res) {
-    res.sendfile('views/login.html')
-});
-
 module.exports = router;

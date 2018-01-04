@@ -157,7 +157,7 @@ class MongoDAL {
         }
     }
 
-    findById(id, collectionName, idFoundCallbackFunction, idNotFoundCallbackFunction) {
+    findById(id, collectionName, idFoundCallbackFunction, idNotFoundCallbackFunction, erroCb) {
         if (this._checkIfFunction(idFoundCallbackFunction)) {
             this.findByProperties({_id:id}, collectionName, (documents) => {
                 if (documents[0]) {
@@ -165,9 +165,12 @@ class MongoDAL {
                         idFoundCallbackFunction(documents[0]);
                     }
                 }
+                else if (this._checkIfFunction(idNotFoundCallbackFunction)) {
+                    idNotFoundCallbackFunction();
+                }
             }, (error) => {
                 if (this._checkIfFunction(idNotFoundCallbackFunction)) {
-                    idNotFoundCallbackFunction(error);
+                    errorCb(error);
                 }
             });
         }

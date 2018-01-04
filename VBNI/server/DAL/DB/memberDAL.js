@@ -3,11 +3,11 @@ const Member = require('../../Models/member');
 const membersCollectionName = "members";
 
 class MemberDAL extends MongoDAL {
-    findById(id, idFoundCallbackFunction, notFoundCallbackFunction) {
+    findById(id, idFoundCallbackFunction, notFoundCallbackFunction, errorCb) {
         super.findById(id, membersCollectionName, (memberDoc) => {
             let member = this._createMember(memberDoc);
             idFoundCallbackFunction(member);
-        }, notFoundCallbackFunction);
+        }, notFoundCallbackFunction, errorCb);
     }
 
     findByGroup(groupId, wrongIdCb, foundCb, errorCb) {
