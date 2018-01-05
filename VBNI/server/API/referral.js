@@ -10,14 +10,6 @@ class ReferralRouter extends Route {
         this.getByReferenceToMemberId();
     }
 
-    getReferrals() {
-        super.get('referrals', (req, res) => {
-            this.referralsDAL.find((referrals) => {
-                res.send(referrals);
-            });
-        });
-    }
-
     getByReferrerId() {
         super.get('referrals/:memberId', (req, res) => {
             let memberId;

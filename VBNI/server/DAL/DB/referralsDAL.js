@@ -9,12 +9,6 @@ class RefferalsDAL extends MongoDAL {
         this.MemberDAL = new MemberDAL();
     }
 
-    find(foundCallbackFunction) {
-        super.find(referralsCollectionName, (refDocs) => {
-            this._createReferral(refDocs, foundCallbackFunction);
-        });
-    }
-
     getByReferrerId(userId, errorCb, foundCb) {
         super.findByProperties({referrer : userId}, referralsCollectionName, (refDocs) => {
             this._createReferral(refDocs, foundCb);
@@ -59,15 +53,16 @@ class RefferalsDAL extends MongoDAL {
                 referralDoc.isGood, 
                 referralDoc.amount)
                 
-            this._getMemberDetails(referralDoc.referrer, this._detailsCallback(referrals, referral, referralsDocs.length, 'referrer', creationCb));
+            this._getMemberDetails(referralDoc.referrer, 
+                this._detailsCallback(referrals, referral, referralsDocs.length, 'referrer', creationCb), 
+                notFoundCallbackFunction);
             this._getMemberDetails(referralDoc.referenceTo, this._detailsCallback(referrals, referral, referralsDocs.length, 'referenceTo', creationCb));
         }
     }
 
     _getMemberDetails(id, idFoundCallbackFunction, notFoundCallbackFunction) {
-       this.MemberDAL.findById(id, idFoundCallbackFunction, notFoundCallbackFunction, (e) => {
-            console.error(`Couldn't find member details for ID: ${id}`);
-            throw (e);
+       this.MemberDAL.findById(id, idFoundCallbackFunction, notFoundCallbackFunction, (member) => {
+        idFoundCallbackFunction(member);
        });
     }
 }
