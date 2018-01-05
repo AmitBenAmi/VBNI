@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="/stylesheets/main.css"/>
     <script src="/javascripts/app.js"></script>
     <script src="/javascripts/api-service.js"></script>
-    <script src="/javascripts/MainCtrl.js"></script>
+    <script src="/javascripts/LayoutCtrl.js"></script>
     <script src="/javascripts/MyRefsCtrl.js"></script>
     <script src="/javascripts/RefsToMeCtrl.js"></script>
     <script src="/javascripts/GroupMeetingsCtrl.js"></script>
@@ -27,8 +27,8 @@
 
   </head>
   <body ng-app="vbni">
-    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
-        <header class="mdl-layout__header" ng-controller="HeaderCtrl">
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header" ng-controller="LayoutCtrl">
+        <header class="mdl-layout__header">
           <div class="mdl-layout__header-row">
             <span class="mdl-layout-title">
               <span ng-show="isInHome()">BNI</span>

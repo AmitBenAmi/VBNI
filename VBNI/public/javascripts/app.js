@@ -21,8 +21,7 @@ vbni.config(function ($routeProvider, $locationProvider) {
             controller: 'GroupMeetingsCtrl'
         })
         .otherwise({
-            templateUrl: 'views/home.html',
-            controller: 'MainCtrl'
+            templateUrl: 'views/home.html'
         })
 
     $locationProvider
@@ -30,13 +29,25 @@ vbni.config(function ($routeProvider, $locationProvider) {
         .hashPrefix('');
 });
 
-vbni.controller('HeaderCtrl', ['$scope', '$window', '$location',
-function ($scope, $window, $location) {
-    $scope.goBack = function() {
-        $window.history.back();
-    }
+vbni.run(function ($rootScope, $location) {
+    
+        var history = [];
+    
+        $rootScope.$on('$routeChangeSuccess', function() {
+            let path = $location.$$path;
+            let pathIndex = history.indexOf(path)
 
-    $scope.isInHome = function() {
-        return $location.path() == "";
-    }
-}]);
+            // If path exists, remove it
+            if (pathIndex > -1) {
+                history.splice(pathIndex, 1);
+            }
+            
+            history.push(path);
+        });
+    
+        $rootScope.goBack = function () {
+            var prevUrl = history.length > 1 ? history.splice(-2)[0] : "/";
+            $location.path(prevUrl);
+        };
+    
+    });
