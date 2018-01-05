@@ -7,11 +7,11 @@ const cookieParams = {
     signed: false,
     maxAge: 300000,
 };
+const prefixLoginURL = "/login/";
 
 class LoginRouter extends Route {
     init() {
         this.memberDAL = new MemberDAL();
-        this.loginPage();
         this.login();
         this.requestsMiddleware();
     }
@@ -23,34 +23,22 @@ class LoginRouter extends Route {
         return signedCookieExist || nonSignedCookieExist;
     }
 
+    _isReqToLogin(req) {
+        return req.path.startsWith(prefixLoginURL) || 
+               (req.path === '/login' && req.method === 'POST');
+    }
+
     requestsMiddleware() {
         this.app.use((req, res, next) => {
             console.info(`${req.protocol} request for path ${req.path}`);
 
-            if (this._checkForCookies(req, cookieName, cookieParams.signed)) {
+            // If user isn't logged in, redirect to login page
+            if (!this._checkForCookies(req, cookieName, cookieParams.signed) &&
+                !this._isReqToLogin(req)) {
+                res.redirect('/login/login.html');
+            } else {
                 next();
             }
-            else {
-                res.writeHead(HttpStatusCodes.MOVED_TEMPORARILY, {
-                    'Location': '/login'
-                });
-                res.end();
-            }
-        });
-    }
-
-    loginPage() {
-        super.get('login', (req, res) => {
-            if (!this._checkForCookies(req, cookieName, cookieParams.signed)) {
-                res.sendfile('views/login.html');
-            }
-            else {
-                res.writeHead(HttpStatusCodes.MOVED_TEMPORARILY, {
-                    'Location': '/'
-                });
-                res.end();
-            }
-            
         });
     }
 
