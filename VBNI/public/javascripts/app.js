@@ -25,7 +25,9 @@ vbni.config(function ($routeProvider, $locationProvider) {
             controller: 'MainCtrl'
         })
 
-    $locationProvider.html5Mode(true);
+    $locationProvider
+        .html5Mode(false)
+        .hashPrefix('');
 });
 
 vbni.controller('HeaderCtrl', ['$scope', '$window', '$location',
@@ -35,6 +37,6 @@ function ($scope, $window, $location) {
     }
 
     $scope.isInHome = function() {
-        return $location.path() == "/";
+        return $location.path() == "";
     }
 }]);
