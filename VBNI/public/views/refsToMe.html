@@ -5,7 +5,7 @@
         <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
             <thead>
                 <tr>
-                    <th>Referred To</th>
+                    <th>Referred By</th>
                     <th>Client Name</th>
                     <th class="mdl-data-table__cell--non-numeric">Is Good</th>
                     <th>Amount</th>
@@ -13,7 +13,7 @@
             </thead>
             <tbody>
                 <tr ng-repeat="ref in refsToMe">
-                    <td>{{ref.referenceTo}}</td>
+                    <td>{{ref.referrer}}</td>
                     <td>{{ref.clientName}}</td>
                     <td class="mdl-data-table__cell--non-numeric">{{ref.isGood}}</td>
                     <td>
