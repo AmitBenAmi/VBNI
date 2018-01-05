@@ -1,8 +1,8 @@
 ﻿angular.module('vbni').service('apiService', ['$http', '$q', function ($http, $q) {
     return {
-        getMyReferences: function () {
+        getMyReferences: function (username) {
             var deferred = $q.defer();
-            $http.get('/referrals').then(function (res) {
+            $http.get('referrals/' + username).then(function (res) {
                 data = res.data.map(function (obj) {
                     return {
                         referrer: obj.referrer,
@@ -22,7 +22,7 @@
         },
         getMyGroupMembers: function (groupId) {
             var deferred = $q.defer();
-            $http.get('/groups/5a3ea99b734d1d12b6753ea7/members').then(function (res) {
+            $http.get('/groups/' + groupId + '/members').then(function (res) {
                 deferred.resolve(res.data);
             }, function (err) {
                     deferred.reject(err);
@@ -34,7 +34,7 @@
             var deferred = $q.defer();
             $http.get('/meetings', {
                 params: {
-                    groupId: '5a36cc6cdada7744b84a1a61'
+                    groupId: groupId
                 }
             }).then(function (res) {
                 res.data.forEach(function (obj) {
@@ -48,9 +48,9 @@
 
             return deferred.promise;
         },
-        getRefsToMe: function () {
+        getRefsToMe: function (username) {
             var deferred = $q.defer();
-            $http.get('/bla').then(function (res) {
+            $http.get('references/' + username).then(function (res) {
                 deferred.resolve(res.data);
             }, function (err) {
                 deferred.reject(err);

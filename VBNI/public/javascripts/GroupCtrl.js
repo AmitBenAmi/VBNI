@@ -1,8 +1,10 @@
 angular.module('vbni').controller('GroupCtrl', ['$scope', 'apiService',
 function ($scope, apiService) {
 
+    var userDetails = $scope.$root.user;
+
     //Getting the data
-    apiService.getMyGroupMembers().then(function (data) {
+    apiService.getMyGroupMembers(userDetails.groupId).then(function (data) {
         $scope.members = data;
     }, function (err) {
         console.log(err);
