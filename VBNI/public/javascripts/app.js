@@ -59,9 +59,10 @@ vbni.directive('menuClose', function() {
         restrict: 'AC',
         link: function($scope, $element) {
             $element.bind('click', function() {
-                var drawer = $('.mdl-layout');
-                if(drawer) {
-                    drawer[0].MaterialLayout.toggleDrawer()
+                var layout = $('.mdl-layout');
+                var drawer = $('.mdl-layout__drawer.is-visible');
+                if(layout.length > 0 && drawer.length > 0) {
+                    layout[0].MaterialLayout.toggleDrawer();
                 }
             });
         }
