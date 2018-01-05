@@ -21,3 +21,13 @@
     bottom: -4px;
     right: 10px;    
 }
+
+.back-button {
+    height: 48px;
+    width: 48px;
+}
+
+.back-button > i {
+    font-size: 40px;
+    left: 35% !important;
+}

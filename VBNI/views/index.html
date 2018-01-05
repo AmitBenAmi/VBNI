@@ -29,9 +29,15 @@
   </head>
   <body ng-app="vbni">
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
-        <header class="mdl-layout__header">
+        <header class="mdl-layout__header" ng-controller="HeaderCtrl">
           <div class="mdl-layout__header-row">
-            <span class="mdl-layout-title">BNI</span>
+            <span class="mdl-layout-title">
+              <span ng-show="isInHome()">BNI</span>
+              <button ng-show="!isInHome()" ng-click="goBack()"
+                class="mdl-button mdl-js-button mdl-button--icon mdl-button--accent back-button">
+                <i class="material-icons">keyboard_backspace</i>
+              </button>            
+            </span>
             <div class="mdl-layout-spacer"></div>
             <nav class="mdl-navigation">
               <a class="mdl-navigation__link" href="/">Home</a>

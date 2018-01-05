@@ -28,3 +28,13 @@ vbni.config(function ($routeProvider, $locationProvider) {
     $locationProvider.html5Mode(true);
 });
 
+vbni.controller('HeaderCtrl', ['$scope', '$window', '$location',
+function ($scope, $window, $location) {
+    $scope.goBack = function() {
+        $window.history.back();
+    }
+
+    $scope.isInHome = function() {
+        return $location.path() == "/";
+    }
+}]);
