@@ -10,18 +10,8 @@ class ReferralRouter extends Route {
     }
 
     getByReferrerId() {
-        super.get('referrals/:memberId', (req, res) => {
-            let memberId;
-    
-            try {
-                memberId = req.params.memberId;
-            }
-            catch (e) {
-                console.error(e);
-                super._sendBadRequest(res);
-            }
-    
-            this._getByReferrerId(memberId, req, res)
+        super.get('referrals/:memberId', (req, res) => {    
+            req.params.memberId ? this._getByReferrerId(req.params.memberId, req, res) : super._sendBadRequest(res);
         });
     }
 
@@ -39,17 +29,7 @@ class ReferralRouter extends Route {
 
     getByReferenceToMemberId() {
         super.get('references/:memberId', (req, res) => {
-            let memberId;
-    
-            try {
-                memberId = req.params.memberId;
-            }
-            catch (e) {
-                console.error(e);
-                super._sendBadRequest(res);
-            }
-    
-            this._getByReferenceToMemberId(memberId, req, res);
+            req.params.memberId ? this._getByReferenceToMemberId(req.params.memberId, req, res) : super._sendBadRequest(res);
         });
     }
 
