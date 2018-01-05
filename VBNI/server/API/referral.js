@@ -5,7 +5,6 @@ const referralsDAL = require('../DAL/DB/referralsDAL');
 class ReferralRouter extends Route {
     init() {
         this.referralsDAL = new referralsDAL();
-        this.getReferrals();
         this.getByReferrerId();
         this.getByReferenceToMemberId();
     }
@@ -22,12 +21,19 @@ class ReferralRouter extends Route {
                 super._sendBadRequest(res);
             }
     
-            this.referralsDAL.getByReferrerId(memberId, () => {
-                super._sendInternalServerError(res); 
-            },
-            (referrals) => {
-                res.send(referrals);
-            });
+            this._getByReferrerId(memberId, req, res)
+        });
+    }
+
+    _getByReferrerId(memberId, req, res) {
+        this.referralsDAL.getByReferrerId(memberId, () => {
+            super._sendInternalServerError(res); 
+        },
+        (referrals) => {
+            res.send(referrals);
+        },
+        () => {
+            super._sendBadRequest(res); 
         });
     }
 
@@ -43,12 +49,19 @@ class ReferralRouter extends Route {
                 super._sendBadRequest(res);
             }
     
-            this.referralsDAL.getByReferenceToId(memberId, () => {
-                super._sendInternalServerError(res); 
-            },
-            (referrals) => {
-                res.send(referrals);
-            });
+            this._getByReferenceToMemberId(memberId, req, res);
+        });
+    }
+
+    _getByReferenceToMemberId(memberId, req, res) {
+        this.referralsDAL.getByReferenceToId(memberId, () => {
+            super._sendInternalServerError(res); 
+        },
+        (referrals) => {
+            res.send(referrals);
+        },
+        () => {
+            super._sendBadRequest(res); 
         });
     }
 }

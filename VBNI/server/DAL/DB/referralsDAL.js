@@ -9,27 +9,25 @@ class RefferalsDAL extends MongoDAL {
         this.MemberDAL = new MemberDAL();
     }
 
-    getByReferrerId(userId, errorCb, foundCb) {
+    getByReferrerId(userId, errorCb, foundCb, idNotFoundCb) {
         super.findByProperties({referrer : userId}, referralsCollectionName, (refDocs) => {
-            this._createReferral(refDocs, foundCb);
+            this._createReferral(refDocs, foundCb, idNotFoundCb);
         }, errorCb);
     }
 
-    getByReferenceToId(userId, errorCb, foundCb) {
+    getByReferenceToId(userId, errorCb, foundCb, idNotFoundCb) {
         super.findByProperties({referenceTo : userId}, referralsCollectionName, (refDocs) => {
-            this._createReferral(refDocs, foundCb);
+            this._createReferral(refDocs, foundCb, idNotFoundCb);
         }, errorCb);
     }
 
-    _detailsCallback(referrals, ref, referralsCount, field, cb) {
+    _detailsCallback(referrals, ref, referralsCount, refInedx, field, cb) {
         return (details) => {
             ref[field] = `${details.firstName} ${details.lastName}`;
 
             if (ref.referrer && ref.referenceTo) {
                 referrals.push(ref);
-                referralsCount--;
-
-                if (referralsCount === 0 && super._checkIfFunction(cb)) {
+                if ((refInedx+1) ===  referralsCount && super._checkIfFunction(cb)) {
                     cb(referrals);
                 }
             }
@@ -37,7 +35,7 @@ class RefferalsDAL extends MongoDAL {
         };
     }
 
-    _createReferral(referralsDocs, creationCb) {
+    _createReferral(referralsDocs, creationCb, memberNotfoundCb) {
         let referrals = [];
         if (referralsDocs.length == 0) {
             creationCb(referrals);
@@ -54,16 +52,18 @@ class RefferalsDAL extends MongoDAL {
                 referralDoc.amount)
                 
             this._getMemberDetails(referralDoc.referrer, 
-                this._detailsCallback(referrals, referral, referralsDocs.length, 'referrer', creationCb), 
-                notFoundCallbackFunction);
-            this._getMemberDetails(referralDoc.referenceTo, this._detailsCallback(referrals, referral, referralsDocs.length, 'referenceTo', creationCb));
+                this._detailsCallback(referrals, referral, referralsDocs.length,index, 'referrer', creationCb), 
+                memberNotfoundCb);
+            this._getMemberDetails(referralDoc.referenceTo, 
+                this._detailsCallback(referrals, referral, referralsDocs.length, index,'referenceTo', creationCb),
+                memberNotfoundCb);
         }
     }
 
-    _getMemberDetails(id, idFoundCallbackFunction, notFoundCallbackFunction) {
-       this.MemberDAL.findById(id, idFoundCallbackFunction, notFoundCallbackFunction, (member) => {
+    _getMemberDetails(id, idFoundCallbackFunction, notFoundCallbackFunction, errorCb) {
+       this.MemberDAL.findById(id, (member) => {
         idFoundCallbackFunction(member);
-       });
+       }, notFoundCallbackFunction, errorCb);
     }
 }
 
