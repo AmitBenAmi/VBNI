@@ -2,16 +2,6 @@
     width: 100%;
 }
 
-.profile-button {
-    border-radius: 40px;
-    width: 40px;
-    height: 40px;
-}
-
-.face-icon {
-    font-size: 40px;
-}
-
 .member-table {
     border: none;
 }
@@ -22,12 +12,12 @@
     right: 10px;    
 }
 
-.back-button {
+.large-button {
     height: 48px;
     width: 48px;
 }
 
-.back-button > i {
+.large-button > i {
     font-size: 40px;
     left: 35% !important;
 }
