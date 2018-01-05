@@ -68,7 +68,7 @@ class LoginRouter extends Route {
 
             this.memberDAL.findById(userName, (member) => {
                 try {
-                    res.cookie(cookieName, new Buffer(JSON.stringify(member)).toString('base64'), cookieParams);
+                    res.cookie(cookieName, JSON.stringify(member), cookieParams);
                     super._sendOk(res);
                 }
                 catch (e) {

@@ -21,7 +21,7 @@ class MainController {
         let cookieParts = cookie.split('=');
 
         if (cookieParts[0].trim() === userCookieName) {
-            this.$root.user = JSON.parse(decodeURIComponent(atob(cookieParts[1])));
+            this.$root.user = JSON.parse(decodeURIComponent(cookieParts[1]));
 
             this.$scope.username = this.$root.user.firstName + " " + this.$root.user.lastName;
         }
