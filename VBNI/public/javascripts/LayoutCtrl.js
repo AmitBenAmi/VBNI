@@ -1,7 +1,7 @@
 ﻿const userCookieName = 'user';
 
 angular.module('vbni').controller('LayoutCtrl', 
-function($scope, $http, $rootScope, $location) {
+function($scope, $http, $rootScope, $location, apiService) {
 
     function checkIfUserCookie(cookie) {
         let cookieParts = cookie.split('=');
@@ -13,11 +13,23 @@ function($scope, $http, $rootScope, $location) {
         }
     }
 
-    function setUserName() {
+    function setHomepageDetails() {
         let cookies = document.cookie.split(';');
         cookies.forEach(cookie => {
             checkIfUserCookie(cookie);
         });
+
+        apiService.getNextMeeting($rootScope.user.groupId).then(function(data) {
+            if (data) {
+                $scope.nextMeeting = "Your next meeting is on " + new Date(data).toLocaleString()
+            }
+            else {
+                $scope.nextMeeting = "You have no upcoming meetings";
+            }
+            
+        }, function(err) {
+            console.log(err);
+        })
     }
 
     $scope.isInHome = function() {
@@ -25,6 +37,6 @@ function($scope, $http, $rootScope, $location) {
                $location.path() == '/' ;
     }
 
-    setUserName();
+    setHomepageDetails();
 });
  

@@ -57,6 +57,20 @@
             })
 
             return deferred.promise;
+        },
+        getNextMeeting: function(groupId) {
+            var deferred = $q.defer();
+            $http.get('meetings/getNextMeetingForGroup', {
+                params: {
+                    groupId: groupId
+                }
+            }).then(function(res) {
+                deferred.resolve(res.data.date);
+            }, function(err) {
+                deferred.reject(err);
+            });
+
+            return deferred.promise;
         }
     }
 }]);
