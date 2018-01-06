@@ -44,7 +44,7 @@ class MemberDAL extends MongoDAL {
     }
 
     _createMember(memberDoc) {
-        return new Member(memberDoc._id, memberDoc.firstName, memberDoc.lastName, memberDoc.groupId);
+        return new Member(memberDoc._id, memberDoc.firstName, memberDoc.lastName, memberDoc.groupId, memberDoc.job);
     }
 }
 
