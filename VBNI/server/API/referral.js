@@ -5,58 +5,43 @@ const referralsDAL = require('../DAL/DB/referralsDAL');
 class ReferralRouter extends Route {
     init() {
         this.referralsDAL = new referralsDAL();
-        this.getReferrals();
         this.getByReferrerId();
         this.getByReferenceToMemberId();
     }
 
-    getReferrals() {
-        super.get('referrals', (req, res) => {
-            this.referralsDAL.find((referrals) => {
-                res.send(referrals);
-            });
+    getByReferrerId() {
+        super.get('referrals/:memberId', (req, res) => {    
+            req.params.memberId ? this._getByReferrerId(req.params.memberId, req, res) : super._sendBadRequest(res);
         });
     }
 
-    getByReferrerId() {
-        super.get('referrals/:memberId', (req, res) => {
-            let memberId;
-    
-            try {
-                memberId = req.params.memberId;
-            }
-            catch (e) {
-                console.error(e);
-                super._sendBadRequest(res);
-            }
-    
-            this.referralsDAL.getByReferrerId(memberId, () => {
-                super._sendInternalServerError(res); 
-            },
-            (referrals) => {
-                res.send(referrals);
-            });
+    _getByReferrerId(memberId, req, res) {
+        this.referralsDAL.getByReferrerId(memberId, () => {
+            super._sendInternalServerError(res); 
+        },
+        (referrals) => {
+            res.send(referrals);
+        },
+        () => {
+            super._sendBadRequest(res); 
         });
     }
 
     getByReferenceToMemberId() {
         super.get('references/:memberId', (req, res) => {
-            let memberId;
-    
-            try {
-                memberId = req.params.memberId;
-            }
-            catch (e) {
-                console.error(e);
-                super._sendBadRequest(res);
-            }
-    
-            this.referralsDAL.getByReferenceToId(memberId, () => {
-                super._sendInternalServerError(res); 
-            },
-            (referrals) => {
-                res.send(referrals);
-            });
+            req.params.memberId ? this._getByReferenceToMemberId(req.params.memberId, req, res) : super._sendBadRequest(res);
+        });
+    }
+
+    _getByReferenceToMemberId(memberId, req, res) {
+        this.referralsDAL.getByReferenceToId(memberId, () => {
+            super._sendInternalServerError(res); 
+        },
+        (referrals) => {
+            res.send(referrals);
+        },
+        () => {
+            super._sendBadRequest(res); 
         });
     }
 }

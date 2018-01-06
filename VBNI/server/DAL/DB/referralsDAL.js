@@ -1,74 +1,61 @@
 const MongoDAL = require('./mongoDAL');
 const Referral = require('../../Models/referral');
-const referralsCollectionName = "referrals";
 const MemberDAL = require('./memberDAL');
+const Promise = require('bluebird');
 
 class RefferalsDAL extends MongoDAL {
     constructor() {
         super();
         this.MemberDAL = new MemberDAL();
+        this.collectionName = 'referrals';
     }
 
-    find(foundCallbackFunction) {
-        super.find(referralsCollectionName, (refDocs) => {
-            this._createReferral(refDocs, foundCallbackFunction);
+    getByReferrerId(userId, errorCb, foundCb, idNotFoundCb) {
+        super.findByProperties({referrer : userId}, this.collectionName, (refDocs) => {
+            refDocs.length === 0 ? idNotFoundCb() : this._getReferralsDetails(refDocs, foundCb, idNotFoundCb, errorCb);
+        }, errorCb);
+    }
+
+    getByReferenceToId(userId, errorCb, foundCb, idNotFoundCb) {
+        super.findByProperties({referenceTo : userId}, this.collectionName, (refDocs) => {
+            refDocs.length === 0 ? idNotFoundCb() : this._getReferralsDetails(refDocs, foundCb, idNotFoundCb, errorCb);
+        }, errorCb);
+    }
+
+    _getReferralsDetails(referralsDocs, creationCb, memberNotfoundCb, errorCb) {
+        let referralPromises = referralsDocs.map((referral) => {
+            return this._createReferral(referral, creationCb, memberNotfoundCb, errorCb);
+        });
+
+        Promise.all(referralPromises).then((referralsDetailsResponse) => {
+            creationCb(referralsDetailsResponse)
+        })
+    }
+
+    _createReferral(referralDoc, creationCb, memberNotfoundCb, errorCb) {
+        return new Promise((resolve) => {
+            let memberDetailsPromises = [];
+
+            memberDetailsPromises.push(this._getMemberDetails(referralDoc.referrer, memberNotfoundCb, errorCb));
+            memberDetailsPromises.push(this._getMemberDetails(referralDoc.referenceTo, memberNotfoundCb, errorCb));
+    
+            Promise.all(memberDetailsPromises).then((detailsResponse) => {
+                resolve(new Referral(referralDoc._id,
+                        `${detailsResponse[0].firstName} ${detailsResponse[0].lastName}`,
+                        `${detailsResponse[1].firstName} ${detailsResponse[1].lastName}`,
+                        referralDoc.clientName,
+                        referralDoc.isGood,
+                        referralDoc.amount));
+            });
         });
     }
 
-    getByReferrerId(userId, errorCb, foundCb) {
-        super.findByProperties({referrer : userId}, referralsCollectionName, (refDocs) => {
-            this._createReferral(refDocs, foundCb);
-        }, errorCb);
-    }
-
-    getByReferenceToId(userId, errorCb, foundCb) {
-        super.findByProperties({referenceTo : userId}, referralsCollectionName, (refDocs) => {
-            this._createReferral(refDocs, foundCb);
-        }, errorCb);
-    }
-
-    _detailsCallback(referrals, ref, referralsCount, field, cb) {
-        return (details) => {
-            ref[field] = `${details.firstName} ${details.lastName}`;
-
-            if (ref.referrer && ref.referenceTo) {
-                referrals.push(ref);
-                referralsCount--;
-
-                if (referralsCount === 0 && super._checkIfFunction(cb)) {
-                    cb(referrals);
-                }
-            }
-
-        };
-    }
-
-    _createReferral(referralsDocs, creationCb) {
-        let referrals = [];
-        if (referralsDocs.length == 0) {
-            creationCb(referrals);
-        }
-
-        for (let index = 0; index < referralsDocs.length; index++) {
-            let referralDoc = referralsDocs[index];
-
-            let referral = new Referral(referralDoc._id,
-                undefined,
-                undefined,
-                referralDoc.clientName, 
-                referralDoc.isGood, 
-                referralDoc.amount)
-                
-            this._getMemberDetails(referralDoc.referrer, this._detailsCallback(referrals, referral, referralsDocs.length, 'referrer', creationCb));
-            this._getMemberDetails(referralDoc.referenceTo, this._detailsCallback(referrals, referral, referralsDocs.length, 'referenceTo', creationCb));
-        }
-    }
-
-    _getMemberDetails(id, idFoundCallbackFunction, notFoundCallbackFunction) {
-       this.MemberDAL.findById(id, idFoundCallbackFunction, notFoundCallbackFunction, (e) => {
-            console.error(`Couldn't find member details for ID: ${id}`);
-            throw (e);
-       });
+    _getMemberDetails(id, idFoundCallbackFunction, notFoundCallbackFunction, errorCb) {
+        return new Promise((resolve) => {
+            this.MemberDAL.findById(id, (member) => {
+                resolve(member);
+               }, notFoundCallbackFunction, errorCb);
+        });
     }
 }
 
