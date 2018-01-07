@@ -11,10 +11,9 @@ class MemberDAL extends MongoDAL {
     }
 
     findByGroup(groupId, wrongIdCb, foundCb, errorCb) {
-        let groupObjectId;
-
         try {
-            groupObjectId = super.createObjectId(groupId);
+            let groupObjectId = super.createObjectId(groupId);
+            super.findByProperties({groupId: groupObjectId}, membersCollectionName, foundCb, errorCb);
         }
         catch (e) {
             console.error(e);
@@ -23,16 +22,12 @@ class MemberDAL extends MongoDAL {
                 wrongIdCb(e);
             }
         }
-
-        super.findByProperties({groupId: groupObjectId}, membersCollectionName, foundCb, errorCb);
     }
 
-    addToGroup(member, groupId, wrongIdCb, errorCb, successCb) {
+    addToGroup(userName, groupId, wrongIdCb, errorCb, successCb) {
         try {
             let groupObjectId = super.createObjectId(groupId);
-            member.groupId = groupObjectId;
-
-            super.update(membersCollectionName, {_id:member.userName}, member, errorCb, successCb);
+            super.update(membersCollectionName, {_id:userName}, {groupId:groupObjectId}, errorCb, successCb);
         }
         catch (e) {
             console.error(e);
@@ -44,7 +39,14 @@ class MemberDAL extends MongoDAL {
     }
 
     _createMember(memberDoc) {
-        return new Member(memberDoc._id, memberDoc.firstName, memberDoc.lastName, memberDoc.groupId, memberDoc.job);
+        return new Member(
+            memberDoc._id, 
+            memberDoc.firstName,
+            memberDoc.lastName, 
+            memberDoc.groupId, 
+            memberDoc.job, 
+            memberDoc.details,
+            memberDoc.phone);
     }
 }
 

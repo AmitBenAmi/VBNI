@@ -2,6 +2,7 @@ const mongo = require('mongodb');
 const DbProperties = require('../Configs/db')
 const mongoPushField = '$push';
 const mongoPullField = '$pull';
+const mongoSetField = '$set';
 const mongoAddToSet = '$addToSet';
 const mongoEachField = '$each';
 const mongoInField = '$in';
@@ -88,7 +89,10 @@ class MongoDAL {
 
     update(collectionName, query, updateDoc, errorCb, successCb) {
         this._getCollection(collectionName, (collection) => {
-            this._update(collection, query, updateDoc, undefined, errorCb, successCb);
+            let updateOperation = {
+                [mongoSetField]: updateDoc
+            }
+            this._update(collection, query, updateOperation, undefined, errorCb, successCb);
         });
     }
 

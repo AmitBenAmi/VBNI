@@ -1,4 +1,7 @@
 ﻿<div class="mdl-grid">
+    <div ng-if="noGroup" class="mdl-cell mdl-cell--6-col mdl-cell--12-phone">
+        <h3 class="mdl-card__title-text">You do not belong to any group!</h3>
+    </div>
     <div class="mdl-cell mdl-cell--6-col mdl-cell--12-phone" ng-repeat="member in members">
         <!-- Card contains the table -->
         <div class="fullwidth mdl-card mdl-shadow--2dp">
@@ -16,22 +19,14 @@
                 <table class="mdl-data-table mdl-js-data-table member-table fullwidth">
                     <thead>
                         <tr>
-                            <th class="mdl-data-table__cell--non-numeric">
-                                Job
-                            </th>
-                            <th class="mdl-data-table__cell--non-numeric">
-                                Phone
-                            </th>
+                            <th class="mdl-data-table__cell--non-numeric">Job</th>
+                            <th class="mdl-data-table__cell--non-numeric">Phone</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>
-                                {{member.job}}
-                            </td>
-                            <td>
-                                {{member.phone}}
-                            </td>
+                            <td class="mdl-data-table__cell--non-numeric">{{member.job}}</td>
+                            <td class="mdl-data-table__cell--non-numeric">{{member.phone}}</td>
                         </tr> 
                     </tbody>
                 </table>

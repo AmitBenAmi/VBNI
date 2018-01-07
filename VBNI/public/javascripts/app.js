@@ -2,6 +2,8 @@
 
 var vbni = angular.module('vbni', ['ngRoute']);
 
+const navCurrentChosenLink = 'mdl-navigation__link--current';
+
 vbni.config(function ($routeProvider, $locationProvider) {
     $routeProvider
         .when('/MyGroup', {
@@ -36,7 +38,10 @@ vbni.run(function ($rootScope, $location) {
 
     $rootScope.$on('$routeChangeSuccess', function() {
         let path = $location.$$path;
-        let pathIndex = history.indexOf(path)
+        let pathIndex = history.indexOf(path);
+
+        $(`.${navCurrentChosenLink}`).removeClass(navCurrentChosenLink);
+        $(`a[href$="#${path}"]`).addClass(navCurrentChosenLink);
 
         // If path exists, remove it
         if (pathIndex > -1) {

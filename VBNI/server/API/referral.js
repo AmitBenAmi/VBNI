@@ -7,6 +7,7 @@ class ReferralRouter extends Route {
         this.referralsDAL = new referralsDAL();
         this.getByReferrerId();
         this.getByReferenceToMemberId();
+        this.setReferralAsGoodOrBad();
     }
 
     getByReferrerId() {
@@ -30,6 +31,44 @@ class ReferralRouter extends Route {
     getByReferenceToMemberId() {
         super.get('references/:memberId', (req, res) => {
             req.params.memberId ? this._getByReferenceToMemberId(req.params.memberId, req, res) : super._sendBadRequest(res);
+        });
+    }
+
+    setReferralAsGoodOrBad() {
+        super.put('references/:referralId', (req, res) => {
+            try {
+                let referralId = req.params.referralId;
+                let isGood = req.body.isGood;
+                let amount = req.body.amount;
+
+                if (isGood) {
+                    if (amount === undefined) {
+                        throw `Invalid amount for referral: ${amount}`;
+                    }
+                    else {
+                        this.referralsDAL.setGoodReferral(referralId, amount, () => {
+                            super._sendBadRequest(res);
+                        }, () => {
+                            super._sendInternalServerError(res);
+                        }, () => {
+                            super._sendOk(res);
+                        });
+                    }
+                }
+                else {
+                    this.referralsDAL.setBadReferral(referralId, () => {
+                        super._sendBadRequest(res);
+                    }, () => {
+                        super._sendInternalServerError(res);
+                    }, () => {
+                        super._sendOk(res);
+                    });
+                }
+            }
+            catch (e) {
+                console.error(e);
+                super._sendBadRequest(res);
+            }
         });
     }
 

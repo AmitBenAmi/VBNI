@@ -8,33 +8,30 @@ class Member extends Route {
     }
 
     addToGroup() {
-        super.put('members', (req, res) => {
-            let memberUserName
-            let groupId;
-
+        super.put('members/:memberUserName', (req, res) => {
             try {
-                memberUserName = req.body.memberUserName;
-                groupId = req.body.groupId;
+                let memberUserName = req.params.memberUserName;
+                let groupId = req.body.groupId;
+
+                this.memberDAL.findById(memberUserName, (member) => {
+                    this.memberDAL.addToGroup(member.userName, groupId, () => {
+                        super._sendBadRequest(res);
+                    }, () => {
+                        super._sendInternalServerError(res);
+                    }, () => {
+                        super._sendOk(res);
+                    });
+                }, () => {
+                    super._sendNotFound(res);
+                }, () => {
+                    super._sendInternalServerError(res);
+                });
             }
             catch (e) {
                 console.error(e);
                 super._sendBadRequest(res);
             }
-
-            this.memberDAL.findById(memberUserName, (member) => {
-                this.memberDAL.addToGroup(member, groupId, () => {
-                    super._sendBadRequest(res);
-                }, () => {
-                    super._sendInternalServerError(res);
-                }, () => {
-                    super._sendOk(res);
-                });
-            }, () => {
-                super._sendNotFound(res);
-            }, () => {
-                super._sendInternalServerError(res);
-            });
-        })
+        });
     }
 }
 

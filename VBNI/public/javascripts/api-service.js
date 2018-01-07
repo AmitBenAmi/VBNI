@@ -71,6 +71,33 @@
             });
 
             return deferred.promise;
+        },
+        setReferenceAsGood: (referenceId, amount) => {
+            let deferred = $q.defer();
+
+            $http.put(`references/${referenceId}`, {
+                isGood: true,
+                amount: amount
+            }).then((res) => {
+                deferred.resolve(res);
+            }, (err) => {
+                deferred.reject(err);
+            });
+
+            return deferred.promise;
+        },
+        setReferenceAsBad: (referenceId) => {
+            let deferred = $q.defer();
+
+            $http.put(`references/${referenceId}`, {
+                isGood: false
+            }).then((res) => {
+                deferred.resolve(res);
+            }, (err) => {
+                deferred.reject(err);
+            });
+
+            return deferred.promise;
         }
     }
 }]);

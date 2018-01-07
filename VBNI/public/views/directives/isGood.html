@@ -1,0 +1,8 @@
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="../../stylesheets/directives/isGood.css">
+
+<span ng-class="{ colored: colored }" ng-switch="good">
+    <i class="material-icons isGood-good" ng-switch-when="true">done</i>
+    <i class="material-icons isGood-bad" ng-switch-when="false">close</i>
+    <i class="material-icons" ng-switch-when="undefined">group</i>
+</span>

@@ -2,10 +2,13 @@ const HttpStatusCodes = require('http-status-codes');
 const Route = require('./route');
 const MemberDAL = require('../DAL/DB/memberDAL');
 const cookieName = 'user';
+const minutes = 5;
+const secondsInMinute = 60;
+const millisecondsInSecond = 1000;
 const cookieParams = {
     httpOnly: false,
     signed: false,
-    maxAge: 300000,
+    maxAge: minutes * secondsInMinute * millisecondsInSecond,
 };
 const prefixLoginURL = "/login/";
 
@@ -24,8 +27,8 @@ class LoginRouter extends Route {
     }
 
     _isReqToLogin(req) {
-        return req.path.startsWith(prefixLoginURL) || 
-               (req.path === '/login' && req.method === 'POST');
+        return req.path.startsWith(prefixLoginURL) ||
+            (req.path === '/login' && req.method === 'POST');
     }
 
     requestsMiddleware() {
@@ -44,30 +47,28 @@ class LoginRouter extends Route {
 
     login() {
         super.post('login', (req, res) => {
-            let userName;
-
             try {
-                userName = req.body.username;
+                let userName = req.body.username;
+
+                this.memberDAL.findById(userName, (member) => {
+                    try {
+                        res.cookie(cookieName, JSON.stringify(member), cookieParams);
+                        super._sendOk(res);
+                    }
+                    catch (e) {
+                        console.error(e);
+                        super._sendInternalServerError(res);
+                    }
+                }, () => {
+                    super._sendNotFound(res);
+                }, () => {
+                    super._sendInternalServerError(res);
+                });
             }
             catch (e) {
                 console.error(e);
                 super._sendBadRequest(res);
             }
-
-            this.memberDAL.findById(userName, (member) => {
-                try {
-                    res.cookie(cookieName, JSON.stringify(member), cookieParams);
-                    super._sendOk(res);
-                }
-                catch (e) {
-                    console.error(e);
-                    super._sendInternalServerError(res);
-                }
-            }, () => {
-                super._sendNotFound(res);
-            }, () => {
-                super._sendInternalServerError(res);
-            });
         });
     }
 }

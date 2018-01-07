@@ -8,6 +8,10 @@ function ($scope, apiService) {
         $scope.members = data;
     }, function (err) {
         console.log(err);
+
+        if (err.status === 400) {
+            $scope.noGroup = true;
+        }
     })
     //$scope.members = [
     //    {

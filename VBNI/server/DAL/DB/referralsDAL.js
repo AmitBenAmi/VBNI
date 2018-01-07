@@ -22,9 +22,31 @@ class RefferalsDAL extends MongoDAL {
         }, errorCb);
     }
 
+    setBadReferral(referralId, wrongIdCb, errorCb, successCb) {
+        this._updateReferral(referralId, {isGood:false,amount:0}, wrongIdCb, errorCb, successCb);
+    }
+
+    setGoodReferral(referralId, amount, wrongIdCb, errorCb, successCb) {
+        this._updateReferral(referralId, {isGood:true,amount:amount}, wrongIdCb, errorCb, successCb);
+    }
+
+    _updateReferral(referralId, updateDoc, wrongIdCb, errorCb, successCb) {
+        try {
+            let referralObjectId = super.createObjectId(referralId);
+            super.update(this.collectionName, {_id:referralObjectId}, updateDoc, errorCb, successCb);
+        }
+        catch (e) {
+            console.error(e);
+
+            if (super._checkIfFunction(wrongIdCb)) {
+                wrongIdCb(e);
+            }
+        }
+    }
+
     _getReferralsDetails(referralsDocs, creationCb, memberNotfoundCb, errorCb) {
         let referralPromises = referralsDocs.map((referral) => {
-            return this._createReferral(referral, creationCb, memberNotfoundCb, errorCb);
+            return this._createReferral(referral, memberNotfoundCb, errorCb);
         });
 
         Promise.all(referralPromises).then((referralsDetailsResponse) => {
@@ -32,7 +54,7 @@ class RefferalsDAL extends MongoDAL {
         })
     }
 
-    _createReferral(referralDoc, creationCb, memberNotfoundCb, errorCb) {
+    _createReferral(referralDoc, memberNotfoundCb, errorCb) {
         return new Promise((resolve) => {
             let memberDetailsPromises = [];
 
@@ -50,7 +72,7 @@ class RefferalsDAL extends MongoDAL {
         });
     }
 
-    _getMemberDetails(id, idFoundCallbackFunction, notFoundCallbackFunction, errorCb) {
+    _getMemberDetails(id, notFoundCallbackFunction, errorCb) {
         return new Promise((resolve) => {
             this.MemberDAL.findById(id, (member) => {
                 resolve(member);

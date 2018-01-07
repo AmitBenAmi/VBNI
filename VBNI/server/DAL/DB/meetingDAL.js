@@ -4,10 +4,9 @@ const meetingsCollectionName = 'meetings';
 
 class MeetingDAL extends MongoDAL {
     findByGroup(groupId, wrongIdCb, errorCb, foundCb) {
-        let groupObjectId;
-
         try {
-            groupObjectId = super.createObjectId(groupId);
+            let groupObjectId = super.createObjectId(groupId);
+            super.findByProperties({groupId:groupObjectId}, meetingsCollectionName, foundCb, errorCb);
         }
         catch (e) {
             console.error(e);
@@ -16,8 +15,6 @@ class MeetingDAL extends MongoDAL {
                 wrongIdCb(e);
             }
         }
-
-        super.findByProperties({groupId:groupObjectId}, meetingsCollectionName, foundCb, errorCb);
     }
 }
 

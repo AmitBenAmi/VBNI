@@ -21,3 +21,17 @@
     font-size: 40px;
     left: 35% !important;
 }
+
+.myRefIsGood {
+    --buttonSize: 35px;
+}
+
+.myRefIsGood.mdl-button--fab_flinger-container {
+    position: unset;
+}
+
+.myRefIsGood.mdl-button--fab_flinger-container .mdl-button--fab {
+    height: var(--buttonSize);
+    width: var(--buttonSize);
+    min-width: var(--buttonSize);
+}
