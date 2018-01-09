@@ -1,12 +1,14 @@
 const HttpStatusCodes = require('http-status-codes');
 const Route = require('./route');
 const referralsDAL = require('../DAL/DB/referralsDAL');
+const cookieName = 'user';
 
 class ReferralRouter extends Route {
     init() {
         this.referralsDAL = new referralsDAL();
         this.getByReferrerId();
         this.getByReferenceToMemberId();
+        this.createReferral();
         this.setReferralAsGoodOrBad();
     }
 
@@ -31,6 +33,25 @@ class ReferralRouter extends Route {
     getByReferenceToMemberId() {
         super.get('references/:memberId', (req, res) => {
             req.params.memberId ? this._getByReferenceToMemberId(req.params.memberId, req, res) : super._sendBadRequest(res);
+        });
+    }
+
+    createReferral() {
+        super.post('references', (req, res) => {
+            try {
+                let referrer = JSON.parse(req.cookies[cookieName]).userName;
+                let referenceTo = req.body.referenceTo;
+                let clientName = req.body.clientName;
+                this.referralsDAL.createReferral(referrer, referenceTo, clientName, () => {
+                    super._sendInternalServerError(res);
+                }, () => {
+                    super._sendOk(res);
+                });
+            }
+            catch (e) {
+                console.error(e);
+                super._sendBadRequest(res);
+            }
         });
     }
 

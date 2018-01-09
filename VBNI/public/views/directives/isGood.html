@@ -4,5 +4,5 @@
 <span ng-class="{ colored: colored }" ng-switch="good">
     <i class="material-icons isGood-good" ng-switch-when="true">done</i>
     <i class="material-icons isGood-bad" ng-switch-when="false">close</i>
-    <i class="material-icons" ng-switch-when="undefined">group</i>
+    <i class="material-icons" ng-switch-when="undefined,null" ng-switch-when-separator=",">group</i>
 </span>

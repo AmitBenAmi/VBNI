@@ -38,7 +38,7 @@ class LoginRouter extends Route {
             // If user isn't logged in, redirect to login page
             if (!this._checkForCookies(req, cookieName, cookieParams.signed) &&
                 !this._isReqToLogin(req)) {
-                res.redirect('/login/login.html');
+                res.redirect(`${prefixLoginURL}login.html`);
             } else {
                 next();
             }

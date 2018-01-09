@@ -72,6 +72,31 @@
 
             return deferred.promise;
         },
+        getMembers: () => {
+            var deferred = $q.defer();
+            $http.get('members').then((res) => {
+                deferred.resolve(res.data);
+            }, (err) => {
+                console.error(err);
+                deferred.reject(err);
+            });
+
+            return deferred.promise;
+        },
+        createReferral: (referencedMember, clientName) => {
+            var deferred = $q.defer();
+            $http.post('references', {
+                referenceTo: referencedMember,
+                clientName: clientName
+            }).then((res) => {
+                deferred.resolve(res.data);
+            }, (err) => {
+                console.error(err);
+                deferred.reject(err);
+            });
+
+            return deferred.promise;
+        },
         setReferenceAsGood: (referenceId, amount) => {
             let deferred = $q.defer();
 
@@ -81,6 +106,7 @@
             }).then((res) => {
                 deferred.resolve(res);
             }, (err) => {
+                console.error(err);
                 deferred.reject(err);
             });
 
@@ -94,6 +120,7 @@
             }).then((res) => {
                 deferred.resolve(res);
             }, (err) => {
+                console.error(err);
                 deferred.reject(err);
             });
 

@@ -25,7 +25,7 @@
         };
 
         let openAmountDialogForRef = (referenceId) => {
-            let dialog = $('dialog')[0];
+            let dialog = $('#setGoodAmountDialog')[0];
 
             $scope.selectedRefId = referenceId;
             $scope.refAmount = 0;
@@ -33,7 +33,9 @@
             if (dialog) {
                 dialog.showModal();
 
-                if (!mdlComponentUpgraded) {
+                if (!mdlComponentUpgraded && 
+                    componentHandler && 
+                    typeof(componentHandler.upgradeAllRegistered) === 'function') {
                     // Updating Material Design Lite elements (For MaterialTextfield)
                     componentHandler.upgradeAllRegistered();
 

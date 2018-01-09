@@ -1,5 +1,6 @@
 const MongoDAL = require('./mongoDAL');
 const Referral = require('../../Models/referral');
+const NewReferral = require('../../Models/newReferral');
 const MemberDAL = require('./memberDAL');
 const Promise = require('bluebird');
 
@@ -52,6 +53,11 @@ class RefferalsDAL extends MongoDAL {
         Promise.all(referralPromises).then((referralsDetailsResponse) => {
             creationCb(referralsDetailsResponse)
         })
+    }
+
+    createReferral(referrer, referenceTo, clientName, errorCb, successCb) {
+        let newReferral = new NewReferral(referrer, referenceTo, clientName);
+        super.insert(newReferral, this.collectionName, errorCb, successCb);
     }
 
     _createReferral(referralDoc, memberNotfoundCb, errorCb) {

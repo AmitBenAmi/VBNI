@@ -4,7 +4,18 @@ const MemberDAL = require('../DAL/DB/memberDAL');
 class Member extends Route {
     init() {
         this.memberDAL = new MemberDAL();
+        this.getMembers();
         this.addToGroup();
+    }
+
+    getMembers() {
+        super.get('members', (req, res) => {
+            this.memberDAL.getMembers(() => {
+                super._sendInternalServerError(res);
+            }, (members) => {
+                res.send(members);
+            });
+        });
     }
 
     addToGroup() {

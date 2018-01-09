@@ -6,8 +6,8 @@
                 <h3 class="mdl-card__title-text">Referenced To Me</h3>
             </div>
             <div class="mdl-card__supporting-text">
-                <dialog class="mdl-dialog">
-                    <form id="amountForm" name="amountForm" ng-submit="setRefAsGood(selectedRefId, refAmount)">
+                <dialog id="setGoodAmountDialog" class="mdl-dialog">
+                    <form name="amountForm" ng-submit="setRefAsGood(selectedRefId, refAmount)">
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                             <input id="refAmount" class="mdl-textfield__input" type="text" ng-model="refAmount" min="0" required />
                             <label class="mdl-textfield__label" for="refAmount">Amount...</label>
@@ -34,11 +34,11 @@
                             <td class="mdl-data-table__cell--non-numeric">{{ref.clientName}}</td>
                             <td class="mdl-data-table__cell--non-numeric">
                                 <span ng-switch="ref.isGood">
-                                    <div ng-switch-when="undefined" class="myRefIsGood mdl-button--fab_flinger-container">
-                                        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored mdl-color--green" ng-click="openAmountDialogForRef(ref._id)">
+                                    <div ng-switch-when="undefined,null" ng-switch-when-separator="," class="myRefIsGood mdl-button--fab_flinger-container">
+                                        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-button--colored mdl-color--green" ng-click="openAmountDialogForRef(ref._id)">
                                             <is-good good="true">
                                         </button>
-                                        <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-color--red" ng-click="setRefAsBad(ref._id)">
+                                        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-button--colored mdl-color--red" ng-click="setRefAsBad(ref._id)">
                                             <is-good good="false">
                                         </button>
                                     </div>

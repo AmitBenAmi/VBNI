@@ -24,6 +24,25 @@ class MemberDAL extends MongoDAL {
         }
     }
 
+    getMembers(errorCb, successCb) {
+        super.find(membersCollectionName, (memberDocs) => {
+            try {
+                let members = this._createMembers(memberDocs);
+
+                if (super._checkIfFunction(successCb)) {
+                    successCb(members);
+                }
+            }
+            catch (e) {
+                console.error(e);
+
+                if (super._checkIfFunction(errorCb)) {
+                    errorCb(e);
+                }
+            }
+        }, errorCb);
+    }
+
     addToGroup(userName, groupId, wrongIdCb, errorCb, successCb) {
         try {
             let groupObjectId = super.createObjectId(groupId);
@@ -36,6 +55,14 @@ class MemberDAL extends MongoDAL {
                 wrongIdCb(e);
             }
         }
+    }
+
+    _createMembers(memberDocs) {
+        let members = [];
+        memberDocs.forEach(memberDoc => {
+            members.push(this._createMember(memberDoc));
+        });
+        return members;
     }
 
     _createMember(memberDoc) {

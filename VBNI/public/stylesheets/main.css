@@ -22,6 +22,10 @@
     left: 35% !important;
 }
 
+.getmdl-select__fix-height .mdl-menu__container .mdl-menu {
+    max-height: 230px !important;
+}
+
 .myRefIsGood {
     --buttonSize: 35px;
 }
@@ -30,7 +34,7 @@
     position: unset;
 }
 
-.myRefIsGood.mdl-button--fab_flinger-container .mdl-button--fab {
+.myRefIsGood.mdl-button--fab_flinger-container .mdl-button--mini-fab {
     height: var(--buttonSize);
     width: var(--buttonSize);
     min-width: var(--buttonSize);

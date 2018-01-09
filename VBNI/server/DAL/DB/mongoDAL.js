@@ -180,9 +180,22 @@ class MongoDAL {
         }
     }
 
-    insert(documents, collectionName) {
+    insert(documents, collectionName, errorCb, successCb) {
         this._getCollection(collectionName, (collection) => {
-            collection.insert(document);
+            try {
+                collection.insert(documents);
+
+                if (this._checkIfFunction(successCb)) {
+                    successCb();
+                }
+            }
+            catch (e) {
+                console.error(e);
+
+                if (this._checkIfFunction(errorCb)) {
+                    errorCb(e);
+                }
+            }
         });
     }
 }
