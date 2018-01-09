@@ -8,4 +8,7 @@
         }, function (err) {
             console.log(err);
         });
+
+        // Refresh MDL to show loader
+        componentHandler.upgradeAllRegistered();
     }]);

@@ -1,7 +1,8 @@
 ﻿<div class="mdl-grid">
     <div class="mdl-cell mdl-cell--12-col" >
+        <div class="mdl-spinner mdl-js-spinner mdl-spinner--single-color is-active spinner-center" ng-show="myRefs == undefined"></div>
         <!-- Card contains the table -->
-        <div class="fullwidth mdl-card mdl-shadow--2dp">
+        <div class="fullwidth mdl-card mdl-shadow--2dp" ng-show="myRefs != undefined">
             <!-- Card Header -->
             <div class="mdl-card__title">
                 <h3 class="mdl-card__title-text">My Referrals</h3>

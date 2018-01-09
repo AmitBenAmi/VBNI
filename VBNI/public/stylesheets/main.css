@@ -39,3 +39,8 @@
     width: var(--buttonSize);
     min-width: var(--buttonSize);
 }
+
+.spinner-center {
+    margin-left: 50%;
+    margin-top : 20%;
+}

@@ -4,7 +4,7 @@
         let mdlComponentUpgraded = false;
 
         apiService.getRefsToMe(userDetails.userName).then((data) => {
-            $scope.refsToMe = data;
+            //$scope.refsToMe = data;
         }, (err) => {
             console.log(err);
         });
@@ -28,7 +28,7 @@
             let dialog = $('#setGoodAmountDialog')[0];
 
             $scope.selectedRefId = referenceId;
-            $scope.refAmount = 0;
+            $scope.refAmount = undefined;
 
             if (dialog) {
                 dialog.showModal();
@@ -78,5 +78,8 @@
         $scope.setRefAsGood = setRefAsGood;
         $scope.setRefAsBad = setRefAsBad;
         $scope.refAmount = 0;
+
+        // Refresh MDL to show loader
+        componentHandler.upgradeAllRegistered();
     }
 ]);
