@@ -60,7 +60,8 @@ vbni.run(['$rootScope', '$location', 'apiService', ($rootScope, $location, apiSe
     };
 
     apiService.getMembers().then((members) => {
-        $rootScope.members = members;
+        // Filter out the current user
+        $rootScope.members = members.filter(m => m.userName != $rootScope.user.userName);
     });
 
     let disposeScopeVars = () => {
