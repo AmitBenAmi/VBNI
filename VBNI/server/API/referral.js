@@ -10,6 +10,7 @@ class ReferralRouter extends Route {
         this.getByReferenceToMemberId();
         this.createReferral();
         this.setReferralAsGoodOrBad();
+        this.getOpenRefsByReferenceToId();
     }
 
     getByReferrerId() {
@@ -33,6 +34,14 @@ class ReferralRouter extends Route {
     getByReferenceToMemberId() {
         super.get('references/:memberId', (req, res) => {
             req.params.memberId ? this._getByReferenceToMemberId(req.params.memberId, req, res) : super._sendBadRequest(res);
+        });
+    }
+
+    getOpenRefsByReferenceToId() {
+        super.get('references/count/:memberId', (req,res) => {
+            req.params.memberId ?
+                this._getOpenRefsByReferenceToId(req.params.memberId, req, res) :
+                super._sendBadRequest(res);
         });
     }
 
@@ -102,6 +111,15 @@ class ReferralRouter extends Route {
         },
         () => {
             super._sendBadRequest(res); 
+        });
+    }
+
+    _getOpenRefsByReferenceToId(memberId, req, res) {
+        this.referralsDAL.getOpenRefsByReferenceToId(memberId, () => {
+            super._sendInternalServerError(res); 
+        },
+        (count) => {
+            res.send(String(count));
         });
     }
 }

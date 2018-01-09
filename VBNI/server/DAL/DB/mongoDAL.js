@@ -161,6 +161,25 @@ class MongoDAL {
         }
     }
 
+    countByProperties(properties, collectionName, foundCallbackFunction, errorCb) {
+        if (this._checkIfFunction(foundCallbackFunction)) {
+            this._getCollection(collectionName, (collection) => {
+                collection.find(properties).count(function (error, count) {
+                    if (error) {
+                        console.error(error);
+
+                        if (this._checkIfFunction(errorCb)) {
+                            errorCb(error);
+                        }
+                    }
+                    else {
+                        foundCallbackFunction(count);
+                    }
+                });
+            });
+        }
+    }
+
     findById(id, collectionName, idFoundCallbackFunction, idNotFoundCallbackFunction, erroCb) {
         if (this._checkIfFunction(idFoundCallbackFunction)) {
             this.findByProperties({_id:id}, collectionName, (documents) => {

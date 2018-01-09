@@ -23,6 +23,12 @@ class RefferalsDAL extends MongoDAL {
         }, errorCb);
     }
 
+    getOpenRefsByReferenceToId(userId, errorCb, foundCb) {
+        super.countByProperties({referenceTo : userId, isGood : null}, this.collectionName, (count) => {
+           foundCb(count);
+        }, errorCb);
+    }
+
     setBadReferral(referralId, wrongIdCb, errorCb, successCb) {
         this._updateReferral(referralId, {isGood:false,amount:0}, wrongIdCb, errorCb, successCb);
     }

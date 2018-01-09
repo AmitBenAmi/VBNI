@@ -58,6 +58,16 @@
 
             return deferred.promise;
         },
+        getOpenRefsToMeCount: function (username) {
+            var deferred = $q.defer();
+            $http.get('references/count/' + username).then(function (res) {
+                deferred.resolve(res.data);
+            }, function (err) {
+                deferred.reject(err);
+            })
+
+            return deferred.promise;
+        },
         getNextMeeting: function(groupId) {
             var deferred = $q.defer();
             $http.get('meetings/getNextMeetingForGroup', {

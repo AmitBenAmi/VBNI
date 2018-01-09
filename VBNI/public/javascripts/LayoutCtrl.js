@@ -26,10 +26,18 @@ function($scope, $http, $rootScope, $location, apiService) {
             else {
                 $scope.nextMeeting = "You have no upcoming meetings";
             }
-            
         }, function(err) {
             console.log(err);
-        })
+        });
+
+        // Get number of references to me to show
+        apiService.getOpenRefsToMeCount($rootScope.user.userName).then((data) => {
+            $scope.countRefsToMe = data;
+            // Refresh MDL to show counter
+            componentHandler.upgradeAllRegistered();
+        }, (err) => {
+            console.log(err);
+        });
     }
 
     $scope.isInHome = function() {

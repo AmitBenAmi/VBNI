@@ -56,7 +56,8 @@
           <a menu-close class="mdl-navigation__link" href="#/MyGroup">My Group</a>
           <a menu-close class="mdl-navigation__link" href="#/MyReferences">My References</a>
           <a menu-close class="mdl-navigation__link" href="#/ReferencedToMe">
-            <span class="mdl-badge" data-badge="4">Referenced to me</span>
+            <span class="mdl-badge" data-badge="{{countRefsToMe}}" ng-if="countRefsToMe != undefined">Referenced to me</span>
+            <span ng-if="countRefsToMe == undefined">Referenced to me</span>
           </a>
           <a menu-close class="mdl-navigation__link" href="#/GroupMeetings">Group Meetings</a>
         </nav>

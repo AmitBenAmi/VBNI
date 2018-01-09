@@ -4,7 +4,7 @@
         let mdlComponentUpgraded = false;
 
         apiService.getRefsToMe(userDetails.userName).then((data) => {
-            //$scope.refsToMe = data;
+            $scope.refsToMe = data;
         }, (err) => {
             console.log(err);
         });
