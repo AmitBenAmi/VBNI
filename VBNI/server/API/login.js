@@ -31,6 +31,10 @@ class LoginRouter extends Route {
             (req.path === '/login' && req.method === 'POST');
     }
 
+    _isReqGet(req) {
+        return req.method === 'GET';
+    }
+
     requestsMiddleware() {
         this.app.use((req, res, next) => {
             console.info(`${req.protocol} request for path ${req.path}`);
@@ -38,7 +42,14 @@ class LoginRouter extends Route {
             // If user isn't logged in, redirect to login page
             if (!this._checkForCookies(req, cookieName, cookieParams.signed) &&
                 !this._isReqToLogin(req)) {
-                res.redirect(`${prefixLoginURL}login.html`);
+                // If the request is get redirect
+                if (this._isReqGet(req)) {
+                    res.redirect(`${prefixLoginURL}login.html`);
+                // else return 401
+                } else {
+                    super._sendUnauthorized(res);
+                }
+            // User is logged / trying to login! can continue
             } else {
                 next();
             }

@@ -25,6 +25,10 @@ class Route {
         this._sendResponse(HttpStatusCodes.BAD_REQUEST, res);
     }
 
+    _sendUnauthorized(res) {
+        this._sendResponse(HttpStatusCodes.UNAUTHORIZED, res);
+    }
+
     _sendNotFound(res) {
         this._sendResponse(HttpStatusCodes.NOT_FOUND, res);
     }
