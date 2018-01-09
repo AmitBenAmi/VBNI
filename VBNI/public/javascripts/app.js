@@ -4,6 +4,7 @@ var vbni = angular.module('vbni', ['ngRoute']);
 
 const navCurrentChosenLink = 'mdl-navigation__link--current';
 const mdlSelectClass = 'getmdl-select';
+const escKey = 27;
 
 vbni.config(function ($routeProvider, $locationProvider) {
     $routeProvider
@@ -91,6 +92,12 @@ vbni.run(['$rootScope', '$location', 'apiService', ($rootScope, $location, apiSe
                 getmdlSelect.init(`.${mdlSelectClass}`);
 
                 mdlComponentUpgraded = !mdlComponentUpgraded;
+
+                dialog.addEventListener('keydown', (e) => {
+                    if (e.keyCode === escKey) {
+                        disposeScopeVars();
+                    }
+                });
             }
         }
     };
