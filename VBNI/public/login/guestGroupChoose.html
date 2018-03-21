@@ -15,7 +15,7 @@
     <h1>Choose a group</h1>
     <div ng-controller="groupChooseCtrl">
         <div ng-repeat="group in groups">
-            <a ng-click="groupChosen(group._id)">{{ group.name }}</a>
+            <a ng-click="groupChosen(group._id)" style="cursor: pointer;">{{ group.name }}</a>
         </div>
     </div>
   </body>

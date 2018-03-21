@@ -12,8 +12,8 @@ const cookieParams = {
 };
 const guestCookie = {
     userName: 'guest',
-    firstName: 'guest',
-    lastName: 'guest',
+    firstName: 'Guest',
+    lastName: '',
     job: 'guest',
     groupId: 'GuestGroup'
 }
