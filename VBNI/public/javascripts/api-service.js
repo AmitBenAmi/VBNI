@@ -30,6 +30,16 @@
 
             return deferred.promise;
         },
+        getAllGroups: function() {
+            var deferred = $q.defer();
+            $http.get('/groups').then(function(res) {
+                deferred.resolve(res.data)
+            }, function(err) {
+                deferred.reject(err);
+            });
+
+            return deferred;
+        }
         getMyGroupMeetings: function (groupId) {
             var deferred = $q.defer();
             $http.get('/meetings', {

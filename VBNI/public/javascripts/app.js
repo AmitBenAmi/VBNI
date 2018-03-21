@@ -24,6 +24,10 @@ vbni.config(function ($routeProvider, $locationProvider) {
             templateUrl: 'views/groupmeetings.html',
             controller: 'GroupMeetingsCtrl'
         })
+        .when('/guestGroupChoose', {
+            tempalteUrl: 'views/guestGroupChoose.html',
+            controller: 'GuestGroupChooseCtrl'
+        })
         .otherwise({
             templateUrl: 'views/home.html'
         })

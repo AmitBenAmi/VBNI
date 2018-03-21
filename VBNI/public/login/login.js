@@ -47,4 +47,8 @@ $(document).ready(() => {
             eventFn(event);
         }
     });
+
+    $("#guest-button").on('click', function(evt) {
+        window.location.href = '/guestGroupChoose'
+    })
 });
