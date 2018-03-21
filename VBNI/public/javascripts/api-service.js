@@ -145,6 +145,9 @@
             });
 
             return deferred.promise;
+        },
+        register: (user) => {
+            return $http.post('/register', user);
         }
     }
 }]);

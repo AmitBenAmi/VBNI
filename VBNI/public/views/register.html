@@ -1,0 +1,36 @@
+<body>
+    <form name="registerForm" novalidate>
+        <div>
+            <label for="username">Username:</label>
+            <input type="text" id="username" ng-model="user.username" required>
+        </div>
+        <div>
+            <label for="pass">Password:</label>            
+            <input type="password" id="pass" ng-model="user.password" required>
+        </div>
+        <div>
+            <label for="firstname">First Name:</label>            
+            <input type="text" id="firstname" ng-model="user.firstName" required>
+        </div>
+        <div>
+            <label for="lastname">Password:</label>            
+            <input type="text" id="lastname" ng-model="user.lastName" required>
+        </div>
+        <div>
+            <label for="role">Role:</label>            
+            <input type="text" id="role" ng-model="user.role" required>
+        </div>
+    </form>
+    <div class="mdl-card__actions">
+        <a  id="login-button" 
+            class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" 
+            ng-click="register()"
+            ng-disabled="registerForm.$invalid">
+            Register!
+        </a>
+    </div>
+    <div id="toast" class="mdl-js-snackbar mdl-snackbar">
+        <div class="mdl-snackbar__text"></div>
+        <button class="mdl-snackbar__action" type="button"></button>
+    </div>
+  </body>

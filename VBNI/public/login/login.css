@@ -7,7 +7,7 @@
     width: 100%;
   }
 .login-box .card-login > .mdl-card__title {
-    color: #737272;
+    color: white;
     height: 200px;
     background: url('/login/login-background.jpg') center / cover;
     background-repeat: no-repeat;

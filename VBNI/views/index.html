@@ -27,7 +27,8 @@
     <script src="/javascripts/RefsToMeCtrl.js"></script>
     <script src="/javascripts/GroupMeetingsCtrl.js"></script>
     <script src="/javascripts/GroupCtrl.js"></script>
-    <script src="/javascripts/GuestGroupChooseCtrl.js"></script>
+    <script src="/javascripts/RegisterCtrl.js"></script>
+    
   </head>
   <body ng-app="vbni">
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header" ng-controller="LayoutCtrl">
@@ -61,6 +62,8 @@
             <span ng-if="countRefsToMe == undefined">Referenced to me</span>
           </a>
           <a menu-close class="mdl-navigation__link" href="#/GroupMeetings">Group Meetings</a>
+          <a menu-close class="mdl-navigation__link" href="#/Register" ng-show="$root.user.userName == 'guest'">Register</a>
+          
         </nav>
       </div>
       <main class="mdl-layout__content">
