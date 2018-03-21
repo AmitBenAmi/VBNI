@@ -49,6 +49,10 @@ $(document).ready(() => {
     });
 
     $("#guest-button").on('click', function(evt) {
-        window.location.href = '/guestGroupChoose'
+        $.post('/guestGroupChoose').done((data) => {
+            window.location.href = '/#guestGroupChoose'
+        }).fail((err) => {
+            console.log(err);
+        })
     })
 });

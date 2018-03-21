@@ -38,8 +38,8 @@
                 deferred.reject(err);
             });
 
-            return deferred;
-        }
+            return deferred.promise;
+        },
         getMyGroupMeetings: function (groupId) {
             var deferred = $q.defer();
             $http.get('/meetings', {
