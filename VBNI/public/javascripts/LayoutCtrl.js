@@ -10,6 +10,7 @@ function($scope, $http, $rootScope, $location, apiService) {
             $rootScope.user = JSON.parse(decodeURIComponent(cookieParts[1]));
 
             $scope.username = $rootScope.user.firstName + " " + $rootScope.user.lastName;
+            $scope.userRole = $rootScope.user.role;
         }
     }
 

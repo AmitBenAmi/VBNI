@@ -24,6 +24,10 @@ vbni.config(function ($routeProvider, $locationProvider) {
             templateUrl: 'views/groupmeetings.html',
             controller: 'GroupMeetingsCtrl'
         })
+        .when('/Manage', {
+            templateUrl: 'views/manage.html',
+            controller: 'GroupMeetingsCtrl'
+        })
         .otherwise({
             templateUrl: 'views/home.html'
         })

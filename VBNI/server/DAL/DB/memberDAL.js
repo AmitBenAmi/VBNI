@@ -73,7 +73,8 @@ class MemberDAL extends MongoDAL {
             memberDoc.groupId, 
             memberDoc.job, 
             memberDoc.details,
-            memberDoc.phone);
+            memberDoc.phone,
+            memberDoc.role);
     }
 }
 
