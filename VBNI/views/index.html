@@ -71,7 +71,7 @@
       </main>
       <!-- Speed actions buttons -->
       <div id="fab_ctn" class="mdl-button--fab_flinger-container">
-        <button id="fab_btn" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
+        <button ng-show="$root.user.userName != 'guest'" id="fab_btn" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
           <i class="material-icons">add</i>
         </button>
         <div class="mdl-button--fab_flinger-options">
