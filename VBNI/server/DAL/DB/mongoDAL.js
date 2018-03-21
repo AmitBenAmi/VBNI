@@ -19,10 +19,14 @@ class MongoDAL {
     }
 
     _createUrl(properties) {
+        var userLoginString = "";
+        if (properties.dbUser) {
+            userLoginString = properties.dbUser + ':' +
+                properties.dbPassword + '@';
+        }
+
         this.url =
-            'mongodb://' +
-            properties.dbUser + ':' +
-            properties.dbPassword + '@' +
+            'mongodb://' + userLoginString +
             properties.dbServerName + ':' +
             properties.dbServerPort + '/' +
             properties.dbName;
