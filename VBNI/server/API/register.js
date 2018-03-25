@@ -13,29 +13,28 @@ class RegisterRouter extends Route {
     register() {
         super.post('register', (req, res) => {
                 var userName =  req.body.userName;
-
                 this.MemberDAL.findById(userName,
                 // if user name exists - send conflict code
                 () => {
-                        super._sendInternalServerError(HttpStatusCodes.CONFLICT);
+                        super._sendResponse(HttpStatusCodes.CONFLICT, res);
                 }, () => 
                 {
-                // if id not found - register could be done
-                    this.registerDAL.createRegistration(
-                        {
-                            _id : req.body.userName,
-                            firstName : req.body.firstName,
-                            lastName : req.body.lastName,
-                            job : req.body.job,
-                            groupId : req.body.groupId
-                        },
+                    var addedToRegister = {
+                        _id : req.body.userName,
+                        firstName : req.body.firstName,
+                        lastName : req.body.lastName,
+                        job : req.body.job,
+                        groupId : req.body.groupId
+                    };
+                    // if id not found - register could be done
+                    this.registerDAL.createRegistration(addedToRegister,
                     // on error
                     () => {
                             super._sendInternalServerError(res);
                     },
                     // on success - addind response the registed user name
                     () => {
-                        res.body = userName;
+                        res.body = addedToRegister;
                         super._sendOk(res);
                     });
                 
@@ -44,8 +43,6 @@ class RegisterRouter extends Route {
                 });
         });
     }
-
-
 }
 
 module.exports = RegisterRouter;
