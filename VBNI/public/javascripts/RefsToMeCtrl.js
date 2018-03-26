@@ -77,7 +77,6 @@
         $scope.openAmountDialogForRef = openAmountDialogForRef;
         $scope.setRefAsGood = setRefAsGood;
         $scope.setRefAsBad = setRefAsBad;
-        $scope.refAmount = 0;
 
         // Refresh MDL to show loader
         componentHandler.upgradeAllRegistered();

@@ -146,8 +146,30 @@
 
             return deferred.promise;
         },
+        addMemberToGroup: (member, groupId) => {
+            return $http.post(`group/${groupId}/members/${member._id}`, member);
+        },
+        deleteMembersFromGroup: (groupId, memberIds) => {
+            let deferred = $q.defer();
+
+            $http.delete(`group/${groupId}/members`, {
+                data: {
+                    memberIds: memberIds
+                }
+            }).then((res) => {
+                deferred.resolve(res);
+            }, (err) => {
+                console.error(err);
+                deferred.reject(err);
+            });
+
+            return deferred.promise;
+        },
         register: (user) => {
             return $http.post('/register', user);
+        },
+        getRegistrations: (groupId) => {
+            return $http.get(`/register/${groupId}`);
         }
     }
 }]);

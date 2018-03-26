@@ -27,6 +27,7 @@
     <script src="/javascripts/RefsToMeCtrl.js"></script>
     <script src="/javascripts/GroupMeetingsCtrl.js"></script>
     <script src="/javascripts/GroupCtrl.js"></script>
+    <script src="/javascripts/ManagerCtrl.js"></script>
     <script src="/javascripts/RegisterCtrl.js"></script>
     
   </head>
@@ -62,6 +63,7 @@
             <span ng-if="countRefsToMe == undefined">Referenced to me</span>
           </a>
           <a menu-close class="mdl-navigation__link" href="#/GroupMeetings">Group Meetings</a>
+          <a menu-close class="mdl-navigation__link" ng-if="userRole == 'Admin'" href="#/Manage">Manage</a>
           <a menu-close class="mdl-navigation__link" href="#/Register" ng-show="$root.user.userName == 'guest'">Register</a>
           
         </nav>
@@ -106,7 +108,7 @@
             <input type="hidden" ng-model="$root.referenceReferenceToName" name="memberSelectionHidden">
             <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
             <label for="memberSelection" class="mdl-textfield__label">Member</label>
-            <ul for="memberSelectionHidden" class="mdl-menu mdl-menu--botton-left mdl-js-menu">
+            <ul for="memberSelectionHidden" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
               <li class="mdl-menu__item" ng-repeat="member in $root.members" ng-click="$root.createReferenceReferenceTo = member">{{member.firstName}} {{member.lastName}}</li>
             </ul>
           </div>

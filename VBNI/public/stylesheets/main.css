@@ -44,3 +44,13 @@
     margin-left: 50%;
     margin-top : 20%;
 }
+
+.manage-button {
+    margin-right: 10px;
+}
+
+#add_member_dialog {
+    width: 400px;
+    height: 250px;
+}
+ 

@@ -8,6 +8,7 @@ class RegisterRouter extends Route {
         this.MemberDAL = new MemberDAL();
         this.registerDAL = new registerDAL();
         this.register();
+        this.getRegistrations();
     }
 
     register() {
@@ -41,6 +42,27 @@ class RegisterRouter extends Route {
                 }, () => {
                     super._sendInternalServerError(res);
                 });
+        });
+    }
+
+    getRegistrations() {
+        super.get('register/:groupId', (req, res) => {
+            try {
+                let groupId = req.params.groupId;
+
+                this.registerDAL.getRegistrationsByGroup(groupId, () => {
+                    super._sendBadRequest(res);
+                }, () => {
+                    super._sendInternalServerError(res);
+                }, (registrations) => {
+                    res.send(registrations);
+                });
+            }
+            catch (e) {
+                console.error(e);
+
+                super._sendBadRequest(res);
+            }
         });
     }
 }
