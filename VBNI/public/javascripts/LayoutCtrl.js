@@ -31,6 +31,14 @@ function($scope, $http, $rootScope, $location, apiService) {
             console.log(err);
         });
 
+        apiService.getMyGroupMembers($rootScope.user.groupId).then((members) => {
+            $rootScope.members = members;
+        });
+
+        apiService.getMyGroupMeetings($rootScope.user.groupId).then((meetings) => {
+            $rootScope.meetings = meetings;
+        })
+
         // Get number of references to me to show
         apiService.getOpenRefsToMeCount($rootScope.user.userName).then((data) => {
             $scope.countRefsToMe = data;
@@ -45,11 +53,6 @@ function($scope, $http, $rootScope, $location, apiService) {
         return $location.path() == '' ||
                $location.path() == '/' ;
     }
-
-    apiService.getMembers().then((members) => {
-        // Filter out the current user
-        $rootScope.members = members.filter(m => m.userName != $rootScope.user.userName);
-    });
 
     let disposeScopeVars = () => {
         delete $rootScope.createReferenceClientName;

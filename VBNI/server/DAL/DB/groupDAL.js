@@ -22,6 +22,16 @@ class GroupDAL extends MongoDAL {
         membersDAL.findByGroup(groupId, wrongIdCb, successCb, errorCb);
     }
 
+    addMember(groupId, memberId, wrongIdCb, errorCb, successCb) {
+        let membersDAL = new MemberDAL();
+        membersDAL.addToGroup(memberId, groupId, wrongIdCb, errorCb, successCb);
+    }
+
+    deleteMembers(groupId, memberIds, wrongIdCb, errorCb, successCb) {
+        let membersDAL = new MemberDAL();
+        membersDAL.removeFromGroup(memberIds, wrongIdCb, errorCb, successCb);
+    }
+
     _createGroups(groupDocs) {
         let groups = [];
         

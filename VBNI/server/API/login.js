@@ -10,12 +10,20 @@ const cookieParams = {
     signed: false,
     maxAge: minutes * secondsInMinute * millisecondsInSecond,
 };
+const guestCookie = {
+    userName: 'guest',
+    firstName: 'Guest',
+    lastName: '',
+    job: 'guest',
+    groupId: 'GuestGroup'
+}
 const prefixLoginURL = "/login/";
 
 class LoginRouter extends Route {
     init() {
         this.memberDAL = new MemberDAL();
         this.login();
+        this.continueAsGuest();
         this.requestsMiddleware();
     }
 
@@ -81,6 +89,13 @@ class LoginRouter extends Route {
                 super._sendBadRequest(res);
             }
         });
+    }
+
+    continueAsGuest() {
+        super.post('guestGroupChoose', (req, res) => {
+            res.cookie(cookieName, JSON.stringify(guestCookie), cookieParams)
+            super._sendOk(res);
+        })
     }
 }
 

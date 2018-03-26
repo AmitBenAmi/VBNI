@@ -1,5 +1,6 @@
 const MongoDAL = require('./mongoDAL');
 const Member = require('../../Models/member');
+const RegisterDAL = require('./registerDAL');
 const membersCollectionName = "members";
 
 class MemberDAL extends MongoDAL {
@@ -46,7 +47,63 @@ class MemberDAL extends MongoDAL {
     addToGroup(userName, groupId, wrongIdCb, errorCb, successCb) {
         try {
             let groupObjectId = super.createObjectId(groupId);
-            super.update(membersCollectionName, {_id:userName}, {groupId:groupObjectId}, errorCb, successCb);
+
+            let successCallback = (modified) => {
+                if (modified == 1) {
+                    if (super._checkIfFunction(successCb)) {
+                        successCb(modified);
+                    }
+                }
+                else {
+                    let registerDal = new RegisterDAL();
+
+                    registerDal.getRegistrationByUserName(userName, wrongIdCb, errorCb, (register) => {
+                        let member = new Member(
+                            userName, 
+                            register.firstName,
+                            register.lastName, 
+                            groupObjectId, 
+                            register.job, 
+                            register.details, 
+                            register.phone);
+
+                        delete member.userName;
+                        member._id = userName;
+
+                        this.addMember(member, errorCb, () => {
+                            registerDal.deleteRegistration(userName, wrongIdCb, errorCb, successCb);
+                        });
+                    });
+                }
+            }
+
+            super.update(membersCollectionName, {_id:userName}, {groupId:groupObjectId}, errorCb, successCallback);
+        }
+        catch (e) {
+            console.error(e);
+
+            if (super._checkIfFunction(wrongIdCb)) {
+                wrongIdCb(e);
+            }
+        }
+    }
+
+    addMember(member, errorCb, successCb) {
+        try {
+            super.insert(member, membersCollectionName, errorCb, successCb);
+        }
+        catch (e) {
+            console.error(e);
+
+            if (super._checkIfFunction(errorCb)) {
+                errorCb(e);
+            }
+        }
+    }
+
+    removeFromGroup(userNames, wrongIdCb, errorCb, successCb) {
+        try {
+            super.unsetMany(membersCollectionName, userNames, {groupId: undefined}, errorCb, successCb);
         }
         catch (e) {
             console.error(e);

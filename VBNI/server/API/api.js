@@ -3,6 +3,7 @@ const MemberRouter = require('./member');
 const GroupRouter = require('./group');
 const ReferralRouter = require('./referral');
 const MeetingRouter = require('./meeting');
+const RegisterRouter  = require('./register');
 
 class Api {
     register(app) {
@@ -20,6 +21,7 @@ class Api {
         routers.push(new GroupRouter(app));
         routers.push(new ReferralRouter(app));
         routers.push(new MeetingRouter(app));
+        routers.push(new RegisterRouter(app));
 
         return routers;
     }

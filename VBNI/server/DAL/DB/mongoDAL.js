@@ -3,6 +3,7 @@ const DbProperties = require('../Configs/db')
 const mongoPushField = '$push';
 const mongoPullField = '$pull';
 const mongoSetField = '$set';
+const mongoUnsetField = '$unset';
 const mongoAddToSet = '$addToSet';
 const mongoEachField = '$each';
 const mongoInField = '$in';
@@ -19,10 +20,15 @@ class MongoDAL {
     }
 
     _createUrl(properties) {
+        var userString = "";
+        if (properties.dbUser) {
+            userString = properties.dbUser + ':' +
+                         properties.dbPassword + '@';
+        }
+
         this.url =
             'mongodb://' +
-            properties.dbUser + ':' +
-            properties.dbPassword + '@' +
+            userString +
             properties.dbServerName + ':' +
             properties.dbServerPort + '/' +
             properties.dbName;
@@ -61,6 +67,10 @@ class MongoDAL {
         }
     }
 
+    checkIfObjectId(id) {
+        return typeof(id) === 'object' && id._bsontype && id._bsontype === 'ObjectID';
+    }
+
     _updateCallback(collectionName, field, errorCb, successCb) {
         return (err, results) => {
             if (err) {
@@ -74,7 +84,7 @@ class MongoDAL {
                 console.log(`There are ${results.result.nModified} modifications for collection: '${collectionName}' ${field ? 'on field' + field : ''}`);
 
                 if (this._checkIfFunction(successCb)) {
-                    successCb();
+                    successCb(results.result.nModified);
                 }
             }
         };
@@ -87,12 +97,30 @@ class MongoDAL {
             this._updateCallback(collection.collectionName, field, errorCb, successCb));
     }
 
+    _updateMany(collection, query, operation, field, errorCb, successCb) {
+        collection.update(
+            query,
+            operation,
+            {multi: true},
+            this._updateCallback(collection.collectionName, field, errorCb, successCb));
+    }
+
     update(collectionName, query, updateDoc, errorCb, successCb) {
         this._getCollection(collectionName, (collection) => {
             let updateOperation = {
                 [mongoSetField]: updateDoc
             }
             this._update(collection, query, updateOperation, undefined, errorCb, successCb);
+        });
+    }
+
+    unsetMany(collectionName, ids, updateDoc, errorCb, successCb) {
+        this._getCollection(collectionName, (collection) => {
+            let updateOperation = {
+                [mongoUnsetField]: updateDoc
+            };
+
+            this._updateMany(collection, {_id: {[mongoInField]: ids}}, updateOperation, undefined, errorCb, successCb);
         });
     }
 
@@ -140,6 +168,25 @@ class MongoDAL {
 
     find(collectionName, foundCallbackFunction, errorCb) {
         this.findByProperties({}, collectionName, foundCallbackFunction, errorCb);
+    }
+
+    deleteById(id, collectionName, errorCb, successCb) {
+        this._getCollection(collectionName, (collection) => {
+            try {
+                collection.deleteOne({_id: id});
+
+                if (this._checkIfFunction(successCb)) {
+                    successCb();
+                }
+            }
+            catch (e) {
+                console.error(e);
+
+                if (this._checkIfFunction(errorCb)) {
+                    errorCb(e);
+                }
+            }
+        });
     }
 
     findByProperties(properties, collectionName, foundCallbackFunction, errorCb) {

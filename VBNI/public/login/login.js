@@ -47,4 +47,12 @@ $(document).ready(() => {
             eventFn(event);
         }
     });
+
+    $("#guest-button").on('click', function(evt) {
+        $.post('/guestGroupChoose').done((data) => {
+            window.location.href = '/login/guestGroupChoose.html'
+        }).fail((err) => {
+            console.log(err);
+        })
+    })
 });

@@ -6,7 +6,9 @@ const navCurrentChosenLink = 'mdl-navigation__link--current';
 const mdlSelectClass = 'getmdl-select';
 const escKey = 27;
 
-vbni.config(function ($routeProvider, $locationProvider) {
+vbni.config(function ($routeProvider, $locationProvider, $httpProvider) {
+    $httpProvider.defaults.headers.delete = {"Content-Type": "application/json;charset=utf-8"};
+
     $routeProvider
         .when('/MyGroup', {
             templateUrl: 'views/mygroup.html',
@@ -26,7 +28,11 @@ vbni.config(function ($routeProvider, $locationProvider) {
         })
         .when('/Manage', {
             templateUrl: 'views/manage.html',
-            controller: 'GroupMeetingsCtrl'
+            controller: 'ManageCtrl'
+        })
+        .when('/Register', {
+            templateUrl: 'views/register.html',
+            controller: 'RegisterCtrl'
         })
         .otherwise({
             templateUrl: 'views/home.html'

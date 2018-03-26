@@ -1,29 +1,123 @@
 <div class="mdl-grid">
-    <div class="mdl-cell mdl-cell--12-col">
+    <!-- Members managment -->
+    <div class="mdl-cell mdl-cell--6-col">
+        <div class="mdl-spinner mdl-js-spinner mdl-spinner--single-color is-active spinner-center" ng-show="members == undefined"></div>
+        <div class="fullwidth mdl-card mdl-shadow--2dp" ng-show="members != undefined">
+            <!-- Card Header -->
+            <div class="mdl-card__title">
+                <h3 class="mdl-card__title-text">Group Members</h3>
+            </div>
+            <div class="mdl-card__supporting-text">
+                <div class="mdl-grid">
+                    <!-- Action buttons -->
+                    <div class="mdl-cell mdl-cell--12-col">
+                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-color--red manage-button" ng-click="deleteMembers()">
+                            Delete
+                        </button>
+                        <button class="mdl-button mdl-js-button mdl-button--raised manage-button" ng-click="addMemberClick()">
+                            Add Member
+                        </button>
+                    </div>
+                    <!-- Members table -->
+                    <div class="mdl-cell mdl-cell--12-col">
+                        <table id="manage__group-members" class="mdl-data-table mdl-js-data-table member-table fullwidth mdl-data-table--selectable">
+                            <thead>
+                                <tr>
+                                    <th class="mdl-data-table__cell--non-numeric">Name</th>
+                                    <th class="mdl-data-table__cell--non-numeric">Job</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="member in members">
+                                    <td class="mdl-data-table__cell--non-numeric manage__username" style="display: none">{{member._id}}</td>
+                                    <td class="mdl-data-table__cell--non-numeric">{{member.firstName}} {{member.lastName}}</td>
+                                    <td class="mdl-data-table__cell--non-numeric">{{member.job}}</td>
+                                </tr> 
+                            </tbody>
+                        </table>        
+                    </div>
+                </div>                
+            </div>
+        </div>
+    </div>
+    <!-- Meetings managments-->
+    <div class="mdl-cell mdl-cell--6-col">
         <div class="mdl-spinner mdl-js-spinner mdl-spinner--single-color is-active spinner-center" ng-show="meetings == undefined"></div>
         <div class="fullwidth mdl-card mdl-shadow--2dp" ng-show="meetings != undefined">
             <!-- Card Header -->
             <div class="mdl-card__title">
-                <h3 class="mdl-card__title-text">My Group Meetings</h3>
+                <h3 class="mdl-card__title-text">Group Meetings</h3>
             </div>
             <div class="mdl-card__supporting-text">
-                <table class="mdl-data-table mdl-js-data-table fullwidth">
-                    <thead>
-                        <tr>
-                            <th class="mdl-data-table__cell--non-numeric">Date</th>
-                            <th class="mdl-data-table__cell--non-numeric">Host</th>
-                            <th class="mdl-data-table__cell--non-numeric">Summary</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="meeting in meetings">
-                            <td class="mdl-data-table__cell--non-numeric">{{meeting.date.toLocaleString()}}</td>
-                            <td class="mdl-data-table__cell--non-numeric">{{meeting.host}}</td>
-                            <td class="mdl-data-table__cell--non-numeric">{{meeting.summary}}</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="mdl-grid">
+                    <!-- Action buttons -->
+                    <div class="mdl-cell mdl-cell--12-col">
+                        <button class="mdl-button mdl-js-button mdl-button--raised manage-button" ng-click="addMeetingClick()">
+                            Add Meeting
+                        </button>
+                    </div>
+                    <!-- Mettings table -->
+                    <div class="mdl-cell mdl-cell--12-col">
+                        <table class="mdl-data-table mdl-js-data-table member-table fullwidth">
+                            <thead>
+                                <tr>
+                                    <th class="mdl-data-table__cell--non-numeric">Date</th>
+                                    <th class="mdl-data-table__cell--non-numeric">Host</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="meeting in meetings">
+                                    <td class="mdl-data-table__cell--non-numeric">{{meeting.date}}</td>
+                                    <td class="mdl-data-table__cell--non-numeric">{{meeting.host}}</td>
+                                </tr> 
+                            </tbody>
+                        </table>        
+                    </div>
+                </div>                
             </div>
         </div>
+    </div>
+
+    <div>
+        <!-- Add member dialog -->
+        <dialog id="add_member_dialog" class="mdl-dialog">
+            <h3 class="mdl-dialog__title">Add Member to Group</h3>
+            <div class="mdl-dialog__content">
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
+                    <input type="text" ng-model="memberToRegisterText" class="mdl-textfield__input" id="member-awaiting-register" required readonly />
+                    <input type="hidden" ng-model="memberToRegisterText" name="member-awaiting-register__hidden" />
+                    <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+                    <label for="member-awaiting-register" class="mdl-textfield__label">Qualifiers</label>
+                    <ul for="member-awaiting-register__hidden" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                        <li class="mdl-menu__item" ng-repeat="register in membersAwaitingRegister" ng-click="setMemberToRegister(register)">{{register.firstName}} {{register.lastName}}</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mdl-dialog__actions">
+                <button type="button" class="mdl-button" ng-click="closeAddMemberDialog()">Close</button>
+                <button type="button" class="mdl-button mdl-button--colored mdl-color--green" ng-click="addMemberToGroup(memberToRegister)">Add</button>
+            </div>
+        </dialog>
+        <!-- Add meeting dialog -->
+        <dialog id="add_meeting_dialog" class="mdl-dialog">
+            <h3 class="mdl-dialog__title">Add Meetings for Group</h3>
+            <div class="mdl-dialog__content">
+                <div class="mdl-grid">
+                    <!-- Host -->
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="text" id="Host">
+                        <label class="mdl-textfield__label" for="Host">Host...</label>
+                    </div>
+                    <!-- Date of meeting -->    
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
+                        <input class="mdl-textfield__input" type="date" id="date">
+                    </div>
+                </div>
+            </div>
+            <div class="mdl-dialog__actions">
+                <button type="button" class="mdl-button" ng-click="closeAddMeetingDialog()">Close</button>
+                <button type="button" class="mdl-button mdl-button--colored mdl-color--green">Add</button>
+            </div>
+        </dialog>
     </div>
 </div>

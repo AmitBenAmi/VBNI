@@ -7,6 +7,8 @@ class GroupRouter extends Route {
         this.getGroup();
         this.getGroups();
         this.getMembers();
+        this.addMemberToGroup();
+        this.deleteMembersFromGroup();
     }
 
     getGroup() {
@@ -59,6 +61,46 @@ class GroupRouter extends Route {
                 super._sendBadRequest(res);
             }
         })
+    }
+
+    addMemberToGroup() {
+        super.post('group/:groupId/members/:memberId', (req, res) => {
+            try {
+                let groupId = req.params.groupId;
+                let memberId = req.params.memberId;
+                this.groupDAL.addMember(groupId, memberId, () => {
+                    super._sendNotFound(res);
+                }, () => {
+                    super._sendInternalServerError(res);
+                }, () => {
+                    res.send();
+                });
+            }
+            catch (e) {
+                console.error(e);
+                super._sendBadRequest(res);
+            }
+        });
+    }
+
+    deleteMembersFromGroup() {
+        super.delete('group/:id/members', (req, res) => {
+            try {
+                let groupId = req.params.id;
+                let memberIds = req.body.memberIds;
+                this.groupDAL.deleteMembers(groupId, memberIds, () => {
+                    super._sendNotFound(res);
+                }, () => {
+                    super._sendInternalServerError(res);
+                }, () => {
+                    res.send();
+                })
+            }
+            catch (e) {
+                console.error(e);
+                super._sendBadRequest(res);
+            }
+        });
     }
 }
 
