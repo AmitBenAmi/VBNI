@@ -1,60 +1,43 @@
 ﻿<!doctype html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- load Angular -->
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular-route.min.js"></script>
-    <!-- Load jQuery -->
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-    <!-- Load MDL -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
-    <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
-    <script src="http://creativeit.github.io/getmdl-select/getmdl-select.min.js"></script>
-    <!-- Speed actions -->
-    <link rel="stylesheet" href="/stylesheets/fab.css" />
-    <link rel="stylesheet" href="http://creativeit.github.io/getmdl-select/getmdl-select.min.css" />
-    <script src="/javascripts/fab.js"></script>
 
-    <link rel="stylesheet" href="/stylesheets/main.css" />
-    <script src="/javascripts/app.js"></script>
-    <script src="/javascripts/api-service.js"></script>
-    <script src="/javascripts/directives/isGood.js"></script>
-    <script src="/javascripts/LayoutCtrl.js"></script>
-    <script src="/javascripts/MyRefsCtrl.js"></script>
-    <script src="/javascripts/RefsToMeCtrl.js"></script>
-    <script src="/javascripts/GroupMeetingsCtrl.js"></script>
-    <script src="/javascripts/GroupCtrl.js"></script>
-    <script src="/javascripts/ManagerCtrl.js"></script>
-    <script src="/javascripts/RegisterCtrl.js"></script>
-    
-  </head>
-  <body ng-app="vbni">
-    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header" ng-controller="LayoutCtrl">
-      <header class="mdl-layout__header">
-        <div class="mdl-layout__header-row">
-          <span class="mdl-layout-title">
-            <span ng-show="isInHome()">BNI</span>
-            <button ng-show="!isInHome()" ng-click="goBack()" class="mdl-button mdl-js-button mdl-button--icon mdl-button--accent large-button">
-              <i class="material-icons">keyboard_backspace</i>
-            </button>
-          </span>
-          <div class="mdl-layout-spacer"></div>
-          <nav class="mdl-navigation">
-            <a class="mdl-navigation__link" href="/">Home</a>
-            <a class="mdl-navigation__link" href="#">Contact</a>
-          </nav>
-        </div>
-      </header>
-      <div class="mdl-layout__drawer">
-        <span class="mdl-layout-title">
-          <!-- user button -->
-          <button class="mdl-button mdl-js-button mdl-button--icon large-button">
-            <i class="material-icons">face</i>
-          </button>
-        </span>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- load Angular -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular-route.min.js"></script>
+  <!-- Load jQuery -->
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+    crossorigin="anonymous"></script>
+  <!-- Load MDL -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+  <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+  <script src="http://creativeit.github.io/getmdl-select/getmdl-select.min.js"></script>
+  <!-- Speed actions -->
+  <link rel="stylesheet" href="/stylesheets/fab.css" />
+  <link rel="stylesheet" href="http://creativeit.github.io/getmdl-select/getmdl-select.min.css" />
+  <script src="/javascripts/fab.js"></script>
+
+  <link rel="stylesheet" href="/stylesheets/main.css" />
+  <script src="/javascripts/app.js"></script>
+  <script src="/javascripts/api-service.js"></script>
+  <script src="/javascripts/directives/isGood.js"></script>
+  <script src="/javascripts/LayoutCtrl.js"></script>
+  <script src="/javascripts/MyRefsCtrl.js"></script>
+  <script src="/javascripts/RefsToMeCtrl.js"></script>
+  <script src="/javascripts/GroupMeetingsCtrl.js"></script>
+  <script src="/javascripts/GroupCtrl.js"></script>
+  <script src="/javascripts/ManagerCtrl.js"></script>
+  <script src="/javascripts/RegisterCtrl.js"></script>
+
+</head>
+
+<body ng-app="vbni">
+  <div class="mdl-layout__container" ng-controller="LayoutCtrl">
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    <div class="mdl-layout__drawer">
         <nav class="mdl-navigation">
           <a menu-close class="mdl-navigation__link" href="#/MyGroup">Group Members</a>
           <a menu-close class="mdl-navigation__link" href="#/MyReferences" ng-show="$root.user.userName != 'guest'">My References</a>
@@ -65,59 +48,135 @@
           <a menu-close class="mdl-navigation__link" href="#/GroupMeetings">Group Meetings</a>
           <a menu-close class="mdl-navigation__link" ng-if="userRole == 'Admin'" href="#/Manage">Manage</a>
           <a menu-close class="mdl-navigation__link" href="#/Register" ng-show="$root.user.userName == 'guest'">Register</a>
-          
         </nav>
+      </div>
+      <div class="mdl-layout__header mdl-layout__header is-casting-shadow is-compact">
+        <div class="mdl-layout__header-row">
+          <!-- The layout title for phone & tablets -->
+          <span class="mdl-layout-title mdl-cell--hide-desktop" style="left: -20px">
+            <img ng-show="isInHome()" src="images/BNI.png" class="avatar">
+            <button ng-show="!isInHome()" ng-click="goBack()" class="mdl-button mdl-js-button mdl-button--icon mdl-button--accent large-button">
+              <i class="material-icons">keyboard_backspace</i>
+            </button>
+          </span>
+          <!-- The layout title for desktop -->
+          <span class="mdl-layout-title mdl-cell--hide-phone mdl-cell--hide-tablet" style="left: -50px">
+            <img  src="images/BNI.png" class="avatar">
+          </span>
+          <div class="mdl-layout-spacer"></div>
+          <!-- Search -->
+          <div class="android-search-box mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right mdl-textfield--full-width is-upgraded"
+            data-upgraded=",MaterialTextfield">
+            <label class="mdl-button mdl-js-button mdl-button--icon" for="search-field" data-upgraded=",MaterialButton">
+              <i class="material-icons">search</i>
+            </label>
+            <div class="mdl-textfield__expandable-holder">
+              <input class="mdl-textfield__input" id="search-field" type="text">
+            </div>
+          </div>
+          <!-- User -->
+          <a>
+            <img src="images/anonymous.png" class="avatar">
+          </a>
+          <!-- Add here popup of user -->
+        </div>
       </div>
       <main class="mdl-layout__content">
         <div class="page-content">
-          <div ng-view>
-          </div>
+            <div class="mdl-grid">
+              <!-- Show the navigation only on desktop -->
+              <div class="mdl-cell mdl-cell--2-col mdl-cell--hide-phone mdl-cell--hide-tablet">
+                <nav style="position: fixed">
+                  <a menu-close class="nav-item" href="#/MyGroup">Group Members</a>
+                  <a menu-close class="nav-item" href="#/MyReferences" ng-show="$root.user.userName != 'guest'">My References</a>
+                  <a menu-close class="nav-item" href="#/ReferencedToMe" ng-show="$root.user.userName != 'guest'">
+                    <span class="mdl-badge" data-badge="{{countRefsToMe}}" ng-if="countRefsToMe != undefined">Referenced to me</span>
+                    <span ng-if="countRefsToMe == undefined">Referenced to me</span>
+                  </a>
+                  <a menu-close class="nav-item" href="#/GroupMeetings">Group Meetings</a>
+                  <a menu-close class="nav-item" ng-if="userRole == 'Admin'" href="#/Manage">Manage</a>
+                  <a menu-close class="nav-item" href="#/Register" ng-show="$root.user.userName == 'guest'">Register</a>
+                </nav>
+              </div>
+              <div class="mdl-cell mdl-cell--10-col mdl-cell--10-col-tablet mdl-cell--12-col-phone">
+                <div style="position:sticky; height: 100%">
+                  <div ng-view></div>
+                </div>
+              </div>
+            </div>
         </div>
       </main>
-      <!-- Speed actions buttons -->
-      <div id="fab_ctn" class="mdl-button--fab_flinger-container">
-        <button ng-show="$root.user.userName != 'guest'" id="fab_btn" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
-          <i class="material-icons">add</i>
-        </button>
-        <div class="mdl-button--fab_flinger-options">
-          <button id="createReference" 
-                  class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect"
-                  ng-click="showCreateReferenceDialog()">
-            <i class="material-icons">compare_arrows</i>
-          </button>
-          <div class="mdl-tooltip" data-mdl-for="createReference">
-            Create reference
+      <footer class="mdl-mini-footer" style="padding: 4px 10px">
+        <div class="mdl-mini-footer__right-section">
+          <div style="position:relative">
+            <!-- Speed actions buttons -->
+            <div id="fab_ctn" class="mdl-button--fab_flinger-container">
+              <button ng-show="$root.user.userName != 'guest'" id="fab_btn" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
+                <i class="material-icons">add</i>
+              </button>
+              <div class="mdl-button--fab_flinger-options">
+                <button id="createReference" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect" ng-click="showCreateReferenceDialog()">
+                  <i class="material-icons">compare_arrows</i>
+                </button>
+                <div class="mdl-tooltip" data-mdl-for="createReference">
+                  Create reference
+                </div>
+                <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect">
+                  <i class="material-icons">content_copy</i>
+                </button>
+                <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect">
+                  <i class="material-icons">content_paste</i>
+                </button>
+              </div>
+            </div>
           </div>
-          <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect">
-            <i class="material-icons">content_copy</i>
-          </button>
-          <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect">
-            <i class="material-icons">content_paste</i>
-          </button>
         </div>
-      </div>
-      <!-- Create reference dialog -->
-      <dialog id="createReferenceDialog" class="mdl-dialog">
-        <form name="createReferenceForm" ng-submit="createReference()">
-          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-            <input id="createReferenceClientName" class="mdl-textfield__input" ng-model="$root.createReferenceClientName" type="text" required>
-            <label class="mdl-textfield__label" for="createReferenceClientName">Client Name</label>
-          </div>
-          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
-            <input type="text" ng-model="$root.referenceReferenceToName" class="mdl-textfield__input" id="memberSelection" required readonly>
-            <input type="hidden" ng-model="$root.referenceReferenceToName" name="memberSelectionHidden">
-            <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
-            <label for="memberSelection" class="mdl-textfield__label">Member</label>
-            <ul for="memberSelectionHidden" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-              <li class="mdl-menu__item" ng-repeat="member in $root.members" ng-click="$root.createReferenceReferenceTo = member">{{member.firstName}} {{member.lastName}}</li>
-            </ul>
-          </div>
-          <div class="mdl-dialog__actions">
-              <button type="button" class="mdl-button close" ng-click="closeDialog()">Cancel</button>
-              <button type="submit" class="mdl-button" ng-disabled="createReferenceForm.$invalid">Agree</button>
-          </div>
-        </form>
-      </dialog>
+        <div class="mdl-mini-footer__left-section">
+          <ul class="mdl-mini-footer__link-list">
+            <li>
+              <a href="#">Help</a>
+            </li>
+            <li>
+              <a href="#">Privacy & Terms</a>
+            </li>
+          </ul>
+        </div>
+      </footer>
     </div>
-  </body>
+    <!-- Create reference dialog -->
+    <dialog id="createReferenceDialog" class="mdl-dialog">
+      <form name="createReferenceForm" ng-submit="createReference()">
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <input id="createReferenceClientName" class="mdl-textfield__input" ng-model="$root.createReferenceClientName" type="text"
+            required>
+          <label class="mdl-textfield__label" for="createReferenceClientName">Client Name</label>
+        </div>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
+          <input type="text" ng-model="$root.referenceReferenceToName" class="mdl-textfield__input" id="memberSelection" required readonly>
+          <input type="hidden" ng-model="$root.referenceReferenceToName" name="memberSelectionHidden">
+          <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+          <label for="memberSelection" class="mdl-textfield__label">Member</label>
+          <ul for="memberSelectionHidden" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+            <li class="mdl-menu__item" ng-repeat="member in $root.members" ng-click="$root.createReferenceReferenceTo = member">{{member.firstName}} {{member.lastName}}</li>
+          </ul>
+        </div>
+        <div class="mdl-dialog__actions">
+          <button type="button" class="mdl-button close" ng-click="closeDialog()">Cancel</button>
+          <button type="submit" class="mdl-button" ng-disabled="createReferenceForm.$invalid">Agree</button>
+        </div>
+      </form>
+    </dialog>
+  </div>
+</body>
+
+<script>
+  $(document).ready(function() {
+    // First finish the initalize of MDL
+    componentHandler.upgradeAllRegistered();
+    // The drawer button is generated automatically. add it class to hide
+    // it on desktop size
+    $('.mdl-layout__drawer-button').addClass('mdl-cell--hide-desktop');
+});
+</script>
+
 </html>

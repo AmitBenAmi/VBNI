@@ -1,6 +1,7 @@
 .mdl-button--fab_flinger-container {
-    position: fixed;
-    bottom: 10px;
+    position: absolute;
+    top: 50%;
+    transform: perspective(1px) translateY(-55%);
     right: 10px;
     z-index : 1000;
    }
@@ -55,3 +56,5 @@
        transform: scale(0.8);
      }
    }
+
+

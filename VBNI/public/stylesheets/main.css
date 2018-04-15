@@ -53,4 +53,29 @@
     width: 400px;
     height: 250px;
 }
- 
+
+.avatar {
+    border-radius: 50%;
+    height: 32px;
+    margin: 8px 0 8px 8px;
+    outline: 0;
+    vertical-align: top;
+    width: 32px;
+}
+
+.nav-item {
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0;
+    opacity: .87;
+    flex-shrink: 0;
+    padding: 16px 40px;
+    margin: 0;
+    color: #757575;
+    display: block;
+}
+.nav-item:hover {
+    background-color: rgb(224,224,224);
+}
