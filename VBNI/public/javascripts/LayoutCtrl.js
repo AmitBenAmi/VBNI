@@ -54,27 +54,35 @@ function($scope, $http, $rootScope, $location, apiService) {
                $location.path() == '/' ;
     }
 
+    $scope.signout = () => {
+        document.cookie = userCookieName +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+        window.location.href = '/';
+    }
+
     let disposeScopeVars = () => {
         delete $rootScope.createReferenceClientName;
         delete $rootScope.referenceReferenceToName;
         delete $rootScope.createReferenceReferenceTo;
     };
 
-    let closeDialog = () => {
-        let dialog = $('#createReferenceDialog')[0];
-
-        disposeScopeVars();
-
-        if (dialog) {
-            dialog.close();
-        }
+    let closeReferenceDialog = () => {
+        closeDialog('createReferenceDialog', disposeScopeVars);
     };
     
     let showCreateReferenceDialog = () => {
-        let dialog = $('#createReferenceDialog')[0];
+        showDialog('createReferenceDialog', disposeScopeVars);
+    };
+
+    let showUserProfileDialog = () => {
+        showDialog('user-profile');
+    }
+
+    let showDialog = (id, onClose) => {
+        let dialog = $('#' + id)[0];
 
         if (dialog) {
             dialog.showModal();
+            dialog.addEventListener('click', outsideDialog);
 
             if (!mdlComponentUpgraded && 
                 getmdlSelect &&
@@ -86,23 +94,46 @@ function($scope, $http, $rootScope, $location, apiService) {
 
                 dialog.addEventListener('keydown', (e) => {
                     if (e.keyCode === escKey) {
-                        disposeScopeVars();
+                        onClose && onClose();
                     }
                 });
             }
         }
     };
 
+    let closeDialog = (id, onClose) => {
+        let dialog = $('#' + id)[0];
+
+        if (dialog) {
+            dialog.close();
+        }
+
+        onClose && onClose();
+    };
+
+    function outsideDialog(event) {
+        var dialog = this;
+        var rect = dialog.getBoundingClientRect();
+        var isInDialog=(rect.top <= event.clientY && event.clientY <= rect.top + rect.height
+            && rect.left <= event.clientX && event.clientX <= rect.left + rect.width);
+        if (!isInDialog) {
+          dialog.close();
+          dialog.removeEventListener('click', outsideDialog);
+        }
+      }
+
+
     let createReference = () => {
         apiService.createReferral($rootScope.createReferenceReferenceTo.userName, $rootScope.createReferenceClientName)
             .then(() => {
-                closeDialog();
+                closeReferenceDialog();
             });
     };
 
-    $rootScope.closeDialog = closeDialog;
+    $rootScope.closeReferenceDialog = closeReferenceDialog;
     $rootScope.showCreateReferenceDialog = showCreateReferenceDialog;
     $rootScope.createReference = createReference;
+    $scope.showUserProfileDialog = showUserProfileDialog;
     let mdlComponentUpgraded = false;
     setHomepageDetails();
 });

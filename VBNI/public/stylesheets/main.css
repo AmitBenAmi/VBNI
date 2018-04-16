@@ -79,3 +79,51 @@
 .nav-item:hover {
     background-color: rgb(224,224,224);
 }
+
+.change-image {
+    background: rgba(0,0,0,.54);
+    color: #fff;
+    bottom: 0px;
+    font-size: 9px;
+    font-weight: bold;
+    line-height: 9px;
+    position: absolute;
+    padding: 7px 0;
+    text-align: center;
+    width: 96px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.user-image {
+    border-radius: 50%;
+    height: 96px;
+    outline: 0;
+    vertical-align: top;
+    width: 96px;
+}
+
+#user-profile {
+    width: 350px;
+    top: 60px;
+    left: calc(100% - 400px);
+    position: absolute;
+    -webkit-animation-name: fade; /* Chrome, Safari, Opera */
+    -webkit-animation-duration: 0.5s; /* Chrome, Safari, Opera */    
+}
+
+@-webkit-keyframes fade {
+    from {display:block;opacity: 0;}
+    to {display:none;opacity:1;}
+}
+
+.arrow-up {
+    position: absolute;
+    top: -8px;
+    left: 324px;
+    width: 0; 
+    height: 0; 
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid white;
+  }

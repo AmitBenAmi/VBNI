@@ -75,10 +75,9 @@
             </div>
           </div>
           <!-- User -->
-          <a>
+          <span ng-click="showUserProfileDialog()" style="cursor: pointer">
             <img src="images/anonymous.png" class="avatar">
-          </a>
-          <!-- Add here popup of user -->
+          </span>
         </div>
       </div>
       <main class="mdl-layout__content">
@@ -161,10 +160,38 @@
           </ul>
         </div>
         <div class="mdl-dialog__actions">
-          <button type="button" class="mdl-button close" ng-click="closeDialog()">Cancel</button>
+          <button type="button" class="mdl-button close" ng-click="closeReferenceDialog()">Cancel</button>
           <button type="submit" class="mdl-button" ng-disabled="createReferenceForm.$invalid">Agree</button>
         </div>
       </form>
+    </dialog>
+    <!-- User profile dialog -->
+    <dialog id="user-profile" class="mdl-dialog">
+        <div class="arrow-up"></div>
+        <div class="mdl-grid" style="padding-bottom: 20px; border-bottom: 1px solid #e2e2e2;">
+          <div class="mdl-cell--4-col mdl-cell--3-phone" style="position:relative">
+            <!-- Load image of user if exists! -->
+            <span style="cursor: pointer; position:absolute">
+              <img src="images/anonymous.png" class="user-image" stlye="height: 96px; width: 96px;">
+              <span class="change-image">change</span>
+            </span>
+          </div>
+          <div class="mdl-cell--8-col mdl-cell--6-phone" style="padding-left: 25px">
+            <div>
+              <h6>
+                {{username}}
+              </h6>
+            </div>
+            <div>
+                <h6>
+                  {{userRole}}
+                </h6>
+              </div>
+          </div>
+        </div>
+      <div class="mdl-dialog__actions">
+        <button type="button" class="mdl-button" ng-click="signout()">Sign out</button>
+      </div>
     </dialog>
   </div>
 </body>
