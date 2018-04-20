@@ -37,7 +37,7 @@
 <body ng-app="vbni">
   <div class="mdl-layout__container" ng-controller="LayoutCtrl">
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-    <div class="mdl-layout__drawer">
+      <div class="mdl-layout__drawer">
         <nav class="mdl-navigation">
           <a menu-close class="mdl-navigation__link" href="#/MyGroup">Group Members</a>
           <a menu-close class="mdl-navigation__link" href="#/MyReferences" ng-show="$root.user.userName != 'guest'">My References</a>
@@ -61,7 +61,7 @@
           </span>
           <!-- The layout title for desktop -->
           <span class="mdl-layout-title mdl-cell--hide-phone mdl-cell--hide-tablet" style="left: -50px">
-            <img  src="images/BNI.png" class="avatar">
+            <img src="images/BNI.png" class="avatar">
           </span>
           <div class="mdl-layout-spacer"></div>
           <!-- Search -->
@@ -82,27 +82,27 @@
       </div>
       <main class="mdl-layout__content">
         <div class="page-content">
-            <div class="mdl-grid">
-              <!-- Show the navigation only on desktop -->
-              <div class="mdl-cell mdl-cell--2-col mdl-cell--hide-phone mdl-cell--hide-tablet">
-                <nav style="position: fixed">
-                  <a menu-close class="nav-item" href="#/MyGroup">Group Members</a>
-                  <a menu-close class="nav-item" href="#/MyReferences" ng-show="$root.user.userName != 'guest'">My References</a>
-                  <a menu-close class="nav-item" href="#/ReferencedToMe" ng-show="$root.user.userName != 'guest'">
-                    <span class="mdl-badge" data-badge="{{countRefsToMe}}" ng-if="countRefsToMe != undefined">Referenced to me</span>
-                    <span ng-if="countRefsToMe == undefined">Referenced to me</span>
-                  </a>
-                  <a menu-close class="nav-item" href="#/GroupMeetings">Group Meetings</a>
-                  <a menu-close class="nav-item" ng-if="userRole == 'Admin'" href="#/Manage">Manage</a>
-                  <a menu-close class="nav-item" href="#/Register" ng-show="$root.user.userName == 'guest'">Register</a>
-                </nav>
-              </div>
-              <div class="mdl-cell mdl-cell--10-col mdl-cell--10-col-tablet mdl-cell--12-col-phone">
-                <div style="position:sticky; height: 100%">
-                  <div ng-view></div>
-                </div>
+          <div class="mdl-grid">
+            <!-- Show the navigation only on desktop -->
+            <div class="mdl-cell mdl-cell--2-col mdl-cell--hide-phone mdl-cell--hide-tablet">
+              <nav style="position: fixed">
+                <a menu-close class="nav-item" href="#/MyGroup">Group Members</a>
+                <a menu-close class="nav-item" href="#/MyReferences" ng-show="$root.user.userName != 'guest'">My References</a>
+                <a menu-close class="nav-item" href="#/ReferencedToMe" ng-show="$root.user.userName != 'guest'">
+                  <span class="mdl-badge" data-badge="{{countRefsToMe}}" ng-if="countRefsToMe != undefined">Referenced to me</span>
+                  <span ng-if="countRefsToMe == undefined">Referenced to me</span>
+                </a>
+                <a menu-close class="nav-item" href="#/GroupMeetings">Group Meetings</a>
+                <a menu-close class="nav-item" ng-if="userRole == 'Admin'" href="#/Manage">Manage</a>
+                <a menu-close class="nav-item" href="#/Register" ng-show="$root.user.userName == 'guest'">Register</a>
+              </nav>
+            </div>
+            <div class="mdl-cell mdl-cell--10-col mdl-cell--10-col-tablet mdl-cell--12-col-phone">
+              <div style="position:sticky; height: 100%; overflow-y: auto">
+                <div ng-view></div>
               </div>
             </div>
+          </div>
         </div>
       </main>
       <footer class="mdl-mini-footer" style="padding: 4px 10px">
@@ -167,28 +167,22 @@
     </dialog>
     <!-- User profile dialog -->
     <dialog id="user-profile" class="mdl-dialog">
-        <div class="arrow-up"></div>
-        <div class="mdl-grid" style="padding-bottom: 20px; border-bottom: 1px solid #e2e2e2;">
-          <div class="mdl-cell--4-col mdl-cell--3-phone" style="position:relative">
-            <!-- Load image of user if exists! -->
-            <span style="cursor: pointer; position:absolute">
-              <img src="images/anonymous.png" class="user-image" stlye="height: 96px; width: 96px;">
-              <span class="change-image">change</span>
-            </span>
-          </div>
-          <div class="mdl-cell--8-col mdl-cell--6-phone" style="padding-left: 25px">
-            <div>
-              <h6>
-                {{username}}
-              </h6>
-            </div>
-            <div>
-                <h6>
-                  {{userRole}}
-                </h6>
-              </div>
-          </div>
+      <div class="arrow-up"></div>
+      <div class="mdl-grid" style="padding-bottom: 20px; border-bottom: 1px solid #e2e2e2;">
+        <div class="mdl-cell--4-col-desktop mdl-cell--2-col-desktop mdl-cell--1-phone" style="position:relative">
+          <!-- Load image of user if exists! -->
+          <span class="user-image-span">
+            <span class="change-image">change</span>
+            <img ng-if="isDefinePicture()" src="{{user.profilePicture}}" class="big-user-image">
+            <img ng-if="!isDefinePicture()" src="images/anonymous.png" class="big-user-image">
+          </span>
         </div>
+        <div class="mdl-cell--8-col-desktop mdl-cell--6-col-desktop mdl-cell--3-phone" style="padding-left: 25px">
+          <h6 class="user-info">{{username}}</h6>
+          <h6 class="user-info">{{user.job}}</h6>
+          <h6 class="user-info">{{user.role}}</h6>
+        </div>
+      </div>
       <div class="mdl-dialog__actions">
         <button type="button" class="mdl-button" ng-click="signout()">Sign out</button>
       </div>
@@ -197,13 +191,13 @@
 </body>
 
 <script>
-  $(document).ready(function() {
+  $(document).ready(function () {
     // First finish the initalize of MDL
     componentHandler.upgradeAllRegistered();
     // The drawer button is generated automatically. add it class to hide
     // it on desktop size
     $('.mdl-layout__drawer-button').addClass('mdl-cell--hide-desktop');
-});
+  });
 </script>
 
 </html>

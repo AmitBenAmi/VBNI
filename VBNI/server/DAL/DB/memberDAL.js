@@ -131,7 +131,9 @@ class MemberDAL extends MongoDAL {
             memberDoc.job, 
             memberDoc.details,
             memberDoc.phone,
-            memberDoc.role);
+            memberDoc.role,
+            memberDoc.profilePicture
+        );
     }
 }
 

@@ -59,6 +59,10 @@ function($scope, $http, $rootScope, $location, apiService) {
         window.location.href = '/';
     }
 
+    $scope.isDefinePicture = () => {
+        return $rootScope.user.profilePicture && $rootScope.user.profilePicture != "";
+    }
+
     let disposeScopeVars = () => {
         delete $rootScope.createReferenceClientName;
         delete $rootScope.referenceReferenceToName;

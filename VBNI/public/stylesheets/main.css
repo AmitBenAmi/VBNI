@@ -90,17 +90,26 @@
     position: absolute;
     padding: 7px 0;
     text-align: center;
-    width: 96px;
+    width: 100%;
     cursor: pointer;
     white-space: nowrap;
+    z-index: 100;
 }
 
-.user-image {
+.user-image-span {
     border-radius: 50%;
+    overflow: hidden;
     height: 96px;
-    outline: 0;
-    vertical-align: top;
     width: 96px;
+    outline: 0;
+    position: relative;
+    display: block;
+    cursor: pointer;
+}
+
+.big-user-image {
+    position: absolute;
+    width: 100%;
 }
 
 #user-profile {
@@ -127,3 +136,7 @@
     border-right: 10px solid transparent;
     border-bottom: 10px solid white;
   }
+
+.user-info {
+    margin: 10px;
+}
