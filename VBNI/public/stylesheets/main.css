@@ -159,3 +159,7 @@
     padding-top: 75px;
     padding-bottom: 60px;
 }
+
+.bottom-border {
+    border-bottom: white 1px solid;
+}
