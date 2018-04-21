@@ -11,6 +11,9 @@ function($scope, $http, $rootScope, $location, apiService) {
 
             $scope.username = $rootScope.user.firstName + " " + $rootScope.user.lastName;
             $scope.userRole = $rootScope.user.role;
+
+            if ($rootScope.user.profilePicture && $rootScope.user.profilePicture != "")
+                $(".big-user-image").attr('src', $rootScope.user.profilePicture)
         }
     }
 
@@ -57,10 +60,6 @@ function($scope, $http, $rootScope, $location, apiService) {
     $scope.signout = () => {
         document.cookie = userCookieName +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
         window.location.href = '/';
-    }
-
-    $scope.isDefinePicture = () => {
-        return $rootScope.user.profilePicture && $rootScope.user.profilePicture != "";
     }
 
     let disposeScopeVars = () => {

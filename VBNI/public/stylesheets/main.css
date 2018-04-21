@@ -137,6 +137,25 @@
     border-bottom: 10px solid white;
   }
 
+@media screen and (max-width: 1024px) {
+    .arrow-up {
+        left: 347px;
+    }
+}
+
 .user-info {
     margin: 10px;
+}
+
+.fixed-footer {
+    padding: 4px 10px;
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    z-index: 100;
+}
+
+.main-content {
+    padding-top: 75px;
+    padding-bottom: 60px;
 }

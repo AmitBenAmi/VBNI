@@ -80,9 +80,9 @@
           </span>
         </div>
       </div>
-      <main class="mdl-layout__content">
+      <main class="mdl-layout__content" style="padding-bottom: 30px;">
         <div class="page-content">
-          <div class="mdl-grid">
+          <div class="mdl-grid" >
             <!-- Show the navigation only on desktop -->
             <div class="mdl-cell mdl-cell--2-col mdl-cell--hide-phone mdl-cell--hide-tablet">
               <nav style="position: fixed">
@@ -105,7 +105,7 @@
           </div>
         </div>
       </main>
-      <footer class="mdl-mini-footer" style="padding: 4px 10px">
+      <footer class="mdl-mini-footer fixed-footer">
         <div class="mdl-mini-footer__right-section">
           <div style="position:relative">
             <!-- Speed actions buttons -->
@@ -173,8 +173,7 @@
           <!-- Load image of user if exists! -->
           <span class="user-image-span">
             <span class="change-image">change</span>
-            <img ng-if="isDefinePicture()" src="{{user.profilePicture}}" class="big-user-image">
-            <img ng-if="!isDefinePicture()" src="images/anonymous.png" class="big-user-image">
+            <img src="images/anonymous.png" class="big-user-image">
           </span>
         </div>
         <div class="mdl-cell--8-col-desktop mdl-cell--6-col-desktop mdl-cell--3-phone" style="padding-left: 25px">
