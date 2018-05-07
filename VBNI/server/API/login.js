@@ -36,7 +36,8 @@ class LoginRouter extends Route {
 
     _isReqToLogin(req) {
         return req.path.startsWith(prefixLoginURL) ||
-            (req.path === '/login' && req.method === 'POST');
+            (req.path === '/login' && req.method === 'POST') ||
+            req.path === '/groups' && req.method === 'GET';
     }
 
     _isReqGet(req) {
