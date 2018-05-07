@@ -21,24 +21,23 @@
                 <img ng-if="member.profilePicture" src="{{member.profilePicture}}" style="width: 50px; border-radius: 50%">
                 <img ng-if="!member.profilePicture" src="images/anonymous.png" style="width: 50px; border-radius: 50%">
                 <span style="padding-left: 15px">
-                    <h3 class="mdl-card__title-text">{{member.firstName}} {{member.lastName}}</h3>
+                    <h3 class="mdl-card__title-text">{{member.job}}</h3>
                 </span>
+                
             </div>
             <div class="mdl-card__supporting-text">
-                <span>
-                    {{member.details}}
+                <span style="font-size: 1.5rem;">
+                    {{member.firstName}} {{member.lastName}}
                 </span>
                 <table class="mdl-data-table mdl-js-data-table member-table fullwidth">
                     <thead>
                         <tr>
-                            <th class="mdl-data-table__cell--non-numeric">Job</th>
                             <th class="mdl-data-table__cell--non-numeric">Phone</th>
                             <th class="mdl-data-table__cell--non-numeric">Business website</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td class="mdl-data-table__cell--non-numeric">{{member.job}}</td>
                             <td class="mdl-data-table__cell--non-numeric">{{member.phone}}</td>
                             <td class="mdl-data-table__cell--non-numeric">
                                 <label class="mdl-button mdl-js-button mdl-button--icon" for="website-link">
