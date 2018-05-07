@@ -25,7 +25,8 @@ class RegisterRouter extends Route {
                         firstName : req.body.firstName,
                         lastName : req.body.lastName,
                         job : req.body.job,
-                        groupId : req.body.groupId
+                        groupId : req.body.groupId,
+                        website: req.body.website
                     };
                     // if id not found - register could be done
                     this.registerDAL.createRegistration(addedToRegister,

@@ -65,7 +65,8 @@ class MemberDAL extends MongoDAL {
                             groupObjectId, 
                             register.job, 
                             register.details, 
-                            register.phone
+                            register.phone,
+                            register.website
                         );
 
                         delete member.userName;
@@ -133,7 +134,8 @@ class MemberDAL extends MongoDAL {
             memberDoc.details,
             memberDoc.phone,
             memberDoc.role,
-            memberDoc.profilePicture
+            memberDoc.profilePicture,
+            memberDoc.website
         );
     }
 }
