@@ -9,7 +9,7 @@ class RegisterDAL extends MongoDAL {
 
     createRegistration(registerDoc, errorCb, successCb) {
         if (!super.checkIfObjectId(registerDoc.groupId)) {
-            let groupObjectId = super.createObjectId(groupId);
+            let groupObjectId = super.createObjectId(registerDoc.groupId);
             registerDoc.groupId = groupObjectId;
         }
         
