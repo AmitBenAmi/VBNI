@@ -77,14 +77,14 @@
             <div class="mdl-cell mdl-cell--2-col mdl-cell--hide-phone mdl-cell--hide-tablet">
               <nav style="position: fixed">
                 <a menu-close class="nav-item" href="#/MyGroup">Group Members</a>
-                <a menu-close class="nav-item" href="#/MyReferences" ng-show="$root.user.userName != 'guest'">My References</a>
-                <a menu-close class="nav-item" href="#/ReferencedToMe" ng-show="$root.user.userName != 'guest'">
+                <a menu-close class="nav-item" href="#/MyReferences" ng-show="!isGuest()">My References</a>
+                <a menu-close class="nav-item" href="#/ReferencedToMe" ng-show="!isGuest()">
                   <span class="mdl-badge" data-badge="{{countRefsToMe}}" ng-if="countRefsToMe != undefined">Referenced to me</span>
                   <span ng-if="countRefsToMe == undefined">Referenced to me</span>
                 </a>
                 <a menu-close class="nav-item" href="#/GroupMeetings">Group Meetings</a>
                 <a menu-close class="nav-item" ng-if="userRole == 'Admin'" href="#/Manage">Manage</a>
-                <a menu-close class="nav-item" href="#/Register" ng-show="$root.user.userName == 'guest'">Register</a>
+                <a menu-close class="nav-item" href="#/Register" ng-show="isGuest()">Register</a>
               </nav>
             </div>
             <div class="mdl-cell mdl-cell--10-col mdl-cell--10-col-tablet mdl-cell--12-col-phone">
@@ -162,7 +162,7 @@
         <div class="mdl-cell--4-col-desktop mdl-cell--2-col-desktop mdl-cell--1-phone" style="position:relative">
           <!-- Load image of user if exists! -->
           <span class="user-image-span">
-            <span class="change-image">change</span>
+            <span class="change-image" ng-show="!isGuest()">change</span>
             <img src="images/anonymous.png" class="big-user-image">
           </span>
         </div>
