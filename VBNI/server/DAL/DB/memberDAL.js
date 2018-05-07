@@ -65,7 +65,8 @@ class MemberDAL extends MongoDAL {
                             groupObjectId, 
                             register.job, 
                             register.details, 
-                            register.phone);
+                            register.phone
+                        );
 
                         delete member.userName;
                         member._id = userName;
