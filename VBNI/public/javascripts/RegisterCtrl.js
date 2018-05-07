@@ -11,9 +11,6 @@ angular.module('vbni').controller('RegisterCtrl', ['$scope', 'apiService',
                 password: 'Google',
                 groupId: $scope.$root.user.groupId
             };
-            $('form[name=registerform] .mdl-js-textfield').each((index, element) => {
-                element.MaterialTextfield.checkDirty();
-            });
         };
 
         let showMessage = (message) => {
