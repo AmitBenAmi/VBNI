@@ -23,12 +23,18 @@
                         <tr>
                             <th class="mdl-data-table__cell--non-numeric">Job</th>
                             <th class="mdl-data-table__cell--non-numeric">Phone</th>
+                            <th class="mdl-data-table__cell--non-numeric">Business website</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td class="mdl-data-table__cell--non-numeric">{{member.job}}</td>
                             <td class="mdl-data-table__cell--non-numeric">{{member.phone}}</td>
+                            <td class="mdl-data-table__cell--non-numeric">
+                                <label class="mdl-button mdl-js-button mdl-button--icon" for="website-link">
+                                        <i class="material-icons" ng-click="openTab(member.website)">open_in_new</i>
+                              </label>
+                            </td>
                         </tr> 
                     </tbody>
                 </table>
