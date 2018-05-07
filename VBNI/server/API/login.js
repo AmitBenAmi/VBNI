@@ -69,6 +69,7 @@ class LoginRouter extends Route {
         super.post('login', (req, res) => {
             try {
                 let userName = req.body.username;
+                let password = req.body.password;
 
                 this.memberDAL.findById(userName, (member) => {
                     try {
