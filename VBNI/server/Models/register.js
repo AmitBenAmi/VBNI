@@ -1,5 +1,5 @@
 class Member {
-    constructor(userName, firstName, lastName, groupId, job, details, phone) {
+    constructor(userName, firstName, lastName, groupId, job, details, phone, website) {
         this.userName = userName;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -7,6 +7,7 @@ class Member {
         this.job =job;
         this.details = details;
         this.phone = phone;
+        this.website = website;
     }
 }
 
