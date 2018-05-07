@@ -2,8 +2,18 @@
     <div ng-if="noGroup" class="mdl-cell mdl-cell--6-col mdl-cell--12-phone">
         <h3 class="mdl-card__title-text">You do not belong to any group!</h3>
     </div>
+    <!-- Search -->
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable" style="width: 100%;">
+        <label class="mdl-button mdl-js-button mdl-button--icon" for="site-search">
+            <i class="material-icons">search</i>
+        </label>
+        <div class="mdl-textfield__expandable-holder bottom-border">
+            <input class="mdl-textfield__input" type="search" id="site-search" ng-model="memberSearch"/>
+            <label class="mdl-textfield__label" for="site-search">Search</label>
+        </div>
+    </div>
     <div class="mdl-spinner mdl-js-spinner mdl-spinner--single-color is-active spinner-center" ng-show="members == undefined && !noGroup"></div>
-    <div class="mdl-cell mdl-cell--6-col mdl-cell--12-phone" ng-repeat="member in members">
+    <div class="mdl-cell mdl-cell--6-col mdl-cell--12-phone" ng-repeat="member in members | filter:memberSearch | orderBy:['lastname', 'firstName']">
         <!-- Card contains the table -->
         <div class="fullwidth mdl-card mdl-shadow--2dp">
             <!-- Card Header -->
