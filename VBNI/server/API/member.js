@@ -6,6 +6,7 @@ class Member extends Route {
         this.memberDAL = new MemberDAL();
         this.getMembers();
         this.addToGroup();
+        this.update();
     }
 
     getMembers() {
@@ -14,6 +15,25 @@ class Member extends Route {
                 super._sendInternalServerError(res);
             }, (members) => {
                 res.send(members);
+            });
+        });
+    }
+
+    update() {
+        super.post('members', (req, res) => {
+            var updatedMember = {
+                _id : req.body.userName,
+                firstName : req.body.firstName,
+                lastName : req.body.lastName,
+                job : req.body.job,
+                website: req.body.website
+            };
+
+            this.memberDAL._update((updatedMember) => {
+                super._sendInternalServerError(res);
+            },
+            (member) => {
+                res.send(member);
             });
         });
     }

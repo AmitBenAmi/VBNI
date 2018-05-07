@@ -79,7 +79,7 @@ class MemberDAL extends MongoDAL {
                 }
             }
 
-            super.update(membersCollectionName, {_id:userName}, {groupId:groupObjectId}, errorCb, successCallback);
+            super.update(this.membersCollectionName, {_id:userName}, {groupId:groupObjectId}, errorCb, successCallback);
         }
         catch (e) {
             console.error(e);
@@ -93,6 +93,21 @@ class MemberDAL extends MongoDAL {
     addMember(member, errorCb, successCb) {
         try {
             super.insert(member, membersCollectionName, errorCb, successCb);
+        }
+        catch (e) {
+            console.error(e);
+
+            if (super._checkIfFunction(errorCb)) {
+                errorCb(e);
+            }
+        }
+    }
+
+    updateMembers(member, errorCb, successCb) {
+        try {
+            console.log("member update", member);
+
+            super.update(this.membersCollectionNamemember, {_id:member._id}, member, errorCb, successCb);
         }
         catch (e) {
             console.error(e);

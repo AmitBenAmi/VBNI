@@ -31,6 +31,7 @@
   <script src="/javascripts/GroupCtrl.js"></script>
   <script src="/javascripts/ManagerCtrl.js"></script>
   <script src="/javascripts/RegisterCtrl.js"></script>
+  <script src="/javascripts/ProfileCtrl.js"></script>
 
 </head>
 
@@ -48,6 +49,7 @@
           <a menu-close class="mdl-navigation__link" href="#/GroupMeetings">Group Meetings</a>
           <a menu-close class="mdl-navigation__link" ng-if="userRole == 'Admin'" href="#/Manage">Manage</a>
           <a menu-close class="mdl-navigation__link" href="#/Register" ng-show="$root.user.userName == 'guest'">Register</a>
+          <a menu-close class="mdl-navigation__link" href="#/MyProfile" ng-show="$root.user.userName != 'guest'">My Profile</a>
         </nav>
       </div>
       <div class="mdl-layout__header mdl-layout__header is-casting-shadow is-compact">
@@ -85,6 +87,7 @@
                 <a menu-close class="nav-item" href="#/GroupMeetings">Group Meetings</a>
                 <a menu-close class="nav-item" ng-if="userRole == 'Admin'" href="#/Manage">Manage</a>
                 <a menu-close class="nav-item" href="#/Register" ng-show="$root.user.userName == 'guest'">Register</a>
+                <a menu-close class="nav-item" href="#/MyProfile" ng-show="$root.user.userName != 'guest'">My Profile</a>
               </nav>
             </div>
             <div class="mdl-cell mdl-cell--10-col mdl-cell--10-col-tablet mdl-cell--12-col-phone">
@@ -175,6 +178,10 @@
       <div class="mdl-dialog__actions">
         <button type="button" class="mdl-button" ng-click="signout()">Sign out</button>
       </div>
+      <label id="editprofile" class="mdl-button mdl-js-button mdl-button--icon" for="site-edit">
+          <i class="material-icons" ng-click="editProfile()" ng-show="$root.user.userName != 'guest'">mode_edit</i> 
+          <div class="mdl-tooltip" for="editprofile" >Edit Profile</div>
+      </label>
     </dialog>
   </div>
 </body>
