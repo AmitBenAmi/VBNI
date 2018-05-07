@@ -28,10 +28,8 @@
 
 .myRefIsGood {
     --buttonSize: 35px;
-}
-
-.myRefIsGood.mdl-button--fab_flinger-container {
-    position: unset;
+    right: 0;
+    left: 0em;
 }
 
 .myRefIsGood.mdl-button--fab_flinger-container .mdl-button--mini-fab {
