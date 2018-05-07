@@ -72,7 +72,7 @@ vbniGroupChoose.controller('groupChooseCtrl', ["$scope", "$http", function($scop
     };
 
     $scope.groupChosen = function() {
-        var user = { name : "guest", firstName : "Guest", lastName : ""}
+        var user = { userName : "guest", firstName : "Guest", lastName : ""}
         user.groupId = $scope.selectedGroup;
 
         document.cookie = "user=" + encodeURIComponent(JSON.stringify(user)) + "; path=/"
