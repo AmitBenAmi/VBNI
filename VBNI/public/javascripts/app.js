@@ -71,9 +71,10 @@ vbni.run(['$rootScope', '$location', 'apiService', ($rootScope, $location, apiSe
         var prevUrl = history.length > 1 ? history.splice(-2)[0] : "/";
         $location.path(prevUrl);
     };
-}]);
 
-vbni.controller('layoutCtrl')
+    $rootScope.isGuest = () => $root.user.userName == 'guest';
+    
+}]);
 
 // Fix problem where in small screens the drawer isn't closing on link click
 vbni.directive('menuClose', function() {

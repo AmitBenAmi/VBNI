@@ -12,10 +12,19 @@ function($scope, $http, $rootScope, $location, apiService) {
             $scope.username = $rootScope.user.firstName + " " + $rootScope.user.lastName;
             $scope.userRole = $rootScope.user.role;
 
-            if ($rootScope.user.profilePicture && $rootScope.user.profilePicture != "")
+            if ($rootScope.user.profilePicture && $rootScope.user.profilePicture != "") {
                 $(".big-user-image").attr('src', $rootScope.user.profilePicture)
+            }
+            
+            if ($rootScope.isGuest()) {
+                // Make image not clickable!
+                $(".user-image-span").css({"cursor":"default"});
+            }
+                
         }
     }
+
+    $rootScope.isGuest = () => $rootScope.user.userName == 'guest';
 
     function setHomepageDetails() {
         let cookies = document.cookie.split(';');

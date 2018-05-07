@@ -1,50 +1,68 @@
+let showMessage = (message) => {
+    $("#toast")[0].MaterialSnackbar.showSnackbar({ message: message });
+}
+
+let login = (username, password) => {
+    if (!(username && password)) {
+        showMessage(`Username and Password are required`);
+    }
+    else {
+        $.post("/login", { username: username, password: password })
+            .done((data) => {
+                window.location.href = '/';
+            })
+            .fail((xhr, status, errorMessage) => {
+                let toast = $("#toast")[0];
+                let message;
+
+                switch (xhr.status) {
+                    case (404): {
+                        message = 'Username is incorrect.';
+                        break;
+                    }
+                    case (500): {
+                        message = 'Server error, cannot log-in.';
+                        break;
+                    }
+                    default: {
+                        message = `An error occured: ${errorMessage}.`;
+                        break;
+                    }
+                }
+
+                showMessage(message);
+            });
+    };
+}
+
+function onSignIn(googleUser) {
+    let profile = googleUser.getBasicProfile();
+
+    let email = profile.getEmail();
+    if (email) {
+        login(email, 'Google');
+    }
+}
+
 $(document).ready(() => {
     const enterKey = 13;
 
-    let showMessage = (message) => {
-        $("#toast")[0].MaterialSnackbar.showSnackbar({ message: message });
+    function checkLoginState() {
+        FB.getLoginStatus(function (response) {
+            statusChangeCallback(response);
+        });
     }
 
-    let eventFn = (evt) => {
+    let loginFromHtml = function (evt) {
         let password = $("#pass").val();
         let username = $("#username").val();
-
-        if (!(username && password)) {
-            showMessage(`Username and Password are required`);
-        }
-        else {
-            $.post("/login", { username: username, password: password })
-                .done((data) => {
-                    window.location.href = '/';
-                })
-                .fail((xhr, status, errorMessage) => {
-                    let toast = $("#toast")[0];
-                    let message;
-
-                    switch (xhr.status) {
-                        case (404): {
-                            message = 'Username is incorrect.';
-                            break;
-                        }
-                        case (500): {
-                            message = 'Server error, cannot log-in.';
-                            break;
-                        }
-                        default: {
-                            message = `An error occured: ${errorMessage}.`;
-                            break;
-                        }
-                    }
-
-                    showMessage(message);
-                });
-        };
+        login(username, password);
     }
 
-    $("#login-button").on('click', eventFn);
+    $("#login-button").on('click', loginFromHtml);
     $('html').keyup((event) => {
         if (event.keyCode === enterKey) {
-            eventFn(event);
+            loginFromHtml(event);
         }
     });
 });
