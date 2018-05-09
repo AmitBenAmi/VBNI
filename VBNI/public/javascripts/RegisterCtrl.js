@@ -14,7 +14,20 @@ angular.module('vbni').controller('RegisterCtrl', ['$scope', 'apiService',
         };
 
         let showMessage = (message) => {
-            $.find('#snackbarContainer')[0].MaterialSnackbar.showSnackbar({message: message});
+            let showMessageWhenPossible = (snackbar) => {
+                snackbar.showSnackbar({message: message});
+            };
+            
+            let materialSnackbar = $('#snackbarContainer')[0].MaterialSnackbar;
+            if (!materialSnackbar) {
+                setTimeout(() => {
+                    materialSnackbar = $('#snackbarContainer')[0].MaterialSnackbar;
+                    showMessageWhenPossible(materialSnackbar);
+                });
+            }
+            else {
+                showMessageWhenPossible(materialSnackbar);
+            }
         };
 
         let register = (user) => {
