@@ -4,8 +4,24 @@ const MeetingDAL = require('../DAL/DB/meetingDAL');
 class MeetingRouter extends Route {
     init() {
         this.meetingDAL = new MeetingDAL();
+        this.addMeetingToGroup();
         this.getMeetingsByGroup();
         this.getNextMeetingForGroup();
+    }
+
+    addMeetingToGroup() {
+        super.post('meetings/:groupId', (req, res) => {
+            try {
+                let groupId = req.params.groupId;
+                let host = req.body.host;
+                let date = req.body.date;
+                this.MeetingDAL.addMeeting(groupId, host, date, () => {
+                    this._sendOk(res);
+                }, (err) => {
+                    this._sendInternalServerError(res);
+                });
+            }
+        });
     }
 
     getMeetingsByGroup() {
