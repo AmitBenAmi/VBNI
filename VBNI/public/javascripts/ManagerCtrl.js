@@ -3,7 +3,7 @@ angular.module('vbni').controller('ManageCtrl', ['$scope', '$rootScope', '$timeo
 
         $scope.$on('$viewContentLoaded', function(event) {
             $timeout(function() {
-                componentHandler.upgradeAllRegistered();
+                componentHandler.upgradeDom();
             })
         });
 
