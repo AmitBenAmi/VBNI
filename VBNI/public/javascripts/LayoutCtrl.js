@@ -26,6 +26,32 @@ function($scope, $http, $rootScope, $location, apiService) {
 
     $rootScope.isGuest = () => $rootScope.user.userName == 'guest';
 
+    $rootScope.$watch('referenceReferenceToName', function(newVal, oldVal){
+        if (!newVal) {
+            return; 
+        }
+        // Now we check the probabilities of the deal
+        groupId = $rootScope.user.groupId
+        referredId = $rootScope.user.userName
+        referredToId = $rootScope.createReferenceReferenceTo._id
+        referredJob = $rootScope.user.job
+        referredToJob = $rootScope.createReferenceReferenceTo.job
+        client_name = $rootScope.createReferenceClientName
+
+        $http.get('http://localhost:5000/classify?groupId=' + groupId + 
+                    '&referredId=' + referredId + 
+                    '&referredToId=' + referredToId + 
+                    '&referredJob=' + referredJob + 
+                    '&referredToJob=' + referredToJob + 
+                    '&client_name=' + client_name).then(function(result) {
+                        $scope.predictionResult = result.data;
+                        $scope.predictionResult.prob = Math.round(parseFloat($scope.predictionResult.prob) * 100)
+                    }, function(err) {
+                        console.log(err);
+                    })
+        
+
+    })
     function setHomepageDetails() {
         let cookies = document.cookie.split(';');
         cookies.forEach(cookie => {
@@ -124,6 +150,10 @@ function($scope, $http, $rootScope, $location, apiService) {
     };
 
     function outsideDialog(event) {
+         if ($(event.srcElement).is('li')) {
+            return;
+        }
+
         var dialog = this;
         var rect = dialog.getBoundingClientRect();
         var isInDialog=(rect.top <= event.clientY && event.clientY <= rect.top + rect.height
