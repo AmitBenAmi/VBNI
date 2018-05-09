@@ -1,10 +1,25 @@
 const MongoDAL = require('./mongoDAL');
-const Member = require('../../Models/register');
+const Register = require('../../Models/register');
 
 class RegisterDAL extends MongoDAL {
     constructor() {
         super();
         this.collectionName = 'joinRequests';
+    }
+
+    findById(id, idFoundCallbackFunction, notFoundCallbackFunction, errorCb) {
+        super.findById(id, this.collectionName, (regDoc) => {
+            idFoundCallbackFunction(
+                new Register(
+                    regDoc._id, 
+                    regDoc.firstName, 
+                    regDoc.lastName, 
+                    regDoc.groupId, 
+                    regDoc.job, 
+                    regDoc.details, 
+                    regDoc.phone, 
+                    regDoc.website));
+        }, notFoundCallbackFunction, errorCb);
     }
 
     createRegistration(registerDoc, errorCb, successCb) {

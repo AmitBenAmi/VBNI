@@ -11,20 +11,35 @@ angular.module('vbni').controller('RegisterCtrl', ['$scope', 'apiService',
                 password: 'Google',
                 groupId: $scope.$root.user.groupId
             };
-            $('form[name=registerform] .mdl-js-textfield').each((index, element) => {
-                element.MaterialTextfield.checkDirty();
-            });
         };
 
         let showMessage = (message) => {
-            $.find('#snackbarContainer')[0].MaterialSnackbar.showSnackbar({message: message});
+            let showMessageWhenPossible = (snackbar) => {
+                snackbar.showSnackbar({message: message});
+            };
+            
+            let materialSnackbar = $('#snackbarContainer')[0].MaterialSnackbar;
+            if (!materialSnackbar) {
+                setTimeout(() => {
+                    materialSnackbar = $('#snackbarContainer')[0].MaterialSnackbar;
+                    showMessageWhenPossible(materialSnackbar);
+                });
+            }
+            else {
+                showMessageWhenPossible(materialSnackbar);
+            }
         };
 
         let register = (user) => {
             apiService.register(user).then(function(res) {
                 showMessage('User registered sucessfully');
             }, function(err) {
-                showMessage('Error during registration. please try again later');
+                if (err.status === 409) {
+                    showMessage("The Username is already in use. Please choose a different Username");
+                }
+                else {
+                    showMessage('Error during registration. please try again later');
+                }
             });
         };
 

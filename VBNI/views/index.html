@@ -126,6 +126,10 @@
             </div>
           </div>
         </div>
+        <div id="snackbarContainer" class="mdl-js-snackbar mdl-snackbar" style="z-index: 200;">
+            <div class="mdl-snackbar__text"></div>
+            <button class="mdl-snackbar__action" type="button"></button>
+          </div>
         <div class="mdl-mini-footer__left-section">
           <ul class="mdl-mini-footer__link-list">
             <li>
@@ -154,6 +158,11 @@
           <ul for="memberSelectionHidden" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
             <li class="mdl-menu__item" ng-repeat="member in $root.members" ng-click="$root.createReferenceReferenceTo = member">{{member.firstName}} {{member.lastName}}</li>
           </ul>
+        </div>
+        <div ng-show="predictionResult">
+          This deal has a chance of {{predictionResult.prob}}% to be successful.
+          <br/>
+          Similar deals were closed at an estimation of {{predictionResult.estimation}}$
         </div>
         <div class="mdl-dialog__actions">
           <button type="button" class="mdl-button close" ng-click="closeReferenceDialog()">Cancel</button>

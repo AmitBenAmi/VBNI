@@ -1,3 +1,5 @@
+const googlePassword = 'Google';
+
 let showMessage = (message) => {
     $("#toast")[0].MaterialSnackbar.showSnackbar({ message: message });
 }
@@ -30,7 +32,9 @@ let login = (username, password) => {
                     }
                 }
 
-                showMessage(message);
+                if (password !== googlePassword) {
+                    showMessage(message);
+                }
             });
     };
 }
@@ -40,7 +44,7 @@ function onSignIn(googleUser) {
 
     let email = profile.getEmail();
     if (email) {
-        login(email, 'Google');
+        login(email, googlePassword);
     }
 }
 
