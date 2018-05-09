@@ -29,11 +29,11 @@ class Member extends Route {
                 website: req.body.website
             };
 
-            this.memberDAL._update((updatedMember) => {
+            this.memberDAL.updateMembers(updatedMember, ()=> {
                 super._sendInternalServerError(res);
             },
-            (member) => {
-                res.send(member);
+            () => {
+                super._sendOk(res);
             });
         });
     }

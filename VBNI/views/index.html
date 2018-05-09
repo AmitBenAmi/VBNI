@@ -178,13 +178,14 @@
           <h6 class="user-info">{{user.role}}</h6>
         </div>
       </div>
-      <div class="mdl-dialog__actions">
+      
+      <div class="mdl-dialog__actions">  
         <button type="button" class="mdl-button" ng-click="signout()">Sign out</button>
+        <label id="editprofile" class="mdl-button mdl-js-button mdl-button--icon" for="site-edit">
+            <i class="material-icons" ng-click="editProfile()" ng-show="$root.user.userName != 'guest'">mode_edit</i> 
+            <div class="mdl-tooltip" for="editprofile" >Edit Profile</div>
+        </label>
       </div>
-      <label id="editprofile" class="mdl-button mdl-js-button mdl-button--icon" for="site-edit">
-          <i class="material-icons" ng-click="editProfile()" ng-show="$root.user.userName != 'guest'">mode_edit</i> 
-          <div class="mdl-tooltip" for="editprofile" >Edit Profile</div>
-      </label>
     </dialog>
   </div>
 </body>

@@ -105,9 +105,7 @@ class MemberDAL extends MongoDAL {
 
     updateMembers(member, errorCb, successCb) {
         try {
-            console.log("member update", member);
-
-            super.update(this.membersCollectionNamemember, {_id:member._id}, member, errorCb, successCb);
+            super.update(membersCollectionName,{_id : member._id}, member, errorCb, successCb);
         }
         catch (e) {
             console.error(e);
