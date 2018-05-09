@@ -1,6 +1,12 @@
 angular.module('vbni').controller('ManageCtrl', ['$scope', '$rootScope', '$timeout', 'apiService',
     function ($scope, $rootScope, $timeout, apiService) {
 
+        $scope.$on('$viewContentLoaded', function(event) {
+            $timeout(function() {
+                componentHandler.upgradeAllRegistered();
+            })
+        });
+
         $scope.addMemberClick = () => {
             apiService.getRegistrations($rootScope.user.groupId).then((registers) => {
                 $scope.membersAwaitingRegister = registers.data;
@@ -10,6 +16,18 @@ angular.module('vbni').controller('ManageCtrl', ['$scope', '$rootScope', '$timeo
             }, (err) => {
                 console.error(err);
             });
+        }
+
+        $scope.addMeeting = () => {
+            // meetingHost
+            // meetingDate
+            apiService.addMeeting($scope.meetingHost, $scope.meetingDate, $rootScope.user.groupId).then((result) => {
+                $scope.closeAddMeetingDialog();
+            },
+            function(err) {
+                console.log(err);
+                $scope.closeAddMeetingDialog();
+            })
         }
 
         $scope.closeAddMemberDialog = () => {

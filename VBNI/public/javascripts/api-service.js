@@ -149,6 +149,14 @@
         addMemberToGroup: (member, groupId) => {
             return $http.post(`group/${groupId}/members/${member._id}`, member);
         },
+        addMeeting: (meetingHost, meetingDate, groupId, meetingSummary) => {
+            var payload = {
+                host: meetingHost,
+                date: meetingDate,
+            }
+
+            return $http.post('meetings/'${groupId}, payload);
+        },
         deleteMembersFromGroup: (groupId, memberIds) => {
             let deferred = $q.defer();
 
