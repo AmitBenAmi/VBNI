@@ -152,10 +152,10 @@
         addMeeting: (meetingHost, meetingDate, groupId, meetingSummary) => {
             var payload = {
                 host: meetingHost,
-                date: meetingDate,
+                date: meetingDate
             }
 
-            return $http.post('meetings/'${groupId}, payload);
+            return $http.post(`meetings/'${groupId}`, payload);
         },
         deleteMembersFromGroup: (groupId, memberIds) => {
             let deferred = $q.defer();
