@@ -110,6 +110,8 @@ class MongoDAL {
             let updateOperation = {
                 [mongoSetField]: updateDoc
             }
+
+            console.log("query update", query);
             this._update(collection, query, updateOperation, undefined, errorCb, successCb);
         });
     }

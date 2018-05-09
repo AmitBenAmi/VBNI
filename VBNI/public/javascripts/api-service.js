@@ -173,6 +173,17 @@
         },
         getRegistrations: (groupId) => {
             return $http.get(`/register/${groupId}`);
+        },
+        updateMember: (member) => {
+            var deferred = $q.defer();
+            $http.post('members', member).then((res) => {
+                deferred.resolve(res.data);
+            }, (err) => {
+                console.error(err);
+                deferred.reject(err);
+            });
+
+            return deferred.promise;
         }
     }
 }]);

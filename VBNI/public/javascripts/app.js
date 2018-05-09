@@ -34,6 +34,10 @@ vbni.config(function ($routeProvider, $locationProvider, $httpProvider) {
             templateUrl: 'views/register.html',
             controller: 'RegisterCtrl'
         })
+        .when('/MyProfile', {
+            templateUrl: 'views/myProfile.html',
+            controller: 'ProfileCtrl'
+        })
         .otherwise({
             templateUrl: 'views/home.html'
         })
@@ -87,3 +91,20 @@ vbni.directive('menuClose', function() {
         }
     };
 });
+
+let showMessage = (message) => {
+    let showMessageWhenPossible = (snackbar) => {
+        snackbar.showSnackbar({message: message});
+    };
+    
+    let materialSnackbar = $('#snackbarContainer')[0].MaterialSnackbar;
+    if (!materialSnackbar) {
+        setTimeout(() => {
+            materialSnackbar = $('#snackbarContainer')[0].MaterialSnackbar;
+            showMessageWhenPossible(materialSnackbar);
+        });
+    }
+    else {
+        showMessageWhenPossible(materialSnackbar);
+    }
+};
