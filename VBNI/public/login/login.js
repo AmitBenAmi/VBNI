@@ -39,9 +39,14 @@ let login = (username, password) => {
     };
 }
 
-function onSignIn(googleUser) {
-    let profile = googleUser.getBasicProfile();
+let profile;
 
+function onSignIn(googleUser) {
+    profile = googleUser.getBasicProfile();
+    loginFromGoogle();
+}
+
+function loginFromGoogle() {
     let email = profile.getEmail();
     if (email) {
         login(email, googlePassword);
