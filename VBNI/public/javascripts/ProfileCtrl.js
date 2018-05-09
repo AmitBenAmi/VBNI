@@ -1,7 +1,12 @@
 'use strict';
 
-angular.module('vbni').controller('ProfileCtrl', ['$scope', 'apiService',
-    function ($scope, apiService) {
+angular.module('vbni').controller('ProfileCtrl', ['$scope', 'apiService', '$timeout',
+    function ($scope, apiService, $timeout) {
+        $scope.$on('$viewContentLoaded', function(event) {
+            $timeout(function() {
+                componentHandler.upgradeDom();
+            })
+        });
         $scope.user = {};
         $scope.updateProfile = function(member) {
             

@@ -1,7 +1,12 @@
 'use strict';
 
-angular.module('vbni').controller('RegisterCtrl', ['$scope', 'apiService',
-    function ($scope, apiService) {
+angular.module('vbni').controller('RegisterCtrl', ['$scope', 'apiService', '$timeout',
+    function ($scope, apiService, $timeout) {
+        $scope.$on('$viewContentLoaded', function(event) {
+            $timeout(function() {
+                componentHandler.upgradeDom();
+            })
+        });
         let onSuccessLogin = (googleUser) => {
             let profile = googleUser.getBasicProfile();
             $scope.user = {
