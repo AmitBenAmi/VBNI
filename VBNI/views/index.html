@@ -156,6 +156,11 @@
             <li class="mdl-menu__item" ng-repeat="member in $root.members" ng-click="$root.createReferenceReferenceTo = member">{{member.firstName}} {{member.lastName}}</li>
           </ul>
         </div>
+        <div ng-show="predictionResult">
+          This deal has a chance of {{predictionResult.prob}}% to be successful.
+          <br/>
+          Similar deals were closed at an estimation of {{predictionResult.estimation}}$
+        </div>
         <div class="mdl-dialog__actions">
           <button type="button" class="mdl-button close" ng-click="closeReferenceDialog()">Cancel</button>
           <button type="submit" class="mdl-button" ng-disabled="createReferenceForm.$invalid">Agree</button>
