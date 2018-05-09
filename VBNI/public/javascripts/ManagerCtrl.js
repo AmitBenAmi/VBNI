@@ -54,7 +54,12 @@ angular.module('vbni').controller('ManageCtrl', ['$scope', '$rootScope', '$timeo
         };
 
         $scope.addMemberToGroup = (member) => {
-            apiService.addMemberToGroup(member, $rootScope.user.groupId)
+            apiService.addMemberToGroup(member, $rootScope.user.groupId).then((res) => {
+                showMessage('Member was added');
+                closeDialog('add_member_dialog');
+            }, () => {
+                showMessage('Error during new member addition. please try again later');
+            });
         }
 
         $scope.deleteMembers = () => {
