@@ -34,7 +34,12 @@ angular.module('vbni').controller('RegisterCtrl', ['$scope', 'apiService',
             apiService.register(user).then(function(res) {
                 showMessage('User registered sucessfully');
             }, function(err) {
-                showMessage('Error during registration. please try again later');
+                if (err.status === 409) {
+                    showMessage("The Username is already in use. Please choose a different Username");
+                }
+                else {
+                    showMessage('Error during registration. please try again later');
+                }
             });
         };
 
