@@ -16,10 +16,6 @@ angular.module('vbni').controller('RegisterCtrl', ['$scope', 'apiService', '$tim
                 password: 'Google',
                 groupId: $scope.$root.user.groupId
             };
-
-            setTimeout(() => {
-                componentHandler.upgradeAllRegistered();
-            });
         };
 
         let register = (user) => {
