@@ -16,6 +16,26 @@ class MeetingDAL extends MongoDAL {
             }
         }
     }
+
+    addMeeting(groupId, host, date, wrongIdCb, successCb, errorCb) {
+        try {
+            let groupObjectId = super.createObjectId(groupId);
+            let meeting = {
+                groupId: groupObjectId,
+                host: host,
+                date: date
+            };
+
+            super.insert(meeting, meetingsCollectionName, errorCb, successCb);
+        }
+        catch (e) {
+            console.error(e);
+
+            if (super._checkIfFunction(wrongIdCb)) {
+                wrongIdCb(e);
+            }
+        }
+    }
 }
 
 module.exports = MeetingDAL;
