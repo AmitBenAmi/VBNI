@@ -79,7 +79,7 @@ class MemberDAL extends MongoDAL {
                 }
             }
 
-            super.update(this.membersCollectionName, {_id:userName}, {groupId:groupObjectId}, errorCb, successCallback);
+            super.update(membersCollectionName, {_id:userName}, {groupId:groupObjectId}, errorCb, successCallback);
         }
         catch (e) {
             console.error(e);
