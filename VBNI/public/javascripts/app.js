@@ -34,6 +34,10 @@ vbni.config(function ($routeProvider, $locationProvider, $httpProvider) {
             templateUrl: 'views/register.html',
             controller: 'RegisterCtrl'
         })
+        .when('/MyProfile', {
+            templateUrl: 'views/myProfile.html',
+            controller: 'ProfileCtrl'
+        })
         .otherwise({
             templateUrl: 'views/home.html'
         })

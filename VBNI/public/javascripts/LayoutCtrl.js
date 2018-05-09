@@ -97,6 +97,10 @@ function($scope, $http, $rootScope, $location, apiService) {
         window.location.href = '/';
     }
 
+    $scope.editProfile = () => {
+        window.location.href = '#/MyProfile';
+    }
+
     let disposeScopeVars = () => {
         delete $rootScope.createReferenceClientName;
         delete $rootScope.referenceReferenceToName;
