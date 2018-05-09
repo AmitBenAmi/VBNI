@@ -23,6 +23,11 @@ class MeetingRouter extends Route {
                     this._sendInternalServerError(res);
                 });
             }
+            catch (e) {
+                console.error(e);
+
+                super._sendBadRequest(res);
+            }
         });
     }
 
