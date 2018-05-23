@@ -22,6 +22,10 @@
     left: 35% !important;
 }
 
+.vbni-button--fab_flinger-container {
+    right: 20px !important;
+}
+
 .getmdl-select__fix-height .mdl-menu__container .mdl-menu {
     max-height: 230px !important;
 }
