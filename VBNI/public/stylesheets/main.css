@@ -58,11 +58,11 @@
 
 .avatar {
     border-radius: 50%;
-    height: 32px;
+    height: 42px;
     margin: 8px 0 8px 8px;
     outline: 0;
     vertical-align: top;
-    width: 32px;
+    width: 42px;
 }
 
 .nav-item {
