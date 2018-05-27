@@ -23,30 +23,33 @@
                 <span style="padding-left: 15px">
                     <h3 class="mdl-card__title-text">{{member.job}}</h3>
                 </span>
-                
             </div>
             <div class="mdl-card__supporting-text">
-                <span style="font-size: 1.5rem;">
+                <span class="member-name">
                     {{member.firstName}} {{member.lastName}}
                 </span>
-                <table class="mdl-data-table mdl-js-data-table member-table fullwidth">
-                    <thead>
-                        <tr>
-                            <th class="mdl-data-table__cell--non-numeric">Phone</th>
-                            <th class="mdl-data-table__cell--non-numeric">Business website</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="mdl-data-table__cell--non-numeric">{{member.phone}}</td>
-                            <td class="mdl-data-table__cell--non-numeric">
-                                <label class="mdl-button mdl-js-button mdl-button--icon" for="website-link">
-                                        <i class="material-icons" ng-click="openTab(member.website)">open_in_new</i>
-                              </label>
-                            </td>
-                        </tr> 
-                    </tbody>
-                </table>
+                <div class="mdl-card__actions mdl-card--border">
+                    <span mdl-cell mdl-cell--6-col>
+                        Phone
+                    </span>
+                    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-cell mdl-cell--6-col"
+                       ng-click="openTab(member.website)">
+                        <i class="material-icons">
+                            phone
+                        </i>
+                    </a>
+                </div>
+                <div class="mdl-card__actions mdl-card--border">
+                    <span mdl-cell mdl-cell--6-col>
+                        Website
+                    </span>
+                    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-cell mdl-cell--6-col" 
+                       ng-click="openTab(member.website)">
+                        <i class="material-icons">
+                            link
+                        </i>
+                    </a>
+                </div>
             </div>
         </div>
     </div>

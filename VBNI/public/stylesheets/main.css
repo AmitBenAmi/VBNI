@@ -6,6 +6,12 @@
     border: none;
 }
 
+.member-name {
+    font-size: 1.5rem; 
+    display: inline-block; 
+    margin-bottom: 1rem;
+}
+
 .main-button {
     position: fixed;
     bottom: -4px;
