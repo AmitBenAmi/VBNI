@@ -12,6 +12,13 @@
     margin-bottom: 1rem;
 }
 
+.member-property {
+    float: left;
+    height: 36px;
+    line-height: 36px;
+    text-align: center;
+}
+
 .main-button {
     position: fixed;
     bottom: -4px;
