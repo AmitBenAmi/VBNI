@@ -68,6 +68,10 @@
         <button type="button" class="mdl-button" ng-click="groupChosen()">Sign in and have FUN!</button>
       </div>
     </dialog>
+    <script>
+      var dialog = document.querySelector('#group-dialog');
+      dialogPolyfill.registerDialog(dialog);
+    </script>
   </div>
   <div id="toast" class="mdl-js-snackbar mdl-snackbar">
     <div class="mdl-snackbar__text"></div>

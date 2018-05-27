@@ -4,6 +4,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- HTMLDialogElement polyfill -->
+  <link rel="stylesheet" type="text/css" href="dialog-polyfill/dialog-polyfill.css" />
+  <script src="dialog-polyfill/dialog-polyfill.js"></script>
   <!-- load Angular -->
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular-route.min.js"></script>
@@ -192,6 +195,12 @@
         </label>
       </div>
     </dialog>
+    <script>
+        var dialog = document.querySelector('#createReferenceDialog');
+        dialogPolyfill.registerDialog(dialog);
+        dialog = document.querySelector('#user-profile');
+        dialogPolyfill.registerDialog(dialog);
+    </script>
   </div>
 </body>
 
