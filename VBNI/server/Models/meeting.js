@@ -1,7 +1,7 @@
 class Meeting {
-    constructor(id, host, date, summary, groupId) {
+    constructor(id, presentor, date, summary, groupId) {
         this._id = id;
-        this.host = host;
+        this.presentor = presentor;
         this.date = date;
         this.summary = summary;
         this.groupId = groupId;

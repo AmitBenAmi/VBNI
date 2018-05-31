@@ -17,12 +17,12 @@ class MeetingDAL extends MongoDAL {
         }
     }
 
-    addMeeting(groupId, host, date, wrongIdCb, successCb, errorCb) {
+    addMeeting(groupId, presentor, date, wrongIdCb, successCb, errorCb) {
         try {
             let groupObjectId = super.createObjectId(groupId);
             let meeting = {
                 groupId: groupObjectId,
-                host: host,
+                presentor: presentor,
                 date: date
             };
 

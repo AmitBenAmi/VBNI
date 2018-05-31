@@ -11,14 +11,14 @@
                     <thead>
                         <tr>
                             <th class="mdl-data-table__cell--non-numeric">Date</th>
-                            <th class="mdl-data-table__cell--non-numeric">Host</th>
+                            <th class="mdl-data-table__cell--non-numeric">Presentor</th>
                             <th class="mdl-data-table__cell--non-numeric">Summary</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr ng-repeat="meeting in meetings">
                             <td class="mdl-data-table__cell--non-numeric">{{meeting.date.toLocaleString()}}</td>
-                            <td class="mdl-data-table__cell--non-numeric">{{meeting.host}}</td>
+                            <td class="mdl-data-table__cell--non-numeric">{{meeting.presentor}}</td>
                             <td class="mdl-data-table__cell--non-numeric">{{meeting.summary}}</td>
                         </tr>
                     </tbody>
