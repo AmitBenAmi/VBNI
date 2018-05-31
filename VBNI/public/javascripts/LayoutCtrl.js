@@ -166,7 +166,7 @@ function($scope, $http, $rootScope, $location, apiService) {
 
 
     let createReference = () => {
-        apiService.createReferral($rootScope.createReferenceReferenceTo.userName, $rootScope.createReferenceClientName)
+        apiService.createReferral($rootScope.createReferenceReferenceTo._id, $rootScope.createReferenceClientName)
             .then(() => {
                 closeReferenceDialog();
             });
