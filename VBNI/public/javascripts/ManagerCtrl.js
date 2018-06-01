@@ -76,6 +76,9 @@ angular.module('vbni').controller('ManageCtrl', ['$scope', '$rootScope', '$timeo
             apiService.addMemberToGroup(member, $rootScope.user.groupId).then((res) => {
                 showMessage('Member was added');
                 closeDialog('add_member_dialog');
+                apiService.getMyGroupMembers($rootScope.user.groupId).then((members) => {
+                    $rootScope.members = members;
+                });
             }, () => {
                 showMessage('Error during new member addition. please try again later');
             });
