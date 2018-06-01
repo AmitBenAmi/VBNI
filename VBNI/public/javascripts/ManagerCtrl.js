@@ -21,6 +21,9 @@ angular.module('vbni').controller('ManageCtrl', ['$scope', '$rootScope', '$timeo
         $scope.addMeeting = () => {
             apiService.addMeeting($scope.meetingPresentor, $scope.meetingDate, $rootScope.user.groupId).then((result) => {
                 $scope.closeAddMeetingDialog();
+                apiService.getMyGroupMeetings($rootScope.user.groupId).then((meetings) => {
+                    $rootScope.meetings = meetings;
+                })
             },
             function(err) {
                 console.log(err);
