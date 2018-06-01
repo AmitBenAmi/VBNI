@@ -63,12 +63,14 @@
                                 <tr>
                                     <th class="mdl-data-table__cell--non-numeric">Date</th>
                                     <th class="mdl-data-table__cell--non-numeric">Presentor</th>
+                                    <th class="mdl-data-table__cell--non-numeric">Locatiom</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr ng-repeat="meeting in meetings">
                                     <td class="mdl-data-table__cell--non-numeric">{{meeting.date}}</td>
                                     <td class="mdl-data-table__cell--non-numeric">{{meeting.presentor}}</td>
+                                    <td class="mdl-data-table__cell--non-numeric" title={{meeting.location}}>{{meeting.location}}</td>
                                 </tr> 
                             </tbody>
                         </table>        
