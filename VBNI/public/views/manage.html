@@ -63,12 +63,14 @@
                                 <tr>
                                     <th class="mdl-data-table__cell--non-numeric">Date</th>
                                     <th class="mdl-data-table__cell--non-numeric">Presentor</th>
+                                    <th class="mdl-data-table__cell--non-numeric">Locatiom</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr ng-repeat="meeting in meetings">
                                     <td class="mdl-data-table__cell--non-numeric">{{meeting.date.toLocaleString()}}</td>
                                     <td class="mdl-data-table__cell--non-numeric">{{meeting.presentor}}</td>
+                                    <td class="mdl-data-table__cell--non-numeric" title={{meeting.location}}>{{meeting.location}}</td>
                                 </tr> 
                             </tbody>
                         </table>        
@@ -116,6 +118,11 @@
                     <!-- Date of meeting -->    
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
                         <input ng-model="meetingDate" class="mdl-textfield__input" type="date" id="date">
+                    </div>
+                    <!-- Location -->
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input ng-model="meetingLocation" class="mdl-textfield__input" type="text" id="Location">
+                        <label class="mdl-textfield__label" for="Location">Meeting Location</label>
                     </div>
                 </div>
             </div>

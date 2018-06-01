@@ -85,7 +85,7 @@
                     groupId: groupId
                 }
             }).then(function(res) {
-                deferred.resolve(res.data.date);
+                deferred.resolve(res.data);
             }, function(err) {
                 deferred.reject(err);
             });
@@ -149,10 +149,11 @@
         addMemberToGroup: (member, groupId) => {
             return $http.post(`group/${groupId}/members/${member._id}`, member);
         },
-        addMeeting: (meetingPresentor, meetingDate, groupId, meetingSummary) => {
+        addMeeting: (meetingPresentor, meetingDate, meetingLocation, groupId, meetingSummary) => {
             var payload = {
                 presentor: meetingPresentor,
-                date: meetingDate
+                date: meetingDate,
+                location: meetingLocation
             }
 
             return $http.post(`meetings/${groupId}`, payload);
