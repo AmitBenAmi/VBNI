@@ -1,7 +1,7 @@
 ﻿const userCookieName = 'user';
 
 angular.module('vbni').controller('LayoutCtrl', 
-function($scope, $http, $rootScope, $location, apiService) {
+function($scope, $http, $rootScope, $location, $timeout, apiService) {
 
     function checkIfUserCookie(cookie) {
         let cookieParts = cookie.split('=');
@@ -56,11 +56,23 @@ function($scope, $http, $rootScope, $location, apiService) {
 
         apiService.getNextMeeting($rootScope.user.groupId).then(function(data) {
             if (data) {
-                $scope.nextMeeting = "Your next meeting is on " + new Date(data).toLocaleString()
+                $scope.nextMeeting = "Your next meeting is on " + new Date(data.date).toLocaleString()
             }
             else {
                 $scope.nextMeeting = "You have no upcoming meetings";
             }
+
+            // Maps
+            geocoder = new google.maps.Geocoder();
+            geocoder.geocode( { 'address': data.location}, function(results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    map.setCenter(results[0].geometry.location);
+                    var marker = new google.maps.Marker({
+                        map: map,
+                        position: results[0].geometry.location
+                    });
+                }
+            })
         }, function(err) {
             console.log(err);
         });

@@ -4,4 +4,25 @@
     <div>
         <h5>{{nextMeeting}}</h5>
     </div>
+
+    <div id="map" style="height: 23em; width:40em;"></div>
+
+    <script>
+        // Initialize and add the map
+        function initMap() {
+        // The location of Uluru
+        var uluru = {lat: 31.0461, lng: 34.8516};
+        // The map, centered at Uluru
+        map = new google.maps.Map(
+            document.getElementById('map'), {zoom: 7, center: uluru});
+        }
+    </script>
+    <!--Load the API from the specified URL
+    * The async attribute allows the browser to render the page while the API loads
+    * The key parameter will contain your own API key (which is not needed for this tutorial)
+    * The callback parameter executes the initMap() function
+    -->
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCsJdf_Czs4SyzfJazP_S1wChLzVXPzeJ8&callback=initMap">
+    </script>
 </div>
