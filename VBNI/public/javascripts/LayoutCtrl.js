@@ -1,7 +1,7 @@
 ﻿const userCookieName = 'user';
 
 angular.module('vbni').controller('LayoutCtrl', 
-function($scope, $http, $rootScope, $location, $timeout, apiService) {
+function($scope, $http, $rootScope, $location, apiService) {
 
     function checkIfUserCookie(cookie) {
         let cookieParts = cookie.split('=');
