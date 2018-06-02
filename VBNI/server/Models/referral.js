@@ -1,5 +1,5 @@
 class Referral {
-    constructor(id, referrer, referenceTo, clientName, isGood, amount) {
+    constructor(id, referrer, referenceTo, clientName, isGood, amount, creationDate, endDate) {
         {
             this._id = id;
             this.referrer = referrer;
@@ -7,6 +7,8 @@ class Referral {
             this.clientName = clientName;
             this.isGood = isGood;
             this.amount = amount;
+            this.creationDate = creationDate;
+            this.endDate = endDate;
         }
     }
 }
