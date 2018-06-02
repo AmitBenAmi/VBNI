@@ -64,8 +64,11 @@ angular.module('vbni').controller('ManageCtrl', ['$scope', '$rootScope', '$timeo
             })
         }
 
-        let toggleView = () => {
-            let textFields = $(`.${mdlTextFieldClass}, .${mdlMenuContainerClass}`);
+        let toggleView = (dialog) => {
+            // Remove the value of all inputs
+            $(dialog).find(".mdl-textfield__input").val('');
+            // Change the containers of the input
+            let textFields = $(dialog).find(`.${mdlTextFieldClass}, .${mdlMenuContainerClass}`);
             textFields.removeClass(`${isDirtyClass} ${isUpgradedClass} ${isFocusedClass} ${isVisibleClass}`);
             textFields.addClass(`${isInvalidClass}`);
             textFields.blur();
@@ -90,6 +93,7 @@ angular.module('vbni').controller('ManageCtrl', ['$scope', '$rootScope', '$timeo
                 typeof(getmdlSelect.init) === 'function') {
                     let ngRepeatFinished = $scope.$on('ngRepeatFinished', (event) => {
                         componentHandler.upgradeAllRegistered();
+<<<<<<< HEAD
                         toggleView();
                         ngRepeatFinished();
 
@@ -99,6 +103,10 @@ angular.module('vbni').controller('ManageCtrl', ['$scope', '$rootScope', '$timeo
                             mdlInputs[i].MaterialTextfield.checkFocus();
                         }  
                     });
+=======
+                        toggleView(dialog);
+                    }, 0);
+>>>>>>> edd0ac7eb7bf9350daf9e54b9923c798b8eab3a9
 
                     // Updating Material Design Lite elements (For Dialog of members that value can be shown)
                     getmdlSelect.init(`.${mdlSelectClass}`);

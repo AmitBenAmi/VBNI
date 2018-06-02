@@ -192,6 +192,7 @@ function($scope, $http, $rootScope, $location, apiService, $timeout) {
     let createReference = () => {
         apiService.createReferral($rootScope.createReferenceReferenceTo._id, $rootScope.createReferenceClientName)
             .then(() => {
+                showMessage('Referral created sucessfully');
                 closeReferenceDialog();
             });
     };
