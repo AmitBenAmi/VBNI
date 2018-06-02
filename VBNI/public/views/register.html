@@ -4,26 +4,31 @@
       <h2 class="mdl-card__title-text">Registration</h2>
     </div>
     <div class="mdl-card__supporting-text">
-      <form name="registerform" novalidate>
+      <form name="registerform">
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="display: block; width:100%;">
-          <input class="mdl-textfield__input" type="text" id="username" ng-model="user.userName">
+          <input class="mdl-textfield__input" type="text" name="userName" id="username" ng-model="user.userName" required>
           <label class="mdl-textfield__label" for="username">User Name</label>
+          <span ng-show="registerform.userName.$touched && registerform.userName.$invalid">User name is required</span>
         </div>
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="display: block; width:100%;">
-          <input class="mdl-textfield__input" type="password" id="password" ng-model="user.password">
+          <input class="mdl-textfield__input" type="password" name="password" ng-model="user.password" required>
           <label class="mdl-textfield__label" for="password">Password</label>
+          <span ng-show="registerform.userName.$touched && registerform.userName.$invalid">Password is required</span>
         </div>
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="display: block; width:100%;">
-          <input class="mdl-textfield__input" type="text" id="firstname" ng-model="user.firstName">
+          <input class="mdl-textfield__input" type="text" name="firstname" ng-model="user.firstName" required>
           <label class="mdl-textfield__label" for="firstname">First Name</label>
+          <span ng-show="registerform.userName.$touched && registerform.userName.$invalid">First Name is required</span>
         </div>
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="display: block; width:100%;">
-          <input class="mdl-textfield__input" type="text" id="lastname" ng-model="user.lastName">
+          <input class="mdl-textfield__input" type="text" name="lastname" ng-model="user.lastName" required>
           <label class="mdl-textfield__label" for="lastname">Last Name</label>
+          <span ng-show="registerform.userName.$touched && registerform.userName.$invalid">Last name is required</span>
         </div>
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="display: block; width:100%;">
-          <input class="mdl-textfield__input" type="text" id="job" ng-model="user.job">
+          <input class="mdl-textfield__input" type="text" name="job" ng-model="user.job" required>
           <label class="mdl-textfield__label" for="job">Job</label>
+          <span ng-show="registerform.userName.$touched && registerform.userName.$invalid">Job is required</span>
         </div>
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="display: block; width:100%;">
           <input class="mdl-textfield__input" type="text" id="website" ng-model="user.website">
