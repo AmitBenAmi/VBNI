@@ -58,6 +58,7 @@ function($scope, $http, $rootScope, $location, apiService, $timeout) {
         apiService.getNextMeeting($rootScope.user.groupId).then(function(data) {
             if (data) {
                 $scope.nextMeeting = "Your next meeting is on " + new Date(data.date).toLocaleString()
+                $scope.nextMeetingLoc = data.location;
             }
             else {
                 $scope.nextMeeting = "You have no upcoming meetings";
