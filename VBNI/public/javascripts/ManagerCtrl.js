@@ -72,6 +72,9 @@ angular.module('vbni').controller('ManageCtrl', ['$scope', '$rootScope', '$timeo
             textFields.removeClass(`${isDirtyClass} ${isUpgradedClass} ${isFocusedClass} ${isVisibleClass}`);
             textFields.addClass(`${isInvalidClass}`);
             textFields.blur();
+
+            // Close the mdl-select
+            closeMdlSelect();
         }
 
         $scope.closeAddMemberDialog = () => {
@@ -92,9 +95,6 @@ angular.module('vbni').controller('ManageCtrl', ['$scope', '$rootScope', '$timeo
             if (getmdlSelect &&
                 typeof(getmdlSelect.init) === 'function') {
                     let ngRepeatFinished = $scope.$on('ngRepeatFinished', (event) => {
-                        componentHandler.upgradeAllRegistered();
-<<<<<<< HEAD
-                        toggleView();
                         ngRepeatFinished();
 
                         var mdlInputs = document.querySelectorAll('.mdl-js-textfield');
@@ -102,14 +102,13 @@ angular.module('vbni').controller('ManageCtrl', ['$scope', '$rootScope', '$timeo
                             mdlInputs[i].MaterialTextfield.checkDirty();
                             mdlInputs[i].MaterialTextfield.checkFocus();
                         }  
+
+                        closeMdlSelect();
                     });
-=======
-                        toggleView(dialog);
-                    }, 0);
->>>>>>> edd0ac7eb7bf9350daf9e54b9923c798b8eab3a9
 
                     // Updating Material Design Lite elements (For Dialog of members that value can be shown)
                     getmdlSelect.init(`.${mdlSelectClass}`);
+                    toggleView(dialog);
 
                     if (!mdlComponentUpgraded) {
                         mdlComponentUpgraded = !mdlComponentUpgraded;
@@ -178,4 +177,15 @@ angular.module('vbni').controller('ManageCtrl', ['$scope', '$rootScope', '$timeo
 
         let mdlComponentUpgraded = false;
         $scope.memberToRegister = undefined;
+
+        let closeMdlSelect = () => {
+            // Close the mdl-select
+            $timeout(() => {
+                var containers = $('dialog').find('.mdl-menu__container');
+                if (containers.hasClass(`${isVisibleClass}`)) {
+                    $('dialog').find('.mdl-menu__container').removeClass(`${isDirtyClass} ${isFocusedClass} ${isUpgradedClass} ${isVisibleClass}`);
+                    $('dialog').find('.mdl-textfield').removeClass(`${isFocusedClass} ${isUpgradedClass}`)    
+                }
+            });
+        }
     }]);
