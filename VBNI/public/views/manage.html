@@ -20,9 +20,14 @@
                     </div>
                     <!-- Members table -->
                     <div class="mdl-cell mdl-cell--12-col">
-                        <table id="manage__group-members" class="mdl-data-table mdl-js-data-table member-table fullwidth mdl-data-table--selectable">
+                        <table id="manage__group-members" class="mdl-data-table member-table">
                             <thead>
                                 <tr>
+                                    <th>
+                                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect mdl-data-table__select" for="table-header">
+                                            <input type="checkbox" id="table-header" class="mdl-checkbox__input" />
+                                        </label>
+                                    </th>
                                     <th class="mdl-data-table__cell--non-numeric">Name</th>
                                     <th class="mdl-data-table__cell--non-numeric">Job</th>
                                 </tr>
@@ -30,9 +35,11 @@
                             <tbody>
                                 <tr ng-repeat="member in members">
                                     <td class="mdl-data-table__cell--non-numeric manage__username" style="display: none">{{member._id}}</td>
-                                    <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect mdl-data-table__select" for="row[1]">
-                                        <input type="checkbox" id="row[1]" class="mdl-checkbox__input" />
-                                    </label>
+                                    <td>
+                                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect mdl-data-table__select" ng-attr-for="{{row[$index]}}">
+                                            <input type="checkbox" ng-attr-id="{{row[$index]}}" class="mdl-checkbox__input" />
+                                        </label>
+                                    </td>
                                     <td class="mdl-data-table__cell--non-numeric">{{member.firstName}} {{member.lastName}}</td>
                                     <td class="mdl-data-table__cell--non-numeric">{{member.job}}</td>
                                 </tr> 
@@ -70,7 +77,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="meeting in meetings">
+                                <tr ng-repeat="meeting in meetings" on-finish-render="ngRepeatFinished">
                                     <td class="mdl-data-table__cell--non-numeric">{{meeting.date.toLocaleString()}}</td>
                                     <td class="mdl-data-table__cell--non-numeric">{{meeting.presentor}}</td>
                                     <td class="mdl-data-table__cell--non-numeric" title={{meeting.location}}>{{meeting.location}}</td>
