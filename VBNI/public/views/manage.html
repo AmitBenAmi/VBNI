@@ -101,7 +101,7 @@
                     <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
                     <label for="member-awaiting-register" class="mdl-textfield__label">Qualifiers</label>
                     <ul for="member-awaiting-register__hidden" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-                        <li class="mdl-menu__item" ng-repeat="register in membersAwaitingRegister" ng-click="setMemberToRegister(register)">{{register.firstName}} {{register.lastName}}</li>
+                        <li class="mdl-menu__item" ng-repeat="register in membersAwaitingRegister" on-finish-render="ngRepeatFinished" ng-click="setMemberToRegister(register)">{{register.firstName}} {{register.lastName}}</li>
                     </ul>
                 </div>
             </div>
@@ -123,7 +123,7 @@
                             <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
                             <label for="meeting_presentor" class="mdl-textfield__label">Presentor</label>
                             <ul for="meeting_presentor__hidden" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-                                <li class="mdl-menu__item" ng-repeat="member in members">{{member.firstName}} {{member.lastName}}</li>
+                                <li class="mdl-menu__item" ng-repeat="member in members" on-finish-render="ngRepeatFinished">{{member.firstName}} {{member.lastName}}</li>
                             </ul>
                         </div>
                     </div>

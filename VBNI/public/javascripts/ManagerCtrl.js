@@ -72,7 +72,6 @@ angular.module('vbni').controller('ManageCtrl', ['$scope', '$rootScope', '$timeo
         }
 
         $scope.closeAddMemberDialog = () => {
-            disposeScopeVars();
             closeDialog('add_member_dialog');
         }
 
@@ -89,10 +88,17 @@ angular.module('vbni').controller('ManageCtrl', ['$scope', '$rootScope', '$timeo
             
             if (getmdlSelect &&
                 typeof(getmdlSelect.init) === 'function') {
-                    $timeout(() => {
+                    let ngRepeatFinished = $scope.$on('ngRepeatFinished', (event) => {
                         componentHandler.upgradeAllRegistered();
                         toggleView();
-                    }, 0);
+                        ngRepeatFinished();
+
+                        var mdlInputs = document.querySelectorAll('.mdl-js-textfield');
+                        for (var i = 0, l = mdlInputs.length; i < l; i++) {
+                            mdlInputs[i].MaterialTextfield.checkDirty();
+                            mdlInputs[i].MaterialTextfield.checkFocus();
+                        }  
+                    });
 
                     // Updating Material Design Lite elements (For Dialog of members that value can be shown)
                     getmdlSelect.init(`.${mdlSelectClass}`);
@@ -118,6 +124,7 @@ angular.module('vbni').controller('ManageCtrl', ['$scope', '$rootScope', '$timeo
             delete $scope.meetingPresentor;
             delete $scope.meetingDate;
             delete $scope.meetingLocation;
+            delete $scope.meetingSummary;
         };
 
         $scope.addMemberToGroup = (member) => {
@@ -154,6 +161,7 @@ angular.module('vbni').controller('ManageCtrl', ['$scope', '$rootScope', '$timeo
         function closeDialog(id) {
             var dialog = $('#' + id)[0];
             dialog.close();
+            disposeScopeVars();
         }
 
         $scope.setMemberToRegister = (register) => {
