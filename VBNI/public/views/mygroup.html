@@ -20,12 +20,14 @@
             <div class="mdl-card__title">
                 <img ng-if="member.profilePicture" src="{{member.profilePicture}}" style="width: 50px; border-radius: 50%">
                 <img ng-if="!member.profilePicture" src="images/anonymous.png" style="width: 50px; border-radius: 50%">
-                <span style="padding-left: 15px">
-                    <h3 class="mdl-card__title-text">{{member.firstName}} {{member.lastName}}</h3>
-                </span>
-                <span style="padding-right: 10%; position: absolute; right: 0;">
-                    <h3 class="mdl-card__title-text">{{member.job}}</h3>
-                </span>
+                <div class="mdl-grid" style="width:100%">
+                    <div class="mdl-cell mdl-cell--6-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone">
+                        <h3 class="mdl-card__title-text">{{member.firstName}} {{member.lastName}}</h3>
+                    </div>
+                    <div class="mdl-cell mdl-cell--6-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone">
+                        <h3 class="mdl-card__title-text">{{member.job}}</h3>
+                    </div>
+                </div>
             </div>
             <div class="mdl-card__supporting-text">
                 <div class="mdl-card__actions mdl-card--border">
