@@ -13,9 +13,10 @@ angular.module('vbni').directive('onFinishRender', ($timeout) => {
 
 angular.module('vbni').controller('ManageCtrl', ['$scope', '$rootScope', '$timeout', 'apiService',
     function ($scope, $rootScope, $timeout, apiService) {
-
         $scope.$on('ngRepeatFinished', function(event) {
-            componentHandler.upgradeAllRegistered();
+            $timeout(() => {
+                componentHandler.upgradeAllRegistered();
+            }, 0);
             let table = $('#manage__group-members');
             let headerCheckBox = table.find('thead .mdl-data-table__select');
             let boxes = table.find('tbody .mdl-data-table__select');
