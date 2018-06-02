@@ -179,6 +179,10 @@
     border-bottom: white 1px dashed;
 }
 
+.mdl-textfield input:focus {
+    outline: none;
+}
+
 @keyframes blink {
     0% {
       opacity: .2;

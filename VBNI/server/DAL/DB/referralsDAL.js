@@ -30,11 +30,11 @@ class RefferalsDAL extends MongoDAL {
     }
 
     setBadReferral(referralId, wrongIdCb, errorCb, successCb) {
-        this._updateReferral(referralId, {isGood:false,amount:0}, wrongIdCb, errorCb, successCb);
+        this._updateReferral(referralId, {isGood:false,amount:0,endDate:new Date().toString()}, wrongIdCb, errorCb, successCb);
     }
 
     setGoodReferral(referralId, amount, wrongIdCb, errorCb, successCb) {
-        this._updateReferral(referralId, {isGood:true,amount:amount}, wrongIdCb, errorCb, successCb);
+        this._updateReferral(referralId, {isGood:true,amount:amount,endDate:new Date().toString()}, wrongIdCb, errorCb, successCb);
     }
 
     _updateReferral(referralId, updateDoc, wrongIdCb, errorCb, successCb) {
@@ -62,7 +62,7 @@ class RefferalsDAL extends MongoDAL {
     }
 
     createReferral(referrer, referenceTo, clientName, errorCb, successCb) {
-        let newReferral = new NewReferral(referrer, referenceTo, clientName);
+        let newReferral = new NewReferral(referrer, referenceTo, clientName, new Date().toString());
         super.insert(newReferral, this.collectionName, errorCb, successCb);
     }
 
