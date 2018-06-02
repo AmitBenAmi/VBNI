@@ -2,4 +2,5 @@ flask==1.0.2
 flask_cors==3.0.4
 scikit-learn==0.18.1
 pandas==0.20.2
+sklearn==0.19.1
 
