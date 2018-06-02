@@ -113,6 +113,7 @@ function($scope, $http, $rootScope, $location, apiService, $timeout) {
 
     $scope.editProfile = () => {
         window.location.href = '#/MyProfile';
+        document.getElementById("user-profile").close();
     }
 
     let disposeScopeVars = () => {
