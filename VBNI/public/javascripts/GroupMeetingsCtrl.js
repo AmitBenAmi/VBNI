@@ -6,6 +6,7 @@
         // Fetching the data
         apiService.getMyGroupMeetings(userDetails.groupId).then(function (data) {
             $scope.meetings = data;
+            $scope.meetings = $scope.meetings.sort((a,b) => new Date(b.date) - new Date(a.date));
         }, function (err) {
             console.log(err);
         });
