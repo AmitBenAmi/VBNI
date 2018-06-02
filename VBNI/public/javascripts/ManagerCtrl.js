@@ -31,6 +31,13 @@ angular.module('vbni').controller('ManageCtrl', ['$scope', '$rootScope', '$timeo
             })
         }
 
+        let toggleView = () => {
+            let textFields = $(`.${mdlTextFieldClass}, .${mdlMenuContainerClass}`);
+            textFields.removeClass(`${isDirtyClass} ${isUpgradedClass} ${isFocusedClass} ${isVisibleClass}`);
+            textFields.addClass(`${isInvalidClass}`);
+            textFields.blur();
+        }
+
         $scope.closeAddMemberDialog = () => {
             disposeScopeVars();
             closeDialog('add_member_dialog');
@@ -49,9 +56,14 @@ angular.module('vbni').controller('ManageCtrl', ['$scope', '$rootScope', '$timeo
             
             if (getmdlSelect &&
                 typeof(getmdlSelect.init) === 'function') {
+                    $timeout(() => {
+                        componentHandler.upgradeAllRegistered();
+                        toggleView();
+                    }, 0);
+
                     // Updating Material Design Lite elements (For Dialog of members that value can be shown)
                     getmdlSelect.init(`.${mdlSelectClass}`);
-                    
+
                     if (!mdlComponentUpgraded) {
                         mdlComponentUpgraded = !mdlComponentUpgraded;
                         
@@ -70,6 +82,9 @@ angular.module('vbni').controller('ManageCtrl', ['$scope', '$rootScope', '$timeo
             delete $scope.membersAwaitingRegister;
             delete $scope.memberToRegister;
             delete $scope.memberToRegisterText;
+            delete $scope.meetingPresentor;
+            delete $scope.meetingDate;
+            delete $scope.meetingLocation;
         };
 
         $scope.addMemberToGroup = (member) => {

@@ -4,11 +4,13 @@ var vbni = angular.module('vbni', ['ngRoute']);
 
 const navCurrentChosenLink = 'mdl-navigation__link--current';
 const mdlSelectClass = 'getmdl-select';
+const mdlMenuContainerClass = 'mdl-menu__container';
 const mdlTextFieldClass = 'mdl-textfield';
 const isFocusedClass = 'is-focused';
 const isDirtyClass = 'is-dirty';
 const isUpgradedClass = 'is-upgraded';
 const isInvalidClass = 'is-invalid';
+const isVisibleClass = 'is-visible';
 const escKey = 27;
 
 vbni.config(function ($routeProvider, $locationProvider, $httpProvider) {
@@ -44,7 +46,8 @@ vbni.config(function ($routeProvider, $locationProvider, $httpProvider) {
             controller: 'ProfileCtrl'
         })
         .otherwise({
-            templateUrl: 'views/home.html'
+            templateUrl: 'views/home.html',
+            controller: 'HomeCtrl'
         })
 
     $locationProvider
