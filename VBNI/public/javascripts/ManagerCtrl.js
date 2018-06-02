@@ -95,6 +95,7 @@ angular.module('vbni').controller('ManageCtrl', ['$scope', '$rootScope', '$timeo
             if (getmdlSelect &&
                 typeof(getmdlSelect.init) === 'function') {
                     let ngRepeatFinished = $scope.$on('ngRepeatFinished', (event) => {
+                        componentHandler.upgradeAllRegistered();
                         ngRepeatFinished();
 
                         var mdlInputs = document.querySelectorAll('.mdl-js-textfield');
