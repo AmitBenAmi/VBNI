@@ -34,11 +34,12 @@
                     <span class="mdl-cell mdl-cell--6-col member-property">
                         Phone
                     </span>
-                    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-cell mdl-cell--6-col"
-                       ng-href="tel:{{member.phone}}">
+                    <a id="phoneNumber" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-cell mdl-cell--6-col"
+                       ng-href="tel:{{member.phone}}">{{member.phone}}
                         <i class="material-icons">
                             phone
                         </i>
+                        <div class="mdl-tooltip" for="phoneNumber">{{member.phone}}</div>
                     </a>
                 </div>
                 <div class="mdl-card__actions mdl-card--border">

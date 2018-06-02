@@ -15,8 +15,15 @@
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular-route.min.js"></script>
   <!-- Chrome signin -->
+  <script>
+    function loadAuth2() {
+      gapi.load('auth2', () => {
+        gapi.auth2.init();
+      });
+    }
+  </script>
   <meta name="google-signin-client_id" content="875544385052-3h6og7estc6f4lq5oa9usgvbif7nf24s.apps.googleusercontent.com">
-  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <script src="https://apis.google.com/js/platform.js?onload=loadAuth2" async defer></script>
   <!-- Load MDL -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
@@ -119,7 +126,7 @@
                 <button id="createReference" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect" ng-click="showCreateReferenceDialog()">
                   <i class="material-icons">compare_arrows</i>
                 </button>
-                <div class="mdl-tooltip" data-mdl-for="createReference">
+                <div class="mdl-tooltip mdl-tooltip--left" style="position: static" data-mdl-for="createReference">
                   Create reference
                 </div>
               </div>

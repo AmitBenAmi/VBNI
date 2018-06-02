@@ -4,4 +4,4 @@ COPY ./ /
 
 RUN pip install -r requirements.txt
 
-RUN python api.py
+CMD ["python", "./api.py"]

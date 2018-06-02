@@ -12,3 +12,7 @@
     background: url('/login/login-background.jpg') center / cover;
     background-repeat: no-repeat;
   }
+
+#toast {
+    white-space: pre-line;
+}

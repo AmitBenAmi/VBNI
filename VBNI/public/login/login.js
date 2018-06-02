@@ -14,12 +14,16 @@ let login = (username, password) => {
                 window.location.href = '/';
             })
             .fail((xhr, status, errorMessage) => {
-                let toast = $("#toast")[0];
                 let message;
 
                 switch (xhr.status) {
                     case (404): {
-                        message = 'Username is incorrect.';
+                        if (password !== googlePassword) {
+                            message = 'Username is incorrect.';
+                        }
+                        else {
+                            message = 'User isn\'t registered with Google.\nRegister or user Username/Password for authentication.'
+                        }
                         break;
                     }
                     case (500): {
@@ -32,9 +36,7 @@ let login = (username, password) => {
                     }
                 }
 
-                if (password !== googlePassword) {
-                    showMessage(message);
-                }
+                showMessage(message);
             });
     };
 }
