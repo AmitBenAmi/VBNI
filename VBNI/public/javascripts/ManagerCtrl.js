@@ -1,10 +1,40 @@
+angular.module('vbni').directive('onFinishRender', ($timeout) => {
+    return {
+        restrict: 'A',
+        link: (scope, element, attr) => {
+            if (scope.$last === true) {
+                $timeout(() => {
+                    scope.$emit('ngRepeatFinished');
+                });
+            }
+        }
+    };
+});
+
 angular.module('vbni').controller('ManageCtrl', ['$scope', '$rootScope', '$timeout', 'apiService',
     function ($scope, $rootScope, $timeout, apiService) {
 
-        $scope.$on('$viewContentLoaded', function(event) {
-            $timeout(function() {
-                componentHandler.upgradeAllRegistered();
-            })
+        $scope.$on('ngRepeatFinished', function(event) {
+            let table = $('#manage__group-members');
+            let headerCheckBox = table.find('thead .mdl-data-table__select');
+            let boxes = table.find('tbody .mdl-data-table__select');
+
+            let headerCheckHandler = (event) => {
+                if (event.target.checked) {
+                    for (let i = 0; i < boxes.length; i++) {
+                        boxes[i].MaterialCheckbox.check();
+                        boxes[i].MaterialCheckbox.updateClasses_();
+                    }
+                }
+                else {
+                    for (let i = 0; i < boxes.length; i++) {
+                        boxes[i].MaterialCheckbox.uncheck();
+                        boxes[i].MaterialCheckbox.updateClasses_();
+                    }
+                }
+            }
+
+            headerCheckBox.change(headerCheckHandler);
         });
 
         $scope.addMemberClick = () => {
@@ -21,6 +51,7 @@ angular.module('vbni').controller('ManageCtrl', ['$scope', '$rootScope', '$timeo
         $scope.addMeeting = () => {
             apiService.addMeeting($scope.meetingPresentor, $scope.meetingDate, $scope.meetingLocation, $rootScope.user.groupId).then((result) => {
                 $scope.closeAddMeetingDialog();
+                showMessage('Meeting was added sucessfully');
                 apiService.getMyGroupMeetings($rootScope.user.groupId).then((meetings) => {
                     $rootScope.meetings = meetings;
                 })
@@ -100,7 +131,7 @@ angular.module('vbni').controller('ManageCtrl', ['$scope', '$rootScope', '$timeo
         }
 
         $scope.deleteMembers = () => {
-            let membersRows = $('#manage__group-members tbody tr.is-selected');
+            let membersRows = $('#manage__group-members tbody .is-checked').parent().parent();
             let memberIds = [];
 
             for (let index = 0; index < membersRows.length; index++) {

@@ -42,6 +42,7 @@ function($scope, $http, $rootScope, $location, apiService, $timeout) {
                     '&client_name=' + client_name).then(function(result) {
                         $scope.predictionResult = result.data;
                         $scope.predictionResult.prob = Math.round(parseFloat($scope.predictionResult.prob) * 100)
+                        $scope.predictionResult.estimation = parseInt($scope.predictionResult.estimation);
                     }, function(err) {
                         console.log(err);
                     })
@@ -57,6 +58,7 @@ function($scope, $http, $rootScope, $location, apiService, $timeout) {
         apiService.getNextMeeting($rootScope.user.groupId).then(function(data) {
             if (data) {
                 $scope.nextMeeting = "Your next meeting is on " + new Date(data.date).toLocaleString()
+                $scope.nextMeetingLoc = data.location;
             }
             else {
                 $scope.nextMeeting = "You have no upcoming meetings";
