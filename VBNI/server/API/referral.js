@@ -1,11 +1,20 @@
 const HttpStatusCodes = require('http-status-codes');
 const Route = require('./route');
 const referralsDAL = require('../DAL/DB/referralsDAL');
+const membersDAL = require('../DAL/DB/memberDAL');
+const AWS = require('aws-sdk');
 const cookieName = 'user';
+AWS.config.region = 'eu-west-1';
+AWS.config.update({
+    accessKeyId: 'AKIAILYP3HZRDBMUNE2A',
+    secretAccessKey: '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'
+});
+const sns = new AWS.SNS();
 
 class ReferralRouter extends Route {
     init() {
         this.referralsDAL = new referralsDAL();
+        this.membersDAL = new membersDAL();
         this.getByReferrerId();
         this.getByReferenceToMemberId();
         this.createReferral();
@@ -45,6 +54,48 @@ class ReferralRouter extends Route {
         });
     }
 
+    _sendSms(referrer, referTo, clientName, successCb, errorCb, notFoundCb) {
+        this.membersDAL.findById(referrer, (referrerDoc) => {
+            this.membersDAL.findById(referTo, (referToDoc) => {
+                if (!referToDoc.phone) {
+                    successCb();
+                }
+                else {
+                    let phone = 
+                        referToDoc.phone.startsWith('+97205') ? 
+                            referToDoc.phone : 
+                            (referToDoc.phone.startsWith('+9725') ? 
+                                referToDoc.phone.replace('+9725', '+97205') :
+                                (referToDoc.phone.startsWith('05') ? 
+                                    `+972${referToDoc.phone}` : 
+                                    `+9720${referToDoc.phone}`));
+
+                    let params = {
+                        Message: `Hello ${referrerDoc.firstName} ${referrerDoc.lastName}.\nYou have a new referral from ${referToDoc.firstName} ${referToDoc.lastName}.\nThe client name is: ${clientName}.`,
+                        MessageAttributes: {
+                            'AWS.SNS.SMS.SenderID': {
+                                DataType: 'String',
+                                StringValue: 'BNI'
+                            }
+                        },
+                        PhoneNumber: phone,
+                        Subject: 'BNI'
+                    };
+                    sns.publish(params, (err, data) => {
+                        if (err)  {
+                            console.error(err, err.stack);
+                            successCb();
+                        }
+                        else {
+                            console.log(data);
+                            successCb(data);
+                        }
+                    });
+                }
+            }, successCb, successCb);
+        }, successCb, successCb);
+    }
+
     createReferral() {
         super.post('references', (req, res) => {
             try {
@@ -54,7 +105,13 @@ class ReferralRouter extends Route {
                 this.referralsDAL.createReferral(referrer, referenceTo, clientName, () => {
                     super._sendInternalServerError(res);
                 }, () => {
-                    super._sendOk(res);
+                    this._sendSms(referrer, referenceTo, clientName, () => {
+                        super._sendOk(res);
+                    }, () => {
+                        super._sendInternalServerError(res);
+                    }, () => {
+                        this._sendNotFound(res);
+                    });
                 });
             }
             catch (e) {
