@@ -28,6 +28,7 @@ angular.module('vbni').controller('RegisterCtrl', ['$scope', 'apiService', '$tim
 
         let onSuccessLogin = (googleUser) => {
             let profile = googleUser.getBasicProfile();
+
             $scope.user = {
                 userName: profile.getEmail(),
                 firstName: profile.getGivenName(),
@@ -36,13 +37,12 @@ angular.module('vbni').controller('RegisterCtrl', ['$scope', 'apiService', '$tim
                 groupId: $scope.$root.user.groupId
             };
 
-            $timeout(function(){
-                let registerInputs = document.querySelectorAll('.mdl-js-textfield');
-                for (let i = 0; i < registerInputs.length; i++) {
-                    registerInputs[i].MaterialTextfield.checkDirty();
-                    registerInputs[i].MaterialTextfield.updateClasses_();
-                }
-            });
+            $('.mdl-js-textfield #username').parent()[0].MaterialTextfield.change($scope.user.userName);
+            $('.mdl-js-textfield #password').parent()[0].MaterialTextfield.change($scope.user.password);
+            $('.mdl-js-textfield #firstname').parent()[0].MaterialTextfield.change($scope.user.firstName);
+            $('.mdl-js-textfield #lastname').parent()[0].MaterialTextfield.change($scope.user.lastName);
+
+            $('#registerForm').valid();
         };
 
         let register = (user) => {
