@@ -1,0 +1,1 @@
+(Get-Content .\public\javascripts\LayoutCtrl.js).replace('localhost:5000', '51.144.77.37:8080') | Set-Content .\public\javascripts\LayoutCtrl.js
