@@ -178,3 +178,7 @@
 .bottom-border {
     border-bottom: white 1px dashed;
 }
+
+.mdl-textfield input:focus {
+    /* outline: none; */
+}
