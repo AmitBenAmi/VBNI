@@ -4,6 +4,11 @@ var vbni = angular.module('vbni', ['ngRoute']);
 
 const navCurrentChosenLink = 'mdl-navigation__link--current';
 const mdlSelectClass = 'getmdl-select';
+const mdlTextFieldClass = 'mdl-textfield';
+const isFocusedClass = 'is-focused';
+const isDirtyClass = 'is-dirty';
+const isUpgradedClass = 'is-upgraded';
+const isInvalidClass = 'is-invalid';
 const escKey = 27;
 
 vbni.config(function ($routeProvider, $locationProvider, $httpProvider) {

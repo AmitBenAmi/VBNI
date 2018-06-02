@@ -1,7 +1,7 @@
 ﻿const userCookieName = 'user';
 
 angular.module('vbni').controller('LayoutCtrl', 
-function($scope, $http, $rootScope, $location, apiService) {
+function($scope, $http, $rootScope, $location, apiService, $timeout) {
 
     function checkIfUserCookie(cookie) {
         let cookieParts = cookie.split('=');
@@ -116,6 +116,13 @@ function($scope, $http, $rootScope, $location, apiService) {
         delete $rootScope.createReferenceReferenceTo;
     };
 
+    let toggleView = () => {
+        let textFields = $(`.${mdlTextFieldClass}`);
+        textFields.removeClass(`${isDirtyClass} ${isUpgradedClass} ${isFocusedClass}`);
+        textFields.addClass(`${isInvalidClass}`);
+        textFields.blur();
+    }
+
     let closeReferenceDialog = () => {
         closeDialog('createReferenceDialog', disposeScopeVars);
     };
@@ -135,13 +142,11 @@ function($scope, $http, $rootScope, $location, apiService) {
             dialog.showModal();
             dialog.addEventListener('click', outsideDialog);
 
-            if (!mdlComponentUpgraded && 
-                getmdlSelect &&
+            if (getmdlSelect &&
                 typeof(getmdlSelect.init) === 'function') {
                 // Updating Material Design Lite elements (For Dialog of members that value can be shown)
                 getmdlSelect.init(`.${mdlSelectClass}`);
-
-                mdlComponentUpgraded = !mdlComponentUpgraded;
+                toggleView();
 
                 dialog.addEventListener('keydown', (e) => {
                     if (e.keyCode === escKey) {
@@ -189,7 +194,6 @@ function($scope, $http, $rootScope, $location, apiService) {
     $rootScope.showCreateReferenceDialog = showCreateReferenceDialog;
     $rootScope.createReference = createReference;
     $scope.showUserProfileDialog = showUserProfileDialog;
-    let mdlComponentUpgraded = false;
     setHomepageDetails();
 });
  
