@@ -79,6 +79,7 @@ function($scope, $http, $rootScope, $location, apiService) {
 
         apiService.getMyGroupMembers($rootScope.user.groupId).then((members) => {
             $rootScope.members = members;
+            $rootScope.membersWithoutMe = members.filter(m => m._id != $rootScope.user.userName);
         });
 
         apiService.getMyGroupMeetings($rootScope.user.groupId).then((meetings) => {

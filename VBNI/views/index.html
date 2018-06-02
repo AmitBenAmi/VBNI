@@ -154,7 +154,7 @@
           <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
           <label for="memberSelection" class="mdl-textfield__label">Member</label>
           <ul for="memberSelectionHidden" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-            <li class="mdl-menu__item" ng-repeat="member in $root.members" ng-click="$root.createReferenceReferenceTo = member">{{member.firstName}} {{member.lastName}}</li>
+            <li class="mdl-menu__item" ng-repeat="member in $root.membersWithoutMe" ng-click="$root.createReferenceReferenceTo = member">{{member.firstName}} {{member.lastName}}</li>
           </ul>
         </div>
         <div ng-show="predictionResult">
