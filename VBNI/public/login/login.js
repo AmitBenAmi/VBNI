@@ -14,7 +14,6 @@ let login = (username, password) => {
                 window.location.href = '/';
             })
             .fail((xhr, status, errorMessage) => {
-                let toast = $("#toast")[0];
                 let message;
 
                 switch (xhr.status) {
