@@ -63,8 +63,11 @@ angular.module('vbni').controller('ManageCtrl', ['$scope', '$rootScope', '$timeo
             })
         }
 
-        let toggleView = () => {
-            let textFields = $(`.${mdlTextFieldClass}, .${mdlMenuContainerClass}`);
+        let toggleView = (dialog) => {
+            // Remove the value of all inputs
+            $(dialog).find(".mdl-textfield__input").val('');
+            // Change the containers of the input
+            let textFields = $(dialog).find(`.${mdlTextFieldClass}, .${mdlMenuContainerClass}`);
             textFields.removeClass(`${isDirtyClass} ${isUpgradedClass} ${isFocusedClass} ${isVisibleClass}`);
             textFields.addClass(`${isInvalidClass}`);
             textFields.blur();
@@ -90,7 +93,7 @@ angular.module('vbni').controller('ManageCtrl', ['$scope', '$rootScope', '$timeo
                 typeof(getmdlSelect.init) === 'function') {
                     $timeout(() => {
                         componentHandler.upgradeAllRegistered();
-                        toggleView();
+                        toggleView(dialog);
                     }, 0);
 
                     // Updating Material Design Lite elements (For Dialog of members that value can be shown)

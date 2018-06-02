@@ -26,6 +26,10 @@
 
         let openAmountDialogForRef = (referenceId) => {
             let dialog = $('#setGoodAmountDialog')[0];
+            // Reset the inputs
+            $(dialog).find(".mdl-textfield__input").val('');
+            let textFields = $(dialog).find(`.${mdlTextFieldClass}, .${mdlMenuContainerClass}`);
+            textFields.addClass(`${isInvalidClass}`);
 
             $scope.selectedRefId = referenceId;
             $scope.refAmount = undefined;
