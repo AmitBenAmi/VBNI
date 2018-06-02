@@ -39,7 +39,8 @@ vbni.config(function ($routeProvider, $locationProvider, $httpProvider) {
             controller: 'ProfileCtrl'
         })
         .otherwise({
-            templateUrl: 'views/home.html'
+            templateUrl: 'views/home.html',
+            controller: 'HomeCtrl'
         })
 
     $locationProvider
