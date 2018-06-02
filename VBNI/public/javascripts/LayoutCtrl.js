@@ -42,6 +42,7 @@ function($scope, $http, $rootScope, $location, apiService, $timeout) {
                     '&client_name=' + client_name).then(function(result) {
                         $scope.predictionResult = result.data;
                         $scope.predictionResult.prob = Math.round(parseFloat($scope.predictionResult.prob) * 100)
+                        $scope.predictionResult.estimation = parseInt($scope.predictionResult.estimation);
                     }, function(err) {
                         console.log(err);
                     })
