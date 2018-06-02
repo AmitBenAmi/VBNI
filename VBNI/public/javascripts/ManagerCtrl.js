@@ -13,9 +13,10 @@ angular.module('vbni').directive('onFinishRender', ($timeout) => {
 
 angular.module('vbni').controller('ManageCtrl', ['$scope', '$rootScope', '$timeout', 'apiService',
     function ($scope, $rootScope, $timeout, apiService) {
-
         $scope.$on('ngRepeatFinished', function(event) {
-            componentHandler.upgradeAllRegistered();
+            $timeout(() => {
+                componentHandler.upgradeAllRegistered();
+            }, 0);
             let table = $('#manage__group-members');
             let headerCheckBox = table.find('thead .mdl-data-table__select');
             let boxes = table.find('tbody .mdl-data-table__select');
@@ -63,8 +64,11 @@ angular.module('vbni').controller('ManageCtrl', ['$scope', '$rootScope', '$timeo
             })
         }
 
-        let toggleView = () => {
-            let textFields = $(`.${mdlTextFieldClass}, .${mdlMenuContainerClass}`);
+        let toggleView = (dialog) => {
+            // Remove the value of all inputs
+            $(dialog).find(".mdl-textfield__input").val('');
+            // Change the containers of the input
+            let textFields = $(dialog).find(`.${mdlTextFieldClass}, .${mdlMenuContainerClass}`);
             textFields.removeClass(`${isDirtyClass} ${isUpgradedClass} ${isFocusedClass} ${isVisibleClass}`);
             textFields.addClass(`${isInvalidClass}`);
             textFields.blur();
@@ -90,7 +94,7 @@ angular.module('vbni').controller('ManageCtrl', ['$scope', '$rootScope', '$timeo
                 typeof(getmdlSelect.init) === 'function') {
                     $timeout(() => {
                         componentHandler.upgradeAllRegistered();
-                        toggleView();
+                        toggleView(dialog);
                     }, 0);
 
                     // Updating Material Design Lite elements (For Dialog of members that value can be shown)

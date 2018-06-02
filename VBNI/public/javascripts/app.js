@@ -81,7 +81,7 @@ vbni.run(['$rootScope', '$location', 'apiService', ($rootScope, $location, apiSe
     };
 
     $rootScope.isGuest = () => $root.user.userName == 'guest';
-    
+
 }]);
 
 // Fix problem where in small screens the drawer isn't closing on link click
