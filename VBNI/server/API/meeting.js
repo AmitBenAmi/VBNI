@@ -16,7 +16,8 @@ class MeetingRouter extends Route {
                 let presentor = req.body.presentor;
                 let date = req.body.date;
                 let location = req.body.location;
-                this.meetingDAL.addMeeting(groupId, presentor, date, location, (err) => {
+                let summary = req.body.summary;
+                this.meetingDAL.addMeeting(groupId, presentor, date, location, summary, (err) => {
                     this._sendBadRequest(res);
                 }, () => {
                     this._sendOk(res);

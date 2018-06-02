@@ -49,7 +49,7 @@ angular.module('vbni').controller('ManageCtrl', ['$scope', '$rootScope', '$timeo
         }
 
         $scope.addMeeting = () => {
-            apiService.addMeeting($scope.meetingPresentor, $scope.meetingDate, $scope.meetingLocation, $rootScope.user.groupId).then((result) => {
+            apiService.addMeeting($scope.meetingPresentor, $scope.meetingDate, $scope.meetingLocation, $scope.meetingSummary, $rootScope.user.groupId).then((result) => {
                 $scope.closeAddMeetingDialog();
                 showMessage('Meeting was added sucessfully');
                 apiService.getMyGroupMeetings($rootScope.user.groupId).then((meetings) => {

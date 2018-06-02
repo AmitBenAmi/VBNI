@@ -149,11 +149,12 @@
         addMemberToGroup: (member, groupId) => {
             return $http.post(`group/${groupId}/members/${member._id}`, member);
         },
-        addMeeting: (meetingPresentor, meetingDate, meetingLocation, groupId, meetingSummary) => {
+        addMeeting: (meetingPresentor, meetingDate, meetingLocation, meetingSummary, groupId) => {
             var payload = {
                 presentor: meetingPresentor,
                 date: meetingDate,
-                location: meetingLocation
+                location: meetingLocation,
+                summary : meetingSummary
             }
 
             return $http.post(`meetings/${groupId}`, payload);

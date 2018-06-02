@@ -111,28 +111,41 @@
             </div>
         </dialog>
         <!-- Add meeting dialog -->
-        <dialog id="add_meeting_dialog" class="mdl-dialog">
+        <dialog id="add_meeting_dialog" class="mdl-dialog" style="width:400px">
             <h3 class="mdl-dialog__title">Add Meetings for Group</h3>
-            <div class="mdl-dialog__content">
+            <div class="mdl-dialog__content" style="padding: 20px 5px 24px;">
                 <div class="mdl-grid">
-                    <!-- Presentor -->
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
-                        <input type="text" ng-model="meetingPresentor" class="mdl-textfield__input" id="meeting_presentor" required readonly />
-                        <input type="hidden" ng-model="meetingPresentor" name="meeting_presentor__hidden" />
-                        <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
-                        <label for="meeting_presentor" class="mdl-textfield__label">Presentor</label>
-                        <ul for="meeting_presentor__hidden" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-                            <li class="mdl-menu__item" ng-repeat="member in members">{{member.firstName}} {{member.lastName}}</li>
-                        </ul>
+                    <div class="mdl-cell mdl-cell--6-col">
+                        <!-- Presentor -->
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
+                            <input type="text" ng-model="meetingPresentor" class="mdl-textfield__input" id="meeting_presentor" required readonly />
+                            <input type="hidden" ng-model="meetingPresentor" name="meeting_presentor__hidden" />
+                            <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+                            <label for="meeting_presentor" class="mdl-textfield__label">Presentor</label>
+                            <ul for="meeting_presentor__hidden" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                                <li class="mdl-menu__item" ng-repeat="member in members">{{member.firstName}} {{member.lastName}}</li>
+                            </ul>
+                        </div>
                     </div>
-                    <!-- Date of meeting -->    
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
-                        <input ng-model="meetingDate" class="mdl-textfield__input" type="date" id="date">
+                    <div class="mdl-cell mdl-cell--6-col">
+                        <!-- Date of meeting -->    
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col" style="margin-top: -5px;">
+                            <input ng-model="meetingDate" class="mdl-textfield__input" type="date" id="date">
+                        </div>
                     </div>
-                    <!-- Location -->
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                        <input ng-model="meetingLocation" class="mdl-textfield__input" type="text" id="Location">
-                        <label class="mdl-textfield__label" for="Location">Meeting Location</label>
+                    <div class="mdl-cell mdl-cell--12-col">
+                        <!-- Location -->
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="width:100%">
+                            <input ng-model="meetingLocation" class="mdl-textfield__input" type="text" id="Location">
+                            <label class="mdl-textfield__label" for="Location">Meeting Location</label>
+                        </div>
+                    </div>
+                    <div class="mdl-cell mdl-cell--12-col">
+                        <!-- Summary -->
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="width:100%"> 
+                            <textarea ng-model="meetingSummary" class="mdl-textfield__input" type="text" rows="1" id="Summary"/>
+                            <label class="mdl-textfield__label" for="Summary">Summary</label>
+                        </div>
                     </div>
                 </div>
             </div>
