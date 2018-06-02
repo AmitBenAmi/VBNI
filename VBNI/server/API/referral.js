@@ -71,7 +71,7 @@ class ReferralRouter extends Route {
                                     `+9720${referToDoc.phone}`));
 
                     let params = {
-                        Message: `Hello ${referrerDoc.firstName} ${referrerDoc.lastName}.\nYou have a new referral from ${referToDoc.firstName} ${referToDoc.lastName}.\nThe client name is: ${clientName}.`,
+                        Message: `Hello ${referToDoc.firstName} ${referToDoc.lastName}.\nYou have a new referral from ${referrerDoc.firstName} ${referrerDoc.lastName}.\nThe client name is: ${clientName}.`,
                         MessageAttributes: {
                             'AWS.SNS.SMS.SenderID': {
                                 DataType: 'String',
