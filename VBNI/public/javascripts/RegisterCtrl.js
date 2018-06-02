@@ -23,6 +23,8 @@ angular.module('vbni').controller('RegisterCtrl', ['$scope', 'apiService', '$tim
                     registerInputs[i].MaterialTextfield.checkDirty();
                     registerInputs[i].MaterialTextfield.updateClasses_();
                 }
+
+                $('#registerForm').valid();
             });
         });
 
