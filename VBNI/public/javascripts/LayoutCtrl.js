@@ -105,12 +105,14 @@ function($scope, $http, $rootScope, $location, apiService, $timeout) {
 
     $scope.signout = () => {
         document.cookie = userCookieName +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+
+        let auth2 = gapi.auth2.getAuthInstance();
+        auth2.signOut().then(() => {
+            window.location.href = '/';
+        });
+
         window.location.href = '/';
 
-        // let auth2 = gapi.auth2.getAuthInstance();
-        // auth2.signOut().then(() => {
-        //     window.location.href = '/';
-        // });
     }
 
     $scope.editProfile = () => {
