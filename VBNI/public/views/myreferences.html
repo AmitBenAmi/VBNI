@@ -1,44 +1,40 @@
-﻿<div class="mdl-grid">
-    <div class="mdl-cell mdl-cell--12-col" >
-        <div class="mdl-spinner mdl-js-spinner mdl-spinner--single-color is-active spinner-center" ng-show="myRefs == undefined"></div>
-        <!-- Card contains the table -->
-        <div class="fullwidth mdl-card mdl-shadow--2dp" ng-show="myRefs != undefined">
-            <!-- Card Header -->
-            <div class="mdl-card__title">
-                <h3 class="mdl-card__title-text">My Referrals</h3>
-            </div>
-            <div class="mdl-card__supporting-text">
-                <table class="mdl-data-table mdl-js-data-table fullwidth">
-                    <thead>
-                        <tr>
-                            <th class="mdl-data-table__cell--non-numeric">
-                                Referred To
-                            </th>
-                            <th class="mdl-data-table__cell--non-numeric">
-                                Client Name
-                            </th>
-                            <th class="mdl-data-table__cell--non-numeric">
-                                Is Good
-                            </th>
-                            <th class="mdl-data-table__cell--non-numeric">
-                                Amount
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="ref in myRefs">
-                            <td class="mdl-data-table__cell--non-numeric">{{ref.referenceTo}}</td>
-                            <td class="mdl-data-table__cell--non-numeric">{{ref.clientName}}</td>
-                            <td class="mdl-data-table__cell--non-numeric">
-                                <is-good color="true" good="ref.isGood"></is-good>
-                            </td>
-                            <td class="mdl-data-table__cell--non-numeric">
-                                <span ng-if="ref.isGood">{{ref.amount}}</span>
-                            </td>
-                        </tr> 
-                    </tbody>
-                </table>
-            </div>
-        </div>
+﻿<!-- Card contains the table -->
+<div class="fullwidth">
+    <!-- Card Header -->
+    <div class="mdl-card__title">
+        <h3 class="mdl-card__title-text">My Referrals</h3>
+    </div>
+    <div class="mdl-spinner mdl-js-spinner mdl-spinner--single-color is-active spinner-center" ng-show="myRefs == undefined"></div>
+    <div ng-show="myRefs != undefined">
+        <table class="mdl-data-table mdl-js-data-table fullwidth">
+            <thead>
+                <tr>
+                    <th class="mdl-data-table__cell--non-numeric">
+                        Referred To
+                    </th>
+                    <th class="mdl-data-table__cell--non-numeric">
+                        Client Name
+                    </th>
+                    <th class="mdl-data-table__cell--non-numeric">
+                        Is Good
+                    </th>
+                    <th class="mdl-data-table__cell--non-numeric">
+                        Amount
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="ref in myRefs">
+                    <td class="mdl-data-table__cell--non-numeric">{{ref.referenceTo}}</td>
+                    <td class="mdl-data-table__cell--non-numeric">{{ref.clientName}}</td>
+                    <td class="mdl-data-table__cell--non-numeric">
+                        <is-good color="true" good="ref.isGood"></is-good>
+                    </td>
+                    <td class="mdl-data-table__cell--non-numeric">
+                        <span ng-if="ref.isGood">{{ref.amount}}</span>
+                    </td>
+                </tr> 
+            </tbody>
+        </table>
     </div>
 </div>
