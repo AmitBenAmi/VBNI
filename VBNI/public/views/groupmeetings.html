@@ -1,29 +1,25 @@
-﻿<div class="mdl-grid">
-    <div class="mdl-cell mdl-cell--12-col">
-        <div class="mdl-spinner mdl-js-spinner mdl-spinner--single-color is-active spinner-center" ng-show="meetings == undefined"></div>
-        <div class="fullwidth mdl-card mdl-shadow--2dp" ng-show="meetings != undefined">
-            <!-- Card Header -->
-            <div class="mdl-card__title">
-                <h3 class="mdl-card__title-text">My Group Meetings</h3>
-            </div>
-            <div class="mdl-card__supporting-text">
-                <table class="mdl-data-table mdl-js-data-table fullwidth">
-                    <thead>
-                        <tr>
-                            <th class="mdl-data-table__cell--non-numeric">Date</th>
-                            <th class="mdl-data-table__cell--non-numeric">Presentor</th>
-                            <th class="mdl-data-table__cell--non-numeric">Summary</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="meeting in meetings">
-                            <td class="mdl-data-table__cell--non-numeric">{{meeting.date.toLocaleString()}}</td>
-                            <td class="mdl-data-table__cell--non-numeric">{{meeting.presentor}}</td>
-                            <td class="mdl-data-table__cell--non-numeric">{{meeting.summary}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+﻿<div class="fullwidth" >
+    <!-- Card Header -->
+    <div class="mdl-card__title">
+        <h3 class="mdl-card__title-text">My Group Meetings</h3>
+    </div>
+    <div class="mdl-spinner mdl-js-spinner mdl-spinner--single-color is-active spinner-center" ng-show="meetings == undefined"></div>
+    <div ng-show="meetings != undefined">
+        <table class="mdl-data-table mdl-js-data-table fullwidth">
+            <thead>
+                <tr>
+                    <th class="mdl-data-table__cell--non-numeric">Date</th>
+                    <th class="mdl-data-table__cell--non-numeric">Presentor</th>
+                    <th class="mdl-data-table__cell--non-numeric">Summary</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="meeting in meetings">
+                    <td class="mdl-data-table__cell--non-numeric">{{meeting.date.toLocaleString()}}</td>
+                    <td class="mdl-data-table__cell--non-numeric">{{meeting.presentor}}</td>
+                    <td class="mdl-data-table__cell--non-numeric">{{meeting.summary}}</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>

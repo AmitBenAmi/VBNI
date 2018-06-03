@@ -1,58 +1,54 @@
-﻿<div class="mdl-grid">
-    <div class="mdl-cell mdl-cell--12-col">
-        <div class="mdl-spinner mdl-js-spinner mdl-spinner--single-color is-active spinner-center" ng-show="refsToMe == undefined"></div>
-        <div class="fullwidth mdl-card mdl-shadow--2dp" ng-show="refsToMe != undefined">
-            <!-- Card Header -->
-            <div class="mdl-card__title">
-                <h3 class="mdl-card__title-text">Referenced To Me</h3>
-            </div>
-            <div class="mdl-card__supporting-text">
-                <dialog id="setGoodAmountDialog" class="mdl-dialog">
-                    <form name="amountForm" ng-submit="setRefAsGood(selectedRefId, refAmount)">
-                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input id="refAmount" class="mdl-textfield__input" type="number" step="0.01" ng-model="refAmount" min="0" required placeholder="0"/>
-                            <label class="mdl-textfield__label" for="refAmount">Amount...</label>
-                            <span class="mdl-textfield__error">Amount should be a positive number up to 2 decimal points!</span>
-                        </div>
-                        <div class="mdl-dialog__actions">
-                            <button type="button" class="mdl-button close" ng-click="closeDialog()">Cancel</button>
-                            <button type="submit" class="mdl-button" ng-disabled="amountForm.$invalid">Agree</button>
-                        </div>
-                    </form>
-                </dialog>
-                <table class="mdl-data-table mdl-js-data-table fullwidth">
-                    <thead>
-                        <tr>
-                            <th class="mdl-data-table__cell--non-numeric">Referred By</th>
-                            <th class="mdl-data-table__cell--non-numeric">Client Name</th>
-                            <th class="mdl-data-table__cell--non-numeric">Succeeded</th>
-                            <th class="mdl-data-table__cell--non-numeric">Amount</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="ref in refsToMe">
-                            <td class="mdl-data-table__cell--non-numeric">{{ref.referrer}}</td>
-                            <td class="mdl-data-table__cell--non-numeric">{{ref.clientName}}</td>
-                            <td class="mdl-data-table__cell--non-numeric">
-                                <span ng-switch="ref.isGood">
-                                    <div ng-switch-when="undefined,null" ng-switch-when-separator="," class="myRefIsGood mdl-button--fab_flinger-container">
-                                        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-button--colored mdl-color--green" ng-click="openAmountDialogForRef(ref._id)">
-                                            <is-good good="true">
-                                        </button>
-                                        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-button--colored mdl-color--red" ng-click="setRefAsBad(ref._id)">
-                                            <is-good good="false">
-                                        </button>
-                                    </div>
-                                    <is-good color="true" ng-switch-default good="ref.isGood"></is-good>
-                                </span>
-                            </td>
-                            <td class="mdl-data-table__cell--non-numeric">
-                                <span ng-if="ref.isGood">{{ref.amount}}</span>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+﻿<div class="fullwidth">
+    <!-- Card Header -->
+    <div class="mdl-card__title">
+        <h3 class="mdl-card__title-text">Referenced To Me</h3>
+    </div>
+    <div class="mdl-spinner mdl-js-spinner mdl-spinner--single-color is-active spinner-center" ng-show="refsToMe == undefined"></div>
+    <div ng-show="refsToMe != undefined">
+        <dialog id="setGoodAmountDialog" class="mdl-dialog">
+            <form name="amountForm" ng-submit="setRefAsGood(selectedRefId, refAmount)">
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input id="refAmount" class="mdl-textfield__input" type="number" step="0.01" ng-model="refAmount" min="0" required placeholder="0"/>
+                    <label class="mdl-textfield__label" for="refAmount">Amount...</label>
+                    <span class="mdl-textfield__error">Amount should be a positive number up to 2 decimal points!</span>
+                </div>
+                <div class="mdl-dialog__actions">
+                    <button type="button" class="mdl-button close" ng-click="closeDialog()">Cancel</button>
+                    <button type="submit" class="mdl-button" ng-disabled="amountForm.$invalid">Agree</button>
+                </div>
+            </form>
+        </dialog>
+        <table class="mdl-data-table mdl-js-data-table fullwidth">
+            <thead>
+                <tr>
+                    <th class="mdl-data-table__cell--non-numeric">Referred By</th>
+                    <th class="mdl-data-table__cell--non-numeric">Client Name</th>
+                    <th class="mdl-data-table__cell--non-numeric">Succeeded</th>
+                    <th class="mdl-data-table__cell--non-numeric">Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="ref in refsToMe">
+                    <td class="mdl-data-table__cell--non-numeric">{{ref.referrer}}</td>
+                    <td class="mdl-data-table__cell--non-numeric">{{ref.clientName}}</td>
+                    <td class="mdl-data-table__cell--non-numeric">
+                        <span ng-switch="ref.isGood">
+                            <div ng-switch-when="undefined,null" ng-switch-when-separator="," class="myRefIsGood mdl-button--fab_flinger-container">
+                                <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-button--colored mdl-color--green" ng-click="openAmountDialogForRef(ref._id)">
+                                    <is-good good="true">
+                                </button>
+                                <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-button--colored mdl-color--red" ng-click="setRefAsBad(ref._id)">
+                                    <is-good good="false">
+                                </button>
+                            </div>
+                            <is-good color="true" ng-switch-default good="ref.isGood"></is-good>
+                        </span>
+                    </td>
+                    <td class="mdl-data-table__cell--non-numeric">
+                        <span ng-if="ref.isGood">{{ref.amount}}</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>
