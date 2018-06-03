@@ -142,7 +142,7 @@ angular.module('vbni').controller('ManageCtrl', ['$scope', '$rootScope', '$timeo
         $scope.addMemberToGroup = (member) => {
             apiService.addMemberToGroup(member, $rootScope.user.groupId).then((res) => {
                 showMessage('Member was added');
-                closeDialog('add_member_dialog');
+                closeDialog(addMemberDialog);
                 apiService.getMyGroupMembers($rootScope.user.groupId).then((members) => {
                     $rootScope.members = members;
                 });
