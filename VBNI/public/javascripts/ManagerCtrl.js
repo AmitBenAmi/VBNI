@@ -13,6 +13,12 @@ angular.module('vbni').directive('onFinishRender', ($timeout) => {
 
 angular.module('vbni').controller('ManageCtrl', ['$scope', '$rootScope', '$timeout', 'apiService',
     function ($scope, $rootScope, $timeout, apiService) {
+        var addMemberDialog = document.querySelector('#add_member_dialog');
+        var addMeetingDialog = document.querySelector('#add_meeting_dialog');
+        dialogPolyfill.registerDialog(addMemberDialog);
+        dialogPolyfill.registerDialog(addMeetingDialog);
+
+
         $scope.$on('ngRepeatFinished', function(event) {
             $timeout(() => {
                 componentHandler.upgradeAllRegistered();
@@ -43,7 +49,7 @@ angular.module('vbni').controller('ManageCtrl', ['$scope', '$rootScope', '$timeo
             apiService.getRegistrations($rootScope.user.groupId).then((registers) => {
                 $scope.membersAwaitingRegister = registers.data;
                 $timeout(() => {
-                    openDialog('add_member_dialog');
+                    openDialog(addMemberDialog);
                 }, 0);
             }, (err) => {
                 console.error(err);
@@ -78,20 +84,18 @@ angular.module('vbni').controller('ManageCtrl', ['$scope', '$rootScope', '$timeo
         }
 
         $scope.closeAddMemberDialog = () => {
-            closeDialog('add_member_dialog');
+            closeDialog(addMemberDialog);
         }
 
         $scope.addMeetingClick = () => {
-            openDialog('add_meeting_dialog');
+            openDialog(addMeetingDialog);
         }
 
         $scope.closeAddMeetingDialog = () => {
-            closeDialog('add_meeting_dialog');
+            closeDialog(addMeetingDialog);
         }
 
-        function openDialog(id) {
-            var dialog = $('#' + id)[0];
-            
+        function openDialog(dialog) {
             if (getmdlSelect &&
                 typeof(getmdlSelect.init) === 'function') {
                     let ngRepeatFinished = $scope.$on('ngRepeatFinished', (event) => {
@@ -168,8 +172,8 @@ angular.module('vbni').controller('ManageCtrl', ['$scope', '$rootScope', '$timeo
                 showMessage('error during deleting message. please try again');
             });
         }
-        function closeDialog(id) {
-            var dialog = $('#' + id)[0];
+
+        function closeDialog(dialog) {
             dialog.close();
             disposeScopeVars();
         }
