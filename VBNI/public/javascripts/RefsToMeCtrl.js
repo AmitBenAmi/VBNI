@@ -1,13 +1,14 @@
-﻿angular.module('vbni').controller('RefsToMeCtrl', ['$scope', 'apiService',
-    function ($scope, apiService) {
+﻿angular.module('vbni').controller('RefsToMeCtrl', ['$scope', 'apiService', '$rootScope',
+    function ($scope, apiService, $rootScope) {
         let userDetails = $scope.$root.user;
         let mdlComponentUpgraded = false;
-
+        
         var goodAmountDialog = document.querySelector('#setGoodAmountDialog');
         dialogPolyfill.registerDialog(goodAmountDialog);
 
         apiService.getRefsToMe(userDetails.userName).then((data) => {
             $scope.refsToMe = data;
+            updateRefsCount();
         }, (err) => {
             console.log(err);
         });
@@ -56,14 +57,27 @@
                         ref.amount = amount;
                     }
                 });
-
+                updateRefsCount();
                 disposeScopeVars();
                 closeDialog();
             }, (err) => {
                 closeDialog();
             });
-        };
+
+            };
         
+        let updateRefsCount = () => {
+                     // Get number of references to me to show
+            apiService.getOpenRefsToMeCount($scope.$root.user.userName).then((data) => {
+                $rootScope.countRefsToMe = data;
+                // Refresh MDL to show counter
+                componentHandler.upgradeAllRegistered();
+                console.log("refs",  $rootScope.countRefsToMe );
+            }, (err) => {
+                console.log(err);
+            });
+            }
+
         let setRefAsBad = (referenceId) => {
             apiService.setReferenceAsBad(referenceId).then(() => {
                 angular.forEach($scope.refsToMe, (ref) => {
@@ -72,6 +86,7 @@
                         ref.amount = 0;
                     }
                 });
+                updateRefsCount();
             }, (err) => {
                 closeDialog();
             });

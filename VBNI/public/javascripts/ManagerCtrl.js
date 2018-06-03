@@ -144,11 +144,23 @@ angular.module('vbni').controller('ManageCtrl', ['$scope', '$rootScope', '$timeo
                 showMessage('Member was added');
                 closeDialog(addMemberDialog);
                 apiService.getMyGroupMembers($rootScope.user.groupId).then((members) => {
-                    $rootScope.members = members;
+                    // for (var i =0; i < members.length; i++) {
+                    //     var member = members[i];
+                    //     if (!$scope.isContainMember(member)) {
+                    //         $rootScope.members.push(member);        
+                    //     }
+                    // }
+                    $timeout(() => $scope.$apply(() => {
+                        $rootScope.members = members;
+                    }));
                 });
             }, () => {
                 showMessage('Error during new member addition. please try again later');
             });
+        }
+
+        $scope.isContainMember = (member) => {
+            return $rootScope.members.filter(m => m._id == member._id).length > 0;
         }
 
         $scope.deleteMembers = () => {

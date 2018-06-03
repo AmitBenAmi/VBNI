@@ -90,7 +90,7 @@ function($scope, $http, $rootScope, $location, apiService, $timeout) {
 
         // Get number of references to me to show
         apiService.getOpenRefsToMeCount($rootScope.user.userName).then((data) => {
-            $scope.countRefsToMe = data;
+            $rootScope.countRefsToMe = data;
             // Refresh MDL to show counter
             componentHandler.upgradeAllRegistered();
         }, (err) => {
@@ -105,12 +105,13 @@ function($scope, $http, $rootScope, $location, apiService, $timeout) {
 
     $scope.signout = () => {
         document.cookie = userCookieName +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-        window.location.href = '/';
 
-        // let auth2 = gapi.auth2.getAuthInstance();
-        // auth2.signOut().then(() => {
-        //     window.location.href = '/';
-        // });
+        let auth2 = gapi.auth2.getAuthInstance();
+        auth2.signOut().then(() => {
+            window.location.href = '/';
+        });
+
+        window.location.href = '/';
     }
 
     $scope.editProfile = () => {

@@ -50,6 +50,10 @@ angular.module('vbni').controller('RegisterCtrl', ['$scope', 'apiService', '$tim
         let register = (user) => {
             apiService.register(user).then(function(res) {
                 showMessage('User registered sucessfully');
+                $timeout(() => {
+                    document.cookie = 'user=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+                    window.location.href = '/';
+                }, 2000);
             }, function(err) {
                 if (err.status === 409) {
                     showMessage("The Username is already in use. Please choose a different Username");

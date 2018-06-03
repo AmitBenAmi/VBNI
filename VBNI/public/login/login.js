@@ -92,6 +92,7 @@ vbniGroupChoose.controller('groupChooseCtrl', ["$scope", "$http", function($scop
     $scope.groups = [];
     $http.get('/groups').then(function(res) {
             $scope.groups = res.data;
+            $scope.selectedGroup = $scope.groups[0]._id;
         }, function(err) {
             console.log(err);
         })

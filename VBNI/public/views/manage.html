@@ -34,7 +34,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="member in members">
+                                    <tr ng-repeat="member in $root.membersWithoutMe">
                                         <td class="mdl-data-table__cell--non-numeric manage__username" style="display: none">{{member._id}}</td>
                                         <td>
                                             <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect mdl-data-table__select" ng-attr-for="{{row[$index]}}">
