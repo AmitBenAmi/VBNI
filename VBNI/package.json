@@ -10,6 +10,7 @@
     "name": "Itay Gabbay"
   },
   "dependencies": {
+    "aws-sdk": "^2.250.1",
     "bluebird": "^3.5.1",
     "body-parser": "^1.15.0",
     "cookie-encrypter": "^0.2.3",

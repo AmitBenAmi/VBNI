@@ -4,4 +4,5 @@ COPY ./ /
 
 RUN pip install -r requirements.txt
 
-CMD ["python", "./api.py"]
+EXPOSE 5000
+CMD ["python", "api.py"]

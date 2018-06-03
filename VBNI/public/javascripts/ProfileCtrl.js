@@ -13,7 +13,7 @@ angular.module('vbni').controller('ProfileCtrl', ['$scope', 'apiService', '$time
             apiService.updateMember(member).then(function(res) {
                 $.find('#snackbarContainer')[0].MaterialSnackbar.showSnackbar({message: 'User profile updated sucessfully'});
             }, function(err) {
-                $.find('#snackbarContainer')[0].MaterialSnackbar.showSnackbar({message: 'Error during registration. please try again later'});
+                $.find('#snackbarContainer')[0].MaterialSnackbar.showSnackbar({message: 'Error during profile update. please try again later'});
             })
         }
     }]);

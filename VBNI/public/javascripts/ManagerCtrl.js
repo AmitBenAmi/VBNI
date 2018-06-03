@@ -162,8 +162,10 @@ angular.module('vbni').controller('ManageCtrl', ['$scope', '$rootScope', '$timeo
 
             apiService.deleteMembersFromGroup($rootScope.user.groupId, memberIds).then(() => {
                 membersRows.remove();
+                showMessage('Member deleted succesfuly');
             }, (err) => {
                 console.log(err);
+                showMessage('error during deleting message. please try again');
             });
         }
         function closeDialog(id) {
