@@ -20,6 +20,16 @@
 
             return deferred.promise;
         },
+        getAllReferralsForGroup: function(groupId) {
+            var deferred = $q.defer();
+            $http.get('/referrals/getAllRefsByGroup/' + groupId).then(function(res) {
+                deferred.resolve(res.data);
+            }, function(err) {
+                deferred.reject(err);
+            })
+
+            return deferred.promise;
+        },
         getMyGroupMembers: function (groupId) {
             var deferred = $q.defer();
             $http.get('/groups/' + groupId + '/members').then(function (res) {

@@ -11,6 +11,27 @@ class RefferalsDAL extends MongoDAL {
         this.collectionName = 'referrals';
     }
 
+    findByGroup(groupId ,foundCallbackFunction, notFoundCallbackFunction) {
+        this.MemberDAL.findByGroup(groupId, notFoundCallbackFunction, (members) => {
+            var memberIds = members.map(function(member) {
+                return member._id;
+            })
+
+            super.findByProperties({referrer: {$in: memberIds}}, this.collectionName, (referralDocs) => {
+                let refsArr = [];
+                for(var index in referralDocs) {
+                    this._createReferral(referralDocs[index]).then(function(ref) {
+                        refsArr.push(ref)
+
+                        if (refsArr.length == referralDocs.length) {
+                            foundCallbackFunction(refsArr);
+                        }
+                    })
+                }
+            }, notFoundCallbackFunction);
+        }, notFoundCallbackFunction);
+    }
+
     getByReferrerId(userId, errorCb, foundCb, idNotFoundCb) {
         super.findByProperties({referrer : userId}, this.collectionName, (refDocs) => {
             this._getReferralsDetails(refDocs, foundCb, idNotFoundCb, errorCb);

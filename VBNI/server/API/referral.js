@@ -15,11 +15,22 @@ class ReferralRouter extends Route {
     init() {
         this.referralsDAL = new referralsDAL();
         this.membersDAL = new membersDAL();
+        this.getAllReferralsByGroup();
         this.getByReferrerId();
         this.getByReferenceToMemberId();
         this.createReferral();
         this.setReferralAsGoodOrBad();
         this.getOpenRefsByReferenceToId();
+    }
+
+    getAllReferralsByGroup() {
+        super.get('referrals/getAllRefsByGroup/:groupId', (req, res) => {
+            req.params.groupId ? this.referralsDAL.findByGroup(req.params.groupId, (referrals) => {
+                res.send(referrals);
+            }, () => {
+                super._sendInternalServerError(res);
+            }) : super._sendBadRequest(res);
+        })
     }
 
     getByReferrerId() {
