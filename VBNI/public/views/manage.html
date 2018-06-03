@@ -1,13 +1,13 @@
 <div class="mdl-grid">
     <!-- Members managment -->
     <div class="mdl-cell mdl-cell--6-col">
-        <div class="mdl-spinner mdl-js-spinner mdl-spinner--single-color is-active spinner-center" ng-show="members == undefined"></div>
-        <div class="fullwidth mdl-card mdl-shadow--2dp" ng-show="members != undefined">
+        <div>
             <!-- Card Header -->
             <div class="mdl-card__title">
                 <h3 class="mdl-card__title-text">Group Members</h3>
             </div>
-            <div class="mdl-card__supporting-text">
+            <div class="mdl-spinner mdl-js-spinner mdl-spinner--single-color is-active spinner-center" ng-show="members == undefined"></div>
+            <div ng-show="members != undefined">
                 <div class="mdl-grid">
                     <!-- Action buttons -->
                     <div class="mdl-cell mdl-cell--12-col">
@@ -52,14 +52,13 @@
     </div>
     <!-- Meetings managments-->
     <div class="mdl-cell mdl-cell--6-col">
-        <div class="mdl-spinner mdl-js-spinner mdl-spinner--single-color is-active spinner-center" ng-show="meetings == undefined"></div>
-        <div class="fullwidth mdl-card mdl-shadow--2dp" ng-show="meetings != undefined">
             <!-- Card Header -->
             <div class="mdl-card__title">
                 <h3 class="mdl-card__title-text">Group Meetings</h3>
             </div>
-            <div class="mdl-card__supporting-text">
-                <div class="mdl-grid">
+            <div class="mdl-spinner mdl-js-spinner mdl-spinner--single-color is-active spinner-center" ng-show="meetings == undefined"></div>
+            <div ng-show="meetings != undefined">
+                <div class="mdl-grid" style="overflow: auto;">
                     <!-- Action buttons -->
                     <div class="mdl-cell mdl-cell--12-col">
                         <button class="mdl-button mdl-js-button mdl-button--raised manage-button" ng-click="addMeetingClick()">
@@ -68,7 +67,7 @@
                     </div>
                     <!-- Mettings table -->
                     <div class="mdl-cell mdl-cell--12-col">
-                        <table class="mdl-data-table mdl-js-data-table member-table fullwidth">
+                        <table class="mdl-data-table mdl-js-data-table member-table">
                             <thead>
                                 <tr>
                                     <th class="mdl-data-table__cell--non-numeric">Date</th>
@@ -87,7 +86,6 @@
                     </div>
                 </div>                
             </div>
-        </div>
     </div>
 
     <div>
