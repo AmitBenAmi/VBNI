@@ -25,7 +25,6 @@ class ReferralRouter extends Route {
 
     getAllReferralsByGroup() {
         super.get('referrals/getAllRefsByGroup/:groupId', (req, res) => {
-            console.log("aaaaa");
             req.params.groupId ? this.referralsDAL.findByGroup(req.params.groupId, (referrals) => {
                 res.send(referrals);
             }, () => {

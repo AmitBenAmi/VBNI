@@ -13,7 +13,6 @@ class RefferalsDAL extends MongoDAL {
 
     findByGroup(groupId ,foundCallbackFunction, notFoundCallbackFunction) {
         this.MemberDAL.findByGroup(groupId, notFoundCallbackFunction, (members) => {
-            console.log(members);
             var memberIds = members.map(function(member) {
                 return member._id;
             })
