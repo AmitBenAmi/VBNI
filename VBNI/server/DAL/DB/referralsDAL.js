@@ -19,7 +19,7 @@ class RefferalsDAL extends MongoDAL {
 
     getByReferenceToId(userId, errorCb, foundCb, idNotFoundCb) {
         super.findByProperties({referenceTo : userId}, this.collectionName, (refDocs) => {
-            refDocs.length === 0 ? idNotFoundCb() : this._getReferralsDetails(refDocs, foundCb, idNotFoundCb, errorCb);
+            this._getReferralsDetails(refDocs, foundCb, idNotFoundCb, errorCb);
         }, errorCb);
     }
 
