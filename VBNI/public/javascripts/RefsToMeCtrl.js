@@ -3,6 +3,9 @@
         let userDetails = $scope.$root.user;
         let mdlComponentUpgraded = false;
 
+        var goodAmountDialog = document.querySelector('#setGoodAmountDialog');
+        dialogPolyfill.registerDialog(goodAmountDialog);
+
         apiService.getRefsToMe(userDetails.userName).then((data) => {
             $scope.refsToMe = data;
         }, (err) => {
@@ -15,27 +18,24 @@
         };
 
         let closeDialog = () => {
-            let dialog = $('dialog')[0];
-
             disposeScopeVars();
 
-            if (dialog) {
-                dialog.close();
+            if (goodAmountDialog) {
+                goodAmountDialog.close();
             }
         };
 
         let openAmountDialogForRef = (referenceId) => {
-            let dialog = $('#setGoodAmountDialog')[0];
             // Reset the inputs
-            $(dialog).find(".mdl-textfield__input").val('');
-            let textFields = $(dialog).find(`.${mdlTextFieldClass}, .${mdlMenuContainerClass}`);
+            $(goodAmountDialog).find(".mdl-textfield__input").val('');
+            let textFields = $(goodAmountDialog).find(`.${mdlTextFieldClass}, .${mdlMenuContainerClass}`);
             textFields.addClass(`${isInvalidClass}`);
 
             $scope.selectedRefId = referenceId;
             $scope.refAmount = undefined;
 
-            if (dialog) {
-                dialog.showModal();
+            if (goodAmountDialog) {
+                goodAmountDialog.showModal();
 
                 if (!mdlComponentUpgraded && 
                     componentHandler && 
