@@ -1,8 +1,8 @@
 FROM python:3.5
 
-COPY ./ /
+ADD . /
 
 RUN pip install -r requirements.txt
 
 EXPOSE 5000
-CMD ["python", "api.py"]
+CMD [ "python", "api.py" ]
