@@ -13,7 +13,7 @@
         </div>
     </div>
     <div class="mdl-spinner mdl-js-spinner mdl-spinner--single-color is-active spinner-center" ng-show="members == undefined && !noGroup"></div>
-    <div class="mdl-cell mdl-cell--6-col mdl-cell--12-phone" ng-repeat="member in members | filter:memberSearch | orderBy:['lastname', 'firstName']">
+    <div class="mdl-cell mdl-cell--6-col mdl-cell--12-phone" ng-repeat="member in $root.membersWithoutMe | filter:memberSearch | orderBy:['lastname', 'firstName']">
         <!-- Card contains the table -->
         <div class="fullwidth mdl-card mdl-shadow--2dp">
             <!-- Card Header -->
