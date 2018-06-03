@@ -112,7 +112,6 @@ function($scope, $http, $rootScope, $location, apiService, $timeout) {
         });
 
         window.location.href = '/';
-
     }
 
     $scope.editProfile = () => {
