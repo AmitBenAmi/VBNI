@@ -8,28 +8,34 @@
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="display: block; width:100%;">
           <input class="mdl-textfield__input" type="text" name="userName" id="username" ng-model="user.userName" required>
           <label class="mdl-textfield__label" for="username">User Name</label>
-          <span ng-show="registerform.userName.$touched && registerform.userName.$invalid">User name is required</span>
+          <span ng-show="registerform.userName.$invalid">User name is required</span>
         </div>
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="display: block; width:100%;">
           <span style="display: none;" ng-if="user.password == 'Google'" on-finish-render="ngModelFinished"></span>
           <input class="mdl-textfield__input" type="password" name="password" id="password" ng-model="user.password" required>
           <label class="mdl-textfield__label" for="password">Password</label>
-          <span ng-show="registerform.password.$touched && registerform.password.$invalid">Password is required</span>
+          <span ng-show="registerform.password.$invalid">Password is required</span>
         </div>
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="display: block; width:100%;">
           <input class="mdl-textfield__input" type="text" name="firstname" id="firstname" ng-model="user.firstName" required>
           <label class="mdl-textfield__label" for="firstname">First Name</label>
-          <span ng-show="registerform.firstname.$touched && registerform.firstname.$invalid">First Name is required</span>
+          <span ng-show="registerform.firstname.$invalid">First Name is required</span>
         </div>
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="display: block; width:100%;">
           <input class="mdl-textfield__input" type="text" name="lastname" id="lastname" ng-model="user.lastName" required>
           <label class="mdl-textfield__label" for="lastname">Last Name</label>
-          <span ng-show="registerform.lastname.$touched && registerform.lastname.$invalid">Last name is required</span>
+          <span ng-show="registerform.lastname.$invalid">Last name is required</span>
         </div>
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="display: block; width:100%;">
           <input class="mdl-textfield__input" type="text" name="job" id="job" ng-model="user.job" required>
           <label class="mdl-textfield__label" for="job">Job</label>
-          <span ng-show="registerform.job.$touched && registerform.job.$invalid">Job is required</span>
+          <span ng-show="registerform.job.$invalid">Job is required</span>
+        </div>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="display: block; width:100%;">
+          <input class="mdl-textfield__input" type="tel" name="phone" id="phone" ng-model="user.phone" placeholder="0501234567" pattern="^(050|052|053|054|055|057|058)\d{7}$" required>
+          <label class="mdl-textfield__label" for="phone">Phone</label>
+          <span ng-show="registerform.phone.$invalid && !registerform.phone.$error">Phone is required</span>
+          <span ng-show="registerform.phone.$invalid && registerform.phone.$error">phone must be 10 digit number and begin with one of: 050/052/053/054/055/057</span>
         </div>
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="display: block; width:100%;">
           <input class="mdl-textfield__input" type="text" id="website" ng-model="user.website">
