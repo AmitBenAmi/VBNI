@@ -28,6 +28,7 @@ class RegisterRouter extends Route {
                             lastName: req.body.lastName,
                             job: req.body.job,
                             groupId: req.body.groupId,
+                            phone: req.body.phone,
                             website: req.body.website
                         };
                         // if id not found - register could be done
